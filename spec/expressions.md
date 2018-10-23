@@ -125,12 +125,12 @@ Console.WriteLine(d);  // dynamic binding to Console.WriteLine(int)
 | [关系和类型测试运算符](expressions.md#relational-and-type-testing-operators) | 相等                    | `==`  `!=`    | 
 | [逻辑运算符](expressions.md#logical-operators)                                         | 逻辑“与”                 | `&`           | 
 | [逻辑运算符](expressions.md#logical-operators)                                         | 逻辑“异或”                 | `^`           | 
-| [逻辑运算符](expressions.md#logical-operators)                                         | 逻辑“或”                  | `|`           |
+| [逻辑运算符](expressions.md#logical-operators)                                         | 逻辑“或”                  | <code>&#124;</code>           |
 | [条件逻辑运算符](expressions.md#conditional-logical-operators)                 | 条件“与”             | `&&`          | 
-| [条件逻辑运算符](expressions.md#conditional-logical-operators)                 | 条件“或”              | `||`          | 
+| [条件逻辑运算符](expressions.md#conditional-logical-operators)                 | 条件“或”              | <code>&#124;&#124;</code>          | 
 | [Null 合并运算符](expressions.md#the-null-coalescing-operator)                   | null 合并             | `??`          | 
 | [条件运算符](expressions.md#conditional-operator)                                   | 条件运算                 | `?:`          | 
-| [赋值运算符](expressions.md#assignment-operators)，[匿名函数表达式](expressions.md#anonymous-function-expressions)  | 赋值和 lambda 表达式 | `=`  `*=`  `/=`  `%=`  `+=`  `-=`  `<<=`  `>>=`  `&=`  `^=`  `|=`  `=>` | 
+| [赋值运算符](expressions.md#assignment-operators)，[匿名函数表达式](expressions.md#anonymous-function-expressions)  | 赋值和 lambda 表达式 | `=`  `*=`  `/=`  `%=`  `+=`  `-=`  `<<=`  `>>=`  `&=`  `^=`  <code>&#124;=</code>  `=>` | 
 
 如果操作数具有相同优先级的两个运算符之间，运算符的关联性控件执行的操作的顺序：
 
@@ -3503,7 +3503,7 @@ bool? operator |(bool? x, bool? y);
 
 下表列出了这些运算符时针对所有值的组合所产生的结果`true`， `false`，和`null`。
 
-| `x`     | `y`     | `x & y` | x | y |
+| `x`     | `y`     | `x & y` | <code>x &#124; y</code> |
 |:-------:|:-------:|:-------:|:-------:|
 | `true`  | `true`  | `true`  | `true`  | 
 | `true`  | `false` | `false` | `true`  | 
