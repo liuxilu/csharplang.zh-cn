@@ -1,4 +1,4 @@
-# <a name="exceptions"></a>异常
+# <a name="exceptions"></a>Exceptions
 
 C# 中的异常提供结构化、 统一的和类型安全方式来处理系统级别和应用程序级别的错误条件。 在 C# 中的异常机制是非常类似于 c + +，有几个重要的区别：
 

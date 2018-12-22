@@ -189,7 +189,7 @@ public interface IStringList
     string this[int index] { get; set; }
 }
 ```
-声明接口包含之一的每个可能类型的成员： 方法、 属性、 事件和索引器。
+声明包含之一的每个可能类型的成员的接口：一种方法、 属性、 事件和索引器。
 
 *Interface_declaration*创建一个新的声明空间 ([声明](basic-concepts.md#declarations))，并且*interface_member_declaration*s 立即包含*interface_declaration*引入此声明空间的新成员。 以下规则适用于*interface_member_declaration*s:
 
@@ -295,7 +295,7 @@ interface_indexer_declaration
 
 成员访问通过访问接口成员 ([成员访问](expressions.md#member-access)) 和索引器访问 ([索引器访问](expressions.md#indexer-access)) 形式的表达式`I.M`并`I[A]`，其中`I`是一个接口类型，`M`是方法、 属性或事件的接口类型，和`A`是索引器参数列表。
 
-接口的仅限单一继承 （继承链中的每个接口都恰好零个或一个直接的基接口）、 成员查找的效果 ([成员查找](expressions.md#member-lookup))，方法调用 ([方法调用](expressions.md#method-invocations))，和索引器访问 ([索引器访问](expressions.md#indexer-access)) 规则是完全与类和结构相同： 小于派生成员具有相同名称或签名的派生程度更大的成员隐藏。 但是，对于多个继承的接口，二义性可能发生，当两个或多个不相关的基接口声明具有相同名称或签名的成员。 本部分介绍这种情况下的几个示例。 在所有情况下，可以使用显式强制转换来解决歧义。
+接口的仅限单一继承 （继承链中的每个接口都恰好零个或一个直接的基接口）、 成员查找的效果 ([成员查找](expressions.md#member-lookup))，方法调用 ([方法调用](expressions.md#method-invocations))，和索引器访问 ([索引器访问](expressions.md#indexer-access)) 规则是完全与类和结构相同：派生成员隐藏较少派生的成员具有相同名称或签名。 但是，对于多个继承的接口，二义性可能发生，当两个或多个不相关的基接口声明具有相同名称或签名的成员。 本部分介绍这种情况下的几个示例。 在所有情况下，可以使用显式强制转换来解决歧义。
 
 在示例
 ```csharp
@@ -380,7 +380,7 @@ class A
 ```
 `IBase.F`情况下隐藏成员`ILeft.F`成员。 在调用`d.F(1)`因此选择`ILeft.F`，即使`IBase.F`似乎未隐藏，引导完成的访问路径中`IRight`。
 
-多个继承接口中的隐藏的直观规则非常简单，如下： 如果在任何一个访问路径，则隐藏该成员，它隐藏在所有的访问路径中。 因为从的访问路径`IDerived`到`ILeft`到`IBase`隐藏`IBase.F`，从访问路径中还隐藏该成员`IDerived`到`IRight`到`IBase`。
+多个继承接口中的隐藏的直观规则只是这样：如果在任何一个访问路径，则隐藏该成员，它是隐藏在所有的访问路径中。 因为从的访问路径`IDerived`到`ILeft`到`IBase`隐藏`IBase.F`，从访问路径中还隐藏该成员`IDerived`到`IRight`到`IBase`。
 
 ## <a name="fully-qualified-interface-member-names"></a>完全限定的接口成员名称
 

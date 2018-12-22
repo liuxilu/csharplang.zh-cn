@@ -28,7 +28,7 @@ C# 程序中的每个源文件必须符合*输入*生产词法语法 ([词法分
 
 C# 语法的语法所示的章节和附录遵循这一章。 语法的语法的结束符号是由词法语法，定义的令牌和语法的语法指定令牌组合以构成 C# 程序的方式。
 
-C# 程序中的每个源文件必须符合*compilation_unit*语法的语法的生产 ([编译单元](namespaces.md#compilation-units))。
+每个源文件中的C#程序必须符合*compilation_unit*语法的语法的生产 ([编译单元](namespaces.md#compilation-units))。
 
 ## <a name="lexical-analysis"></a>词法分析
 
@@ -55,7 +55,7 @@ input_element
     ;
 ```
 
-五个基本元素组成的 C# 源文件的词法结构： 行终止符 ([行终止符](lexical-structure.md#line-terminators))，空白区域 ([空白](lexical-structure.md#white-space))，注释 ([注释](lexical-structure.md#comments))，令牌 ([令牌](lexical-structure.md#tokens))，和预处理指令 ([预处理指令](lexical-structure.md#pre-processing-directives))。 这些基本元素，只有标记非常重要，C# 程序的语法的语法 ([句法语法](lexical-structure.md#syntactic-grammar))。
+五个基本元素组成的词法结构的C#源文件：行终止符 ([行终止符](lexical-structure.md#line-terminators))，空白区域 ([空白](lexical-structure.md#white-space))，注释 ([注释](lexical-structure.md#comments))，令牌 ([令牌](lexical-structure.md#tokens))，并预处理指令 ([预处理指令](lexical-structure.md#pre-processing-directives))。 这些基本元素，只有标记非常重要，C# 程序的语法的语法 ([句法语法](lexical-structure.md#syntactic-grammar))。
 
 C# 源文件的词法处理包括将文件缩减成的标记序列，它将成为 syntactic 分析的输入。 行终止符，空白区域和注释可以用于分隔标记，和预处理指令可能会导致部分的源文件要跳过，但除此之外这些词法元素上的 C# 程序的语法结构没有任何影响。
 
@@ -467,7 +467,7 @@ real_type_suffix
 
 字符文本表示单个字符，一般包含的字符用引号引起来，如`'a'`。
 
-注意： ANTLR 语法表示法实现了以下令人困惑 ！ 在 ANTLR，当你编写`\'`它代表一个单引号`'`。 当你编写和`\\`它代表单个反斜杠`\`。 因此字符文本的第一个规则意味着开头单引号，然后是字符，最后一个单引号。 和 11 个可能的简单转义序列`\'`， `\"`， `\\`， `\0`， `\a`， `\b`， `\f`， `\n`， `\r`， `\t`， `\v`.
+注意:ANTLR 语法表示法实现了以下令人困惑 ！ 在 ANTLR，当你编写`\'`它代表一个单引号`'`。 当你编写和`\\`它代表单个反斜杠`\`。 因此字符文本的第一个规则意味着开头单引号，然后是字符，最后一个单引号。 和 11 个可能的简单转义序列`\'`， `\"`， `\\`， `\0`， `\a`， `\b`， `\f`， `\n`， `\r`， `\t`， `\v`.
 
 ```antlr
 character_literal

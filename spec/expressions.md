@@ -20,7 +20,7 @@
 
 命名空间、 类型、 方法组或事件访问，永远不会是一个表达式的最终结果。 相反，如上文所述，这些类别的表达式是只能在某些上下文中使用的中间构造。
 
-属性访问或索引器访问始终重新分类为一个值，通过执行调用*get 访问器*或*set 访问器*。 特定的访问器由属性或索引器访问的上下文： 如果访问为赋值的目标*set 访问器*调用来分配新值 ([简单赋值](expressions.md#simple-assignment)). 否则为*get 访问器*调用来获取当前值 ([表达式的值](expressions.md#values-of-expressions))。
+属性访问或索引器访问始终重新分类为一个值，通过执行调用*get 访问器*或*set 访问器*。 由属性或索引器访问的上下文确定特定的访问器：如果访问为赋值的目标*set 访问器*调用来分配新值 ([简单赋值](expressions.md#simple-assignment))。 否则为*get 访问器*调用来获取当前值 ([表达式的值](expressions.md#values-of-expressions))。
 
 ### <a name="values-of-expressions"></a>表达式的值
 
@@ -121,10 +121,10 @@ Console.WriteLine(d);  // dynamic binding to Console.WriteLine(int)
 | [算术运算符](expressions.md#arithmetic-operators)                                   | 乘法              | `*`  `/`  `%` | 
 | [算术运算符](expressions.md#arithmetic-operators)                                   | 加法                    | `+`  `-`      | 
 | [移位运算符](expressions.md#shift-operators)                                             | 移位                       | `<<`  `>>`    | 
-| [关系和类型测试运算符](expressions.md#relational-and-type-testing-operators) | 关系和类型 | `<`  `>`  `<=`  `>=`  `is`  `as` | 
+| [关系和类型测试运算符](expressions.md#relational-and-type-testing-operators) | 关系和类型测试 | `<`  `>`  `<=`  `>=`  `is`  `as` | 
 | [关系和类型测试运算符](expressions.md#relational-and-type-testing-operators) | 相等                    | `==`  `!=`    | 
 | [逻辑运算符](expressions.md#logical-operators)                                         | 逻辑“与”                 | `&`           | 
-| [逻辑运算符](expressions.md#logical-operators)                                         | 逻辑“异或”                 | `^`           | 
+| [逻辑运算符](expressions.md#logical-operators)                                         | 逻辑 XOR                 | `^`           | 
 | [逻辑运算符](expressions.md#logical-operators)                                         | 逻辑“或”                  | <code>&#124;</code>           |
 | [条件逻辑运算符](expressions.md#conditional-logical-operators)                 | 条件“与”             | `&&`          | 
 | [条件逻辑运算符](expressions.md#conditional-logical-operators)                 | 条件“或”              | <code>&#124;&#124;</code>          | 
@@ -141,7 +141,7 @@ Console.WriteLine(d);  // dynamic binding to Console.WriteLine(int)
 
 ### <a name="operator-overloading"></a>运算符重载
 
-所有的一元和二元运算符具有预定义的任何表达式中会自动提供的实现。 除了预定义的实现中，用户定义的实现可以引入通过包括`operator`类和结构中的声明 ([运算符](classes.md#operators))。 用户定义的运算符实现始终优先于预定义的运算符实现： 仅当没有适用的用户定义运算符实现存在将会考虑预定义的运算符实现，如所述[一元运算符重载决策](expressions.md#unary-operator-overload-resolution)并[二元运算符重载决策](expressions.md#binary-operator-overload-resolution)。
+所有的一元和二元运算符具有预定义的任何表达式中会自动提供的实现。 除了预定义的实现中，用户定义的实现可以引入通过包括`operator`类和结构中的声明 ([运算符](classes.md#operators))。 用户定义的运算符实现始终优先于预定义的运算符实现：仅当没有适用的用户定义运算符实现存在将会考虑预定义的运算符实现，如中所述[一元运算符重载决策](expressions.md#unary-operator-overload-resolution)和[二元运算符重载解析](expressions.md#binary-operator-overload-resolution)。
 
 ***可重载的一元运算符***是：
 ```csharp
@@ -304,14 +304,14 @@ decimal AddPercent(decimal x, double percent) {
 
 成员查找会考虑不仅成员还有数成员具有的类型参数和成员是否可访问的名称。 为了成员查找，泛型方法和嵌套的泛型类型具有在其各自的声明中所指示的类型参数的数目和所有其他成员都具有零个类型参数。
 
-名称的成员查找`N`与`K`类型中类型参数`T`进行处理，如下所示：
+名称的成员查找 `N`与`K` 类型参数的类型中 `T`进行处理，如下所示：
 
-*  首先，可访问的成员名为一组`N`确定：
-    * 如果`T`是一个类型参数，则组是一组可访问的成员名为联合`N`中每个类型指定为主约束或辅助约束 ([类型参数约束](classes.md#type-parameter-constraints)) 为`T`，以及可访问的成员命名集`N`中`object`。
-    * 否则，集包括的所有可访问 ([成员访问](basic-concepts.md#member-access)) 成员命名`N`中`T`，包括继承的成员和可访问的成员命名`N`中`object`。 如果`T`是一个构造的类型的成员集获取，只需替换类型参数，如中所述[构造类型的成员](classes.md#members-of-constructed-types)。 包含成员的`override`修饰符从集中排除。
+*  首先，可访问的成员名为一组 `N`确定：
+    * 如果`T`是一个类型参数，则组是一组可访问的成员名为联合 `N`中每个类型指定为主约束或辅助约束 ([类型参数约束](classes.md#type-parameter-constraints)) 为 `T`，以及可访问的成员命名集 `N`中`object`。
+    * 否则，集包括的所有可访问 ([成员访问](basic-concepts.md#member-access)) 成员命名 `N`中 `T`，包括继承的成员和可访问的成员命名 `N`中`object`。 如果`T`是一个构造的类型的成员集获取，只需替换类型参数，如中所述[构造类型的成员](classes.md#members-of-constructed-types)。 包含成员的`override`修饰符从集中排除。
 *  接下来，如果`K`为零，所有嵌套类型声明中包含的类型参数会删除的。 如果`K`不为零，具有不同数目的类型参数已删除的所有成员。 请注意，当`K`零个、 方法具有的类型参数不会删除，因为类型推断过程 ([类型推理](expressions.md#type-inference)) 可能能够推断类型参数。
 *  接下来，如果该成员是*调用*，所有非-*invocable*从集中删除成员。
-*  接下来，从集中移除其他成员隐藏的成员。 每个成员`S.M`在组中，其中`S`是在其中的类型成员`M`声明时，将应用以下规则：
+*  接下来，从集中移除其他成员隐藏的成员。 每个成员`S.M`在组中，其中`S`是在其中的类型成员 `M`声明时，将应用以下规则：
     * 如果`M`为常量、 字段、 属性、 事件或枚举成员，则所有成员的基类型中都声明`S`从集中删除。
     * 如果`M`为的类型声明，则所有非类型的基类型中声明`S`从集合中移除和所有类型声明具有相同数量的类型参数作为`M`的基类型中声明`S`删除从组中。
     * 如果`M`是一种方法，然后在基类型中声明非方法的所有成员`S`从集中删除。
@@ -556,7 +556,7 @@ Tr M<X1,...,Xn>(T1 x1, ..., Tm xm)
 
 类型推理分阶段进行。 每个阶段将尝试推断根据上一阶段发现更多类型的变量的类型参数。 第一阶段可指定边界内的某些初始推断，而第二个阶段解决了为特定类型的类型变量并进一步推断边界。 第二个阶段都必须重复次数的时间。
 
-*注意：* 类型推理执行了不只在调用泛型方法时。 中介绍了为方法组转换的类型推理[类型推理为方法组转换](expressions.md#type-inference-for-conversion-of-method-groups)和中所述查找一组表达式的最常见类型[查找一组的最常见类型表达式的](expressions.md#finding-the-best-common-type-of-a-set-of-expressions)。
+*注意：* 类型推理，将发生不只调用泛型方法。 中介绍了为方法组转换的类型推理[类型推理为方法组转换](expressions.md#type-inference-for-conversion-of-method-groups)和中所述查找一组表达式的最常见类型[查找一组的最常见类型表达式的](expressions.md#finding-the-best-common-type-of-a-set-of-expressions)。
 
 #### <a name="the-first-phase"></a>第一阶段
 
@@ -675,7 +675,7 @@ Tr M<X1,...,Xn>(T1 x1, ..., Tm xm)
 *非固定*类型的变量`Xi`与一组边界*修复*，如下所示：
 
 *  一套*候选类型*`Uj`边界组中的所有类型的集的起始点`Xi`。
-*  我们然后检查每个边界`Xi`反过来： 为每个确切绑定`U`的`Xi`的所有类型`Uj`不等于`U`从候选集合中移除。 对于每个下限`U`的`Xi`所有类型`Uj`到另一个的位置是*不*隐式转换`U`从候选集合中移除。 对于每个上限`U`的`Xi`所有类型`Uj`从其中有*不*隐式转换为`U`从候选集合中移除。
+*  然后，我们检查的每个绑定`Xi`反过来：对于每个确切绑定`U`的`Xi`所有类型`Uj`不等于`U`从候选集合中移除。 对于每个下限`U`的`Xi`所有类型`Uj`到另一个的位置是*不*隐式转换`U`从候选集合中移除。 对于每个上限`U`的`Xi`所有类型`Uj`从其中有*不*隐式转换为`U`从候选集合中移除。
 *  如果在其余候选类型之间`Uj`唯一类型`V`它们没有隐式转换为所有的其他候选类型，然后从`Xi`被固定为`V`。
 *  否则，类型推理失败。
 
@@ -740,7 +740,7 @@ static Z F<X,Y,Z>(X value, Func<X,Y> f1, Func<Y,Z> f2) {
 ```csharp
 double seconds = F("1:15:30", s => TimeSpan.Parse(s), t => t.TotalSeconds);
 ```
-将继续，如下所示： 第一个参数`"1:15:30"`与相关`value`参数，推断`X`为`string`。 然后，第一个匿名函数的参数`s`，为给定的推断的类型`string`，和表达式`TimeSpan.Parse(s)`的返回类型与相关`f1`、 推断`Y`为`System.TimeSpan`。 最后，第二个匿名函数的参数`t`，为给定的推断的类型`System.TimeSpan`，和表达式`t.TotalSeconds`的返回类型与相关`f2`、 推断`Z`为`double`。 因此，调用的结果属于类型`double`。
+将继续，按如下所示：首先，该参数`"1:15:30"`与相关`value`参数，推断`X`为`string`。 然后，第一个匿名函数的参数`s`，为给定的推断的类型`string`，和表达式`TimeSpan.Parse(s)`的返回类型与相关`f1`、 推断`Y`为`System.TimeSpan`。 最后，第二个匿名函数的参数`t`，为给定的推断的类型`System.TimeSpan`，和表达式`t.TotalSeconds`的返回类型与相关`f2`、 推断`Z`为`double`。 因此，调用的结果属于类型`double`。
 
 #### <a name="type-inference-for-conversion-of-method-groups"></a>为方法组转换的类型推理
 
@@ -820,7 +820,7 @@ Tr M<X>(X x1 ... X xm)
 
 在执行此计算时，如果`Mp`或`Mq`是适用于它的扩展形式，然后`Px`或`Qx`指的是展开形式的参数列表中的参数。
 
-如果参数类型序列`{P1, P2, ..., Pn}`和`{Q1, Q2, ..., Qn}`是等效的 (即每个`Pi`标识转换为相应`Qi`)，以下的决定性规则，按顺序应用，以确定，性能越好函数成员。
+如果参数类型序列 `{P1, P2, ..., Pn}`和`{Q1, Q2, ..., Qn}`是等效的 (即每个`Pi`标识转换为相应`Qi`)，以下的决定性规则，按顺序应用，以确定，性能越好函数成员。
 
 *  如果`Mp`是一种非泛型方法和`Mq`是一个泛型方法，则`Mp`优于`Mq`。
 *  否则为如果`Mp`适用于其正常的窗体并`Mq`已`params`数组也适用于仅在其扩展形式中，然后`Mp`优于`Mq`。
@@ -913,8 +913,8 @@ class G2<U,V>
 
 在这些情况下每个候选，若要查看是否其中任何一个无法可能是应用在运行时执行有限的编译时检查。此检查包括以下步骤：
 
-*  分部类型推断： 任何类型不依赖于直接或间接的类型参数的实参`dynamic`使用的规则推断[类型推理](expressions.md#type-inference)。 其余的类型参数是未知的。
-*  部分适用性检查： 根据检查适用性[适用函数成员](expressions.md#applicable-function-member)，但忽略其类型是未知的参数。
+*  分部类型推断：任何类型不依赖于直接或间接的类型参数的实参`dynamic`使用的规则推断[类型推理](expressions.md#type-inference)。 其余的类型参数是未知的。
+*  部分适用性检查：根据检查适用性[适用函数成员](expressions.md#applicable-function-member)，但忽略其类型是未知的参数。
 *  如果没有候选人通过此测试，则发生编译时错误。
 
 ### <a name="function-member-invocation"></a>函数成员调用
@@ -1075,26 +1075,26 @@ simple_name
 
 一个*simple_name*是窗体`I`或窗体`I<A1,...,Ak>`，其中`I`是单个标识符和`<A1,...,Ak>`是一个可选*type_argument_list*。 如果未*type_argument_list*是指定，请考虑`K`为零。 *Simple_name*计算和分类，如下所示：
 
-*  如果`K`为零， *simple_name*中将显示*块*如果*块*的 (或封闭*块*的) 本地变量声明空间 ([声明](basic-concepts.md#declarations)) 包含本地变量、 参数或具有名称的常量`I`，然后*simple_name*引用该本地变量参数或常量和分类为变量或值。
-*  如果`K`为零， *simple_name*出现在泛型方法声明的主体中，如果该声明包含名称的类型参数`I`，则*simple_name*指的是该类型参数。
-*  否则，为每个实例类型`T`([的实例类型](classes.md#the-instance-type))，从最近的封闭类型声明的实例类型开始，继续执行的每个封闭类或结构的实例类型声明 （如果有）：
-   *  如果`K`是零的声明`T`包括具有名称的类型参数`I`，然后*simple_name*引用该类型参数。
-   *  否则为如果成员查找 ([成员查找](expressions.md#member-lookup)) 的`I`中`T`与`K`类型自变量生成匹配项：
+*  如果`K`为零， *simple_name*中将显示*块*如果*块*的 (或封闭*块*的) 本地变量声明空间 ([声明](basic-concepts.md#declarations)) 包含本地变量、 参数或具有名称的常量 `I`，然后*simple_name*引用该本地变量参数或常量和分类为变量或值。
+*  如果`K`为零， *simple_name*出现在泛型方法声明的主体中，如果该声明包含名称的类型参数 `I`，则*simple_name*指的是该类型参数。
+*  否则，为每个实例类型 `T`([的实例类型](classes.md#the-instance-type))，从最近的封闭类型声明的实例类型开始，继续执行的每个封闭类或结构的实例类型声明 （如果有）：
+   *  如果`K`是零的声明`T`包括具有名称的类型参数 `I`，然后*simple_name*引用该类型参数。
+   *  否则为如果成员查找 ([成员查找](expressions.md#member-lookup)) 的`I`中`T`与`K` 类型自变量生成匹配项：
       * 如果`T`是否立即封闭类或结构类型的实例类型和查找识别一个或多个方法，结果是方法组，其中的关联的实例表达式`this`。 如果指定了类型自变量列表，它将在调用泛型方法中使用 ([方法调用](expressions.md#method-invocations))。
       * 否则为如果`T`如果查找标识一个实例成员，并且引用出现在实例构造函数、 实例方法或实例访问器的主体是最近的封闭类或结构类型的实例类型结果是相同的成员访问 ([成员访问](expressions.md#member-access)) 的窗体`this.I`。 才会发生此时`K`为零。
       * 否则，结果是相同的成员访问 ([成员访问](expressions.md#member-access)) 的窗体`T.I`或`T.I<A1,...,Ak>`。 在这种情况下，它是的绑定时错误*simple_name*来指代的实例成员。
 
-*  否则为每个命名空间`N`，在其中命名空间从开始*simple_name*发生，继续到每个封闭命名空间 （如果有），结束与全局命名空间，执行以下步骤只有一个实体就是位于才进行计算：
-   *  如果`K`为零并`I`中的命名空间名称`N`，然后：
-      * 如果位置其中*simple_name*发生的命名空间声明括`N`和命名空间声明中包含*extern_alias_directive*或*using_alias_directive* ，将名称相关联`I`与命名空间或类型，则*simple_name*不明确，并且发生编译时错误。
+*  否则为每个命名空间 `N`，在其中命名空间从开始*simple_name*发生，继续到每个封闭命名空间 （如果有），结束与全局命名空间，执行以下步骤只有一个实体就是位于才进行计算：
+   *  如果`K`为零并`I`中的命名空间名称 `N`，然后：
+      * 如果位置其中*simple_name*发生的命名空间声明括`N`和命名空间声明中包含*extern_alias_directive*或*using_alias_directive* ，将名称相关联 `I`与命名空间或类型，则*simple_name*不明确，并且发生编译时错误。
       * 否则为*simple_name*指的是名为的命名空间`I`中`N`。
-   *  否则为如果`N`包含可访问类型具有名称`I`和`K`类型形参，则：
-      * 如果`K`是零和位置， *simple_name*发生括起来的命名空间声明`N`和命名空间声明中包含*extern_alias_directive*或*using_alias_directive*将关联名称`I`与命名空间或类型，则*simple_name*不明确，则发生编译时错误。
+   *  否则为如果`N`包含可访问类型具有名称 `I`并`K` 类型形参，则：
+      * 如果`K`是零和位置， *simple_name*发生括起来的命名空间声明`N`和命名空间声明中包含*extern_alias_directive*或*using_alias_directive*将关联名称 `I`与命名空间或类型，则*simple_name*不明确，则发生编译时错误。
       * 否则为*namespace_or_type_name*指构造具有给定的类型参数的类型。
-   *  否则为如果位置其中*simple_name*发生括起来的命名空间声明`N`:
-      * 如果`K`为零，并且命名空间声明中包含*extern_alias_directive*或*using_alias_directive*将关联名称`I`与导入的命名空间或类型，则*simple_name*指的是该命名空间或类型。
-      * 否则为如果通过导入的命名空间和类型声明*using_namespace_directive*s 和*using_static_directive*的命名空间声明包含一个可访问类型或具有名称的非扩展静态成员`I`并`K`类型参数，则*simple_name*指的是该类型或成员构造具有给定的类型参数。
-      * 否则为如果通过导入的命名空间和类型*using_namespace_directive*的命名空间声明包含多个可访问类型或非扩展方法具有名称的静态成员`I`和`K`类型参数，则*simple_name*不明确并产生一个错误。
+   *  否则为如果位置其中*simple_name*发生括起来的命名空间声明 `N`:
+      * 如果`K`为零，并且命名空间声明中包含*extern_alias_directive*或*using_alias_directive*将关联名称 `I`与导入的命名空间或类型，则*simple_name*指的是该命名空间或类型。
+      * 否则为如果通过导入的命名空间和类型声明*using_namespace_directive*s 和*using_static_directive*的命名空间声明包含一个可访问类型或具有名称的非扩展静态成员 `I`并`K` 类型参数，则*simple_name*指的是该类型或成员构造具有给定的类型参数。
+      * 否则为如果通过导入的命名空间和类型*using_namespace_directive*的命名空间声明包含多个可访问类型或非扩展方法具有名称的静态成员 `I`和`K` 类型参数，则*simple_name*不明确并产生一个错误。
 
    请注意，此整个步骤中的处理相应的步骤完全并行*namespace_or_type_name* ([Namespace 和类型名称](basic-concepts.md#namespace-and-type-names))。
 
@@ -1138,37 +1138,37 @@ predefined_type
 
 *Member_access*计算和分类，如下所示：
 
-*  如果`K`为零并`E`是一个命名空间和`E`包含嵌套的命名空间与名称`I`，则结果为该命名空间。
-*  否则为如果`E`是一个命名空间和`E`包含可访问类型具有名称`I`和`K`类型参数，则结果为构造具有给定的类型参数的该类型。
-*  如果`E`是*predefined_type*或*primary_expression*归类为一种类型，如果`E`不是类型参数，并且如果成员查找 ([成员查找](expressions.md#member-lookup))`I`中`E`与`K`类型参数生成匹配项，然后`E.I`计算和分类，如下所示：
+*  如果`K`为零并`E`是一个命名空间和`E`包含嵌套的命名空间与名称 `I`，则结果为该命名空间。
+*  否则为如果`E`是一个命名空间和`E`包含可访问类型具有名称 `I`并`K` 类型参数，则结果为构造具有给定的类型参数的该类型。
+*  如果`E`是*predefined_type*或*primary_expression*归类为一种类型，如果`E`不是类型参数，并且如果成员查找 ([成员查找](expressions.md#member-lookup))`I`中`E`与`K` 类型参数生成匹配项，然后`E.I`计算和分类，如下所示：
    *  如果`I`标识的类型，则结果为构造具有给定的类型参数的该类型。
    *  如果`I`标识一个或多个方法，则结果为方法组没有关联的实例表达式。 如果指定了类型自变量列表，它将在调用泛型方法中使用 ([方法调用](expressions.md#method-invocations))。
    *  如果`I`标识`static`属性，则结果是不包含关联的实例表达式的属性访问。
    *  如果`I`标识`static`字段：
-      * 如果此字段为`readonly`和引用发生之外的静态构造函数的类或结构在其中声明该字段，则结果为一个值，即静态字段的值`I`中`E`。
-      * 否则，结果是一个变量，即静态字段`I`在`E`。
+      * 如果此字段为`readonly`和引用发生之外的静态构造函数的类或结构在其中声明该字段，则结果为一个值，即静态字段的值 `I`中 `E`。
+      * 否则，结果是一个变量，即静态字段 `I`在 `E`。
    *  如果`I`标识`static`事件：
       * 如果引用出现在类或结构在其中声明了事件，并声明了事件，而无需*event_accessor_declarations* ([事件](classes.md#events))，然后`E.I`完全处理像`I`已静态字段。
       * 否则，结果为无关联的实例表达式的事件访问。
    *  如果`I`标识一个常量，则结果为一个值，即该常量的值。
     * 如果`I`标识枚举成员，则结果为一个值，即该枚举成员的值。
     * 否则为`E.I`是无效的成员引用，并且将发生编译时错误。
-*  如果`E`是属性访问、 索引器访问、 变量或值的类型是`T`，和成员查找 ([成员查找](expressions.md#member-lookup)) 的`I`中`T`与`K`类型参数生成匹配项，然后`E.I`计算和分类，如下所示：
+*  如果`E`是属性访问、 索引器访问、 变量或值的类型是 `T`，和成员查找 ([成员查找](expressions.md#member-lookup)) 的`I`中`T`与`K`  类型参数生成匹配项，然后`E.I`计算和分类，如下所示：
    *  首先，如果`E`是一个属性或索引器访问，则属性的值或获取索引器访问 ([表达式的值](expressions.md#values-of-expressions)) 和`E`重新分类为一个值。
    *  如果`I`标识一个或多个方法，则结果为方法组的关联的实例表达式与`E`。 如果指定了类型自变量列表，它将在调用泛型方法中使用 ([方法调用](expressions.md#method-invocations))。
    *  如果`I`标识实例属性
       * 如果`E`是`this`，`I`标识的自动实现的属性 ([自动实现的属性](classes.md#automatically-implemented-properties)) 没有 setter，并且引用出现在实例构造函数类或结构类型`T`，则结果为变量，即为给定的自动属性隐藏的支持字段`I`的实例中`T`由给定`this`。
-      * 否则，结果是提供的关联的实例表达式的属性访问`E`。
+      * 否则，结果是提供的关联的实例表达式的属性访问 `E`。
    *  如果`T`是*class_type*并`I`标识的实例字段*class_type*:
       * 如果的值`E`是`null`，然后`System.NullReferenceException`引发。
-      * 否则为如果该字段是`readonly`和发生的外部声明该字段的类的实例构造函数的引用，则结果为一个值，即字段的值`I`中所引用的对象`E`。
-      * 否则，结果是一个变量，即字段`I`中所引用的对象`E`。
+      * 否则为如果该字段是`readonly`和发生的外部声明该字段的类的实例构造函数的引用，则结果为一个值，即字段的值 `I`中所引用的对象 `E`。
+      * 否则，结果是一个变量，即字段 `I`中所引用的对象 `E`。
    *  如果`T`是*struct_type*并`I`标识的实例字段*struct_type*:
-      * 如果`E`是一个值，或如果字段是`readonly`和引用出现在其中声明该字段，该结构的实例构造函数外，则结果为一个值，即字段的值`I`中给定的结构实例`E`.
-      * 否则，结果是一个变量，即字段`I`中给定的结构实例`E`。
+      * 如果`E`是一个值，或如果字段是`readonly`和引用出现在其中声明该字段，该结构的实例构造函数外，则结果为一个值，即字段的值 `I`中给定的结构实例 `E`.
+      * 否则，结果是一个变量，即字段 `I`中给定的结构实例 `E`。
    *  如果`I`标识实例事件：
       * 如果引用出现在类或结构在其中声明了事件，并声明了事件，而无需*event_accessor_declarations* ([事件](classes.md#events))，并为不发生引用左上方`+=`或`-=`运算符，然后`E.I`完全处理像`I`是实例字段。
-      * 否则，会得到的关联的实例表达式的事件访问`E`。
+      * 否则，会得到的关联的实例表达式的事件访问 `E`。
 *  否则，尝试处理`E.I`扩展方法调用的形式 ([扩展方法调用](expressions.md#extension-method-invocations))。 如果此操作失败，`E.I`是无效的成员引用，并且绑定时出错。
 
 #### <a name="identical-simple-names-and-type-names"></a>相同的简单名称和类型名称
@@ -1204,7 +1204,7 @@ class A
 ```
 F(G<A,B>(7));
 ```
-可解释为调用`F`具有两个参数`G < A`和`B > (7)`。 或者，也可以解释为调用`F`带有一个自变量，这是对泛型方法的调用`G`使用两个类型参数和一个正则自变量。
+可解释为调用`F`具有两个参数`G < A`和`B > (7)`。 或者，也可以解释为调用`F`带有一个自变量，这是对泛型方法的调用 `G`使用两个类型参数和一个正则自变量。
 
 如果可以为分析 （在上下文中） 的标记序列*simple_name* ([简单名称](expressions.md#simple-names))， *member_access* ([成员访问](expressions.md#member-access))，或*pointer_member_access* ([指针成员访问](unsafe-code.md#pointer-member-access)) 结尾*type_argument_list* ([类型实参](types.md#type-arguments))，则令牌紧跟`>`检查令牌。 如果它是一个
 ```csharp
@@ -1271,16 +1271,16 @@ invocation_expression
    *  如果`F`是泛型方法和`M`包含类型参数列表，`F`是候选版本时：
       * `F` 具有相同数量的方法类型参数在类型参数列表中，提供和
       * F 中的参数列表的所有构造的类型后的类型参数将替换为相应的方法类型参数，满足其约束 ([满足约束](types.md#satisfying-constraints))，和参数列表的`F`与适用`A`([适用函数成员](expressions.md#applicable-function-member))。
-*  候选方法集减少到仅包含从派生程度最高的类型： 对于每个方法`C.F`在组中，其中`C`是在其中的类型方法`F`的基类型中声明的所有方法的都声明`C`从集中删除。 此外，如果`C`而不是类类型`object`，从集中删除接口类型中声明的所有方法。 （此后一种规则只能具有影响时该方法组是具有非对象的有效基类和非空有效接口集的类型形参上的成员查找结果。）
+*  候选方法集减少到仅包含从派生程度最高的类型：为每个方法`C.F`在组中，其中`C`是在其中的类型方法`F`的所有方法的基类型中都声明的都声明`C`从集中删除。 此外，如果`C`而不是类类型`object`，从集中删除接口类型中声明的所有方法。 （此后一种规则只能具有影响时该方法组是具有非对象的有效基类和非空有效接口集的类型形参上的成员查找结果。）
 *  如果生成的候选方法集为空，然后进一步处理沿以下步骤将弃用，并改为尝试处理该调用扩展方法调用的形式 ([扩展方法调用](expressions.md#extension-method-invocations)). 如果此操作失败，则不适用的方法存在，并将绑定时出现错误。
 *  候选方法集的最佳方法使用的重载决策规则标识[重载决策](expressions.md#overload-resolution)。 如果不能确定一个最佳方法，该方法调用是不明确的并绑定时出错。 执行重载决策时，泛型方法的参数替换之后考虑 （提供或推断） 的类型参数的相应的方法类型参数。
 *  执行最终验证，所选的最佳方法：
-   * 在方法组的上下文中验证方法： 如果最佳方法是静态方法，方法组必须已由产生*simple_name*或*member_access*通过一种类型。 如果最佳方法是实例方法，方法组必须已由产生*simple_name*即*member_access*通过变量或值，或*base_access*。 如果这些要求都不为 true，将绑定时出现错误。
+   * 在方法组的上下文中验证方法：如果最佳方法是静态方法，方法组必须已由产生*simple_name*或*member_access*通过一种类型。 如果最佳方法是实例方法，方法组必须已由产生*simple_name*即*member_access*通过变量或值，或*base_access*。 如果这些要求都不为 true，将绑定时出现错误。
    * 如果最佳方法是泛型方法，根据的约束检查类型实参 （提供或推断出） ([满足约束](types.md#satisfying-constraints)) 声明的泛型方法。 如果任何类型实参不满足类型参数上的对应约束，绑定时出错。
 
 一旦选择一种方法并将其绑定时在验证通过上述步骤，根据函数成员调用中所述的规则处理实际的运行时调用[编译时检查的动态重载决策](expressions.md#compile-time-checking-of-dynamic-overload-resolution).
 
-上面所述的解析规则的直观效果是，如下所示： 若要查找调用的方法调用的特定方法，开头指示方法调用的类型，直到至少一个适用，一直向上继承链找到可访问的、 非重写方法声明。 然后执行类型推断和重载决策的一套适用的、 可访问的、 非重写该类型中声明的方法并调用由此选定的方法。 如果不找到任何方法，改为尝试处理该调用为扩展方法调用。
+上面所述的解析规则的直观效果是，如下所示：若要查找调用的方法调用的特定方法，启动方法调用所指示的类型，并一直向上继承链，直到找到至少一个适用的、 可访问的、 非重写方法声明。 然后执行类型推断和重载决策的一套适用的、 可访问的、 非重写该类型中声明的方法并调用由此选定的方法。 如果不找到任何方法，改为尝试处理该调用为扩展方法调用。
 
 #### <a name="extension-method-invocations"></a>扩展方法调用
 
@@ -2089,7 +2089,7 @@ comma
     ;
 ```
 
-第一个窗体*typeof_expression*组成`typeof`关键字后跟用圆括号括起来*类型*。 这种形式的表达式的结果是`System.Type`所指示类型的对象。 只有一个`System.Type`对于任何给定类型的对象。 这意味着，对于类型`T`，`typeof(T) == typeof(T)`始终为 true。 *类型*不能为`dynamic`。
+第一个窗体*typeof_expression*组成`typeof`关键字后跟用圆括号括起来*类型*。 这种形式的表达式的结果是`System.Type`所指示类型的对象。 只有一个`System.Type`对于任何给定类型的对象。 这意味着，对于类型 `T`，`typeof(T) == typeof(T)`始终为 true。 *类型*不能为`dynamic`。
 
 第二个窗体*typeof_expression*组成`typeof`关键字后跟用圆括号括起来*unbound_type_name*。 *Unbound_type_name*非常类似于*type_name* ([Namespace 和类型名称](basic-concepts.md#namespace-and-type-names))，只不过*unbound_type_name*包含*generic_dimension_specifier*s 其中*type_name*包含*type_argument_list*s。 时的操作数*typeof_expression*是满足这两者的语法的标记序列*unbound_type_name*并*type_name*，即当它所包含的位置既不*generic_dimension_specifier*也不是*type_argument_list*，令牌的序列被视为可*type_name*。 含义*unbound_type_name* ，如下所示确定：
 
@@ -2511,7 +2511,7 @@ decimal operator +(decimal x);
 bool operator !(bool x);
 ```
 
-此运算符计算操作数的逻辑求反： 如果操作数是`true`，结果是`false`。 如果操作数是`false`，结果是`true`。
+此运算符将计算操作数的逻辑求反运算：如果操作数是`true`，结果是`false`。 如果操作数是`false`，结果是`true`。
 
 ### <a name="bitwise-complement-operator"></a>按位求补运算符
 
@@ -2583,7 +2583,7 @@ cast_expression
 
 语法*cast_expression*会导致某些语法多义性。 例如，表达式`(x)-y`是可解释为*cast_expression* (的强制转换`-y`键入`x`) 或*additive_expression*与结合使用*parenthesized_expression* (用于计算值`x - y)`。
 
-若要解决*cast_expression*存在二义性，以下规则： 一个或多个序列*令牌*s ([空白](lexical-structure.md#white-space)) 括在括号中被视为开始*cast_expression*仅当至少一个以下条件成立：
+若要解决*cast_expression*存在二义性，以下规则：一个或多个序列*令牌*s ([空白区域](lexical-structure.md#white-space)) 括在括号中被视为开头*cast_expression*仅当至少一个以下条件成立：
 
 *  标记的顺序是为正确的语法*类型*，而不是*表达式*。
 *  标记的顺序是为正确的语法*类型*，并紧接在右括号是令牌"`~`"，令牌"`!`"，令牌"`(`"、 *标识符*([Unicode 字符转义序列](lexical-structure.md#unicode-character-escape-sequences))、 一个*文字*([文本](lexical-structure.md#literals))，或任何*关键字*([关键字](lexical-structure.md#keywords)) 除外`as`和`is`。
@@ -2913,7 +2913,7 @@ additive_expression
    D operator +(D x, D y);
    ```
 
-   二进制`+`运算符执行委托组合两个操作数属于特定的委托类型时`D`。 （如果操作数有不同的委托类型绑定时出错。）如果在第一个操作数`null`，该操作的结果是第二个操作数的值 (即使这也是`null`)。 否则为如果第二个操作数为`null`，则该操作的结果为第一个操作数的值。 否则，该操作的结果是一个新委托实例，该实例时调用，调用第一个操作数，然后调用第二个操作数。 委托组合的示例，请参阅[减法运算符](expressions.md#subtraction-operator)并[委托调用](delegates.md#delegate-invocation)。 由于`System.Delegate`不是委托类型， `operator` `+`不为其定义。
+   二进制`+`运算符执行委托组合两个操作数属于特定的委托类型时`D`。 （如果操作数有不同的委托类型绑定时出错。）如果在第一个操作数`null`，该操作的结果是第二个操作数的值 (即使这也是`null`)。 否则为如果第二个操作数为`null`，则该操作的结果为第一个操作数的值。 否则，该操作的结果是一个新委托实例，该实例时调用，调用第一个操作数，然后调用第二个操作数。 委托组合的示例，请参阅[减法运算符](expressions.md#subtraction-operator)并[委托调用](delegates.md#delegate-invocation)。 由于`System.Delegate`不是委托类型， `operator`  `+`不为其定义。
 
 ### <a name="subtraction-operator"></a>减法运算符
 
@@ -3212,9 +3212,9 @@ bool operator ==(bool x, bool y);
 bool operator !=(bool x, bool y);
 ```
 
-结果`==`是`true`如果这两种`x`并`y`是`true`或如果这两个`x`并`y`是`false`。 否则，结果是`false`。
+结果`==`是`true`如果这两种`x`并`y`是`true`或如果这两个`x`并`y`是`false`。 否则，结果为 `false`。
 
-结果`!=`是`false`如果这两种`x`并`y`是`true`或如果这两个`x`并`y`是`false`。 否则，结果是`true`。 如果操作数均为类型`bool`，则`!=`运算符会产生相同的结果`^`运算符。
+结果`!=`是`false`如果这两种`x`并`y`是`true`或如果这两个`x`并`y`是`false`。 否则，结果为 `true`。 如果操作数均为类型`bool`，则`!=`运算符会产生相同的结果`^`运算符。
 
 ### <a name="enumeration-comparison-operators"></a>枚举的比较运算符
 
@@ -3486,11 +3486,11 @@ bool operator |(bool x, bool y);
 bool operator ^(bool x, bool y);
 ```
 
-结果`x & y`是`true`如果这两种`x`并`y`是`true`。 否则，结果是`false`。
+如果 `x` 和 `y` 都为 `true`，则 `x & y` 的结果为 `true`。 否则，结果为 `false`。
 
-结果`x | y`是`true`如果任一`x`或`y`是`true`。 否则，结果是`false`。
+结果`x | y`是`true`如果任一`x`或`y`是`true`。 否则，结果为 `false`。
 
-结果`x ^ y`是`true`如果`x`是`true`并`y`是`false`，或者`x`是`false`和`y`是`true`。 否则，结果是`false`。 如果操作数均为类型`bool`，则`^`运算符计算相同的结果`!=`运算符。
+结果`x ^ y`是`true`如果`x`是`true`并`y`是`false`，或者`x`是`false`和`y`是`true`。 否则，结果为 `false`。 如果操作数均为类型`bool`，则`^`运算符计算相同的结果`!=`运算符。
 
 ### <a name="nullable-boolean-logical-operators"></a>可以为 null 的布尔逻辑运算符
 
@@ -3629,7 +3629,7 @@ conditional_expression
 
 ## <a name="anonymous-function-expressions"></a>匿名函数表达式
 
-***匿名函数***一个表达式，表示"行中"方法定义。 匿名函数没有值或类型本身，但转换为兼容的委托或表达式树类型。 匿名函数转换的计算取决于转换的目标类型： 如果它是委托类型，转换计算结果为引用它的匿名函数定义的方法的委托值。 如果表达式目录树类型，转换计算结果为表达式树表示形式的对象结构的方法的结构。
+***匿名函数***一个表达式，表示"行中"方法定义。 匿名函数没有值或类型本身，但转换为兼容的委托或表达式树类型。 匿名函数转换的计算取决于转换的目标类型：如果它是委托类型，转换计算结果为引用它的匿名函数定义的方法的委托值。 如果表达式目录树类型，转换计算结果为表达式树表示形式的对象结构的方法的结构。
 
 由于历史原因有两种语法类型的匿名函数，即*lambda_expression*s 和*anonymous_method_expression*s。 对于几乎所有目的*lambda_expression*是更简洁、 更具表现力比*anonymous_method_expression*s，保留的语言为向后兼容性。
 

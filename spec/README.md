@@ -147,7 +147,7 @@ __版本 6__
     * [System.Exception 类](exceptions.md#the-systemexception-class)
     * [异常的处理方式](exceptions.md#how-exceptions-are-handled)
     * [常见的异常类](exceptions.md#common-exception-classes)
-* [特性](attributes.md)
+* [属性](attributes.md)
     * [特性类](attributes.md#attribute-classes)
     * [特性规范](attributes.md#attribute-specification)
     * [特性实例](attributes.md#attribute-instances)

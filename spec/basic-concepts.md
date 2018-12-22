@@ -418,7 +418,7 @@ public class B
 *  索引器重载允许类、 结构或接口声明多个索引器，提供它们的签名是在该类、 结构或接口中是唯一。
 *  运算符的重载允许类或结构声明多个运算符具有相同的名称，提供它们的签名是在该类或结构中是唯一。
 
-尽管`out`并`ref`参数修饰符被视为一个签名的一部分，在单个类型中声明成员不能在签名中完全由`ref`和`out`。 如果两个成员声明中使用将是相同的签名相同的类型与这两种方法中的所有参数，会发生编译时错误`out`修饰符更改为`ref`修饰符。 用于签名匹配的其他目的 （例如，隐藏或重写），`ref`和`out`被视为签名的一部分，相互不匹配。 (此限制是，使 C# 程序可以轻松地进行转换，以便运行在公共语言基础结构 (CLI)，其中未提供一种方法来定义仅在不同的方法`ref`和`out`。)
+尽管`out`并`ref`参数修饰符被视为一个签名的一部分，在单个类型中声明成员不能在签名中完全由`ref`和`out`。 如果两个成员声明中使用将是相同的签名相同的类型与这两种方法中的所有参数，会发生编译时错误`out`修饰符更改为`ref`修饰符。 用于签名匹配的其他目的 （例如，隐藏或重写），`ref`和`out`被视为签名的一部分，相互不匹配。 (此限制是允许C#程序能够轻松地进行转换，以便运行在公共语言基础结构 (CLI)，其中未提供一种方法来定义仅在不同的方法`ref`并`out`。)
 
 为了进行签名，类型`object`和`dynamic`被视为相同。 在单个类型中声明成员因此不在可能有所不同，签名完全由`object`和`dynamic`。
 
@@ -646,7 +646,7 @@ class MoreDerived: Derived
 
 ## <a name="namespace-and-type-names"></a>Namespace 和类型名称
 
-C# 程序中的多个上下文需要 *_ 名称*或*type_name*来指定。
+中的多个环境C#程序需要 *_ 名称*或*type_name*指定。
 
 ```antlr
 namespace_name
@@ -680,26 +680,26 @@ namespace_or_type_name
 含义*namespace_or_type_name* ，如下所示确定：
 
 *   如果*namespace_or_type_name*的形式`I`或窗体的`I<A1, ..., Ak>`:
-    * 如果`K`为零， *namespace_or_type_name*出现在泛型方法声明 ([方法](classes.md#methods))，如果该声明包含一个类型参数 ([类型参数](classes.md#type-parameters)) 具有名称`I`，然后*namespace_or_type_name*引用该类型参数。
-    * 否则为如果*namespace_or_type_name*出现在类型声明中，然后，对于每个实例类型`T`([的实例类型](classes.md#the-instance-type))、 第一页为该类型的实例类型声明，然后继续每个封闭类或结构声明的实例类型 （如果有）：
-        * 如果`K`是零的声明`T`包括具有名称的类型参数`I`，然后*namespace_or_type_name*引用该类型参数。
-        * 否则为如果*namespace_or_type_name*将显示在类型声明的主体和`T`或任何其基类型包含具有名称的嵌套可访问类型`I`和`K`类型参数然后*namespace_or_type_name*构造具有给定的类型参数的该类型是指。 如果有多个此类类型，被选择派生程度更大的类型中声明的类型。 请注意，非类型成员 （常量、 字段、 方法、 属性、 索引器、 运算符、 实例构造函数、 析构函数和静态构造函数） 和类型成员具有不同数量的类型参数时，将忽略确定的含义*namespace_or_type_name*。
-    * 如果前面的步骤已不成功，则每个命名空间`N`，在其中命名空间从开始*namespace_or_type_name*发生时，继续执行每个封闭命名空间 （如果有），以及结尾全局命名空间中，以下步骤进行计算，直到找到一个实体就是：
-        * 如果`K`为零并`I`中的命名空间名称`N`，然后：
-            * 如果位置其中*namespace_or_type_name*发生的命名空间声明括`N`和命名空间声明中包含*extern_alias_directive*或*using_alias_directive*将关联名称`I`与命名空间或类型，则*namespace_or_type_name*不明确，则发生编译时错误。
+    * 如果`K`为零， *namespace_or_type_name*出现在泛型方法声明 ([方法](classes.md#methods))，如果该声明包含一个类型参数 ([类型参数](classes.md#type-parameters)) 具有名称 `I`，然后*namespace_or_type_name*引用该类型参数。
+    * 否则为如果*namespace_or_type_name*出现在类型声明中，然后，对于每个实例类型 `T`([的实例类型](classes.md#the-instance-type))、 第一页为该类型的实例类型声明，然后继续每个封闭类或结构声明的实例类型 （如果有）：
+        * 如果`K`是零的声明`T`包括具有名称的类型参数 `I`，然后*namespace_or_type_name*引用该类型参数。
+        * 否则为如果*namespace_or_type_name*将显示在类型声明的主体和`T`或任何其基类型包含具有名称的嵌套可访问类型 `I`和`K`  类型参数，则*namespace_or_type_name*构造具有给定的类型参数的该类型是指。 如果有多个此类类型，被选择派生程度更大的类型中声明的类型。 请注意，非类型成员 （常量、 字段、 方法、 属性、 索引器、 运算符、 实例构造函数、 析构函数和静态构造函数） 和类型成员具有不同数量的类型参数时，将忽略确定的含义*namespace_or_type_name*。
+    * 如果前面的步骤已不成功，则每个命名空间 `N`，在其中命名空间从开始*namespace_or_type_name*发生时，继续执行每个封闭命名空间 （如果有），以及结尾全局命名空间中，以下步骤进行计算，直到找到一个实体就是：
+        * 如果`K`为零并`I`中的命名空间名称 `N`，然后：
+            * 如果位置其中*namespace_or_type_name*发生的命名空间声明括`N`和命名空间声明中包含*extern_alias_directive*或*using_alias_directive*将关联名称 `I`与命名空间或类型，则*namespace_or_type_name*不明确，则发生编译时错误。
             * 否则为*namespace_or_type_name*指的是名为的命名空间`I`中`N`。
-        * 否则为如果`N`包含可访问类型具有名称`I`和`K`类型形参，则：
-            * 如果`K`是零和位置， *namespace_or_type_name*发生括起来的命名空间声明`N`和命名空间声明中包含*extern_alias_directive*或*using_alias_directive*将关联名称`I`与命名空间或类型，则*namespace_or_type_name*已不明确以及编译时间出现错误。
+        * 否则为如果`N`包含可访问类型具有名称 `I`并`K` 类型形参，则：
+            * 如果`K`是零和位置， *namespace_or_type_name*发生括起来的命名空间声明`N`和命名空间声明中包含*extern_alias_directive*或*using_alias_directive*将关联名称 `I`与命名空间或类型，则*namespace_or_type_name*已不明确以及编译时间出现错误。
             * 否则为*namespace_or_type_name*指构造具有给定的类型参数的类型。
         * 否则为如果位置其中*namespace_or_type_name*发生括起来的命名空间声明`N`:
-            * 如果`K`为零，并且命名空间声明中包含*extern_alias_directive*或*using_alias_directive*将关联名称`I`与导入的命名空间或类型，则*namespace_or_type_name*指的是该命名空间或类型。
-            * 否则为如果通过导入的命名空间和类型声明*using_namespace_directive*s 和*using_alias_directive*的命名空间声明包含一个可访问类型具有名称`I`并`K`类型参数，则*namespace_or_type_name*构造具有给定的类型参数的该类型是指。
-            * 否则为如果通过导入的命名空间和类型声明*using_namespace_directive*s 和*using_alias_directive*的命名空间声明包含多个可访问类型具有名称`I`并`K`类型参数，则*namespace_or_type_name*不明确并产生一个错误。
+            * 如果`K`为零，并且命名空间声明中包含*extern_alias_directive*或*using_alias_directive*将关联名称 `I`与导入的命名空间或类型，则*namespace_or_type_name*指的是该命名空间或类型。
+            * 否则为如果通过导入的命名空间和类型声明*using_namespace_directive*s 和*using_alias_directive*的命名空间声明包含一个可访问类型具有名称 `I`并`K` 类型参数，则*namespace_or_type_name*构造具有给定的类型参数的该类型是指。
+            * 否则为如果通过导入的命名空间和类型声明*using_namespace_directive*s 和*using_alias_directive*的命名空间声明包含多个可访问类型具有名称 `I`并`K` 类型参数，则*namespace_or_type_name*不明确并产生一个错误。
     * 否则为*namespace_or_type_name*是未定义，且将发生编译时错误。
 *  否则为*namespace_or_type_name*的形式`N.I`或窗体的`N.I<A1, ..., Ak>`。 `N` 作为第一次解决*namespace_or_type_name*。 如果解析`N`不成功，则发生编译时错误。 否则为`N.I`或`N.I<A1, ..., Ak>`解析方式如下：
     * 如果`K`为零并`N`指的是命名空间和`N`包含名称的嵌套命名空间`I`，则*namespace_or_type_name*指的是该嵌套命名空间。
-    * 否则为如果`N`指的是命名空间和`N`包含可访问类型具有名称`I`并`K`类型参数，则*namespace_or_type_name*引用该类型使用给定的类型自变量构造。
-    * 否则为如果`N`指的是一个 （可能是构造） 的类或结构类型和`N`或任何其基类，这些类包含具有名称的嵌套可访问类型`I`并`K`类型参数，则*命名空间_or_type_name*构造具有给定的类型参数的该类型是指。 如果有多个此类类型，被选择派生程度更大的类型中声明的类型。 请注意，如果的含义`N.I`要确定作为解决的基类规范的一部分`N`然后直接基类`N`被视为对象 ([基类](classes.md#base-classes))。
+    * 否则为如果`N`指的是命名空间和`N`包含可访问类型具有名称 `I`并`K` 类型参数，则*namespace_or_type_name*引用为给定的类型参数用来构造该类型。
+    * 否则为如果`N`指的是一个 （可能是构造） 的类或结构类型和`N`或任何其基类，这些类包含具有名称的嵌套可访问类型 `I`并`K` 类型参数，则*namespace_or_type_name*构造具有给定的类型参数的该类型是指。 如果有多个此类类型，被选择派生程度更大的类型中声明的类型。 请注意，如果的含义`N.I`要确定作为解决的基类规范的一部分`N`然后直接基类`N`被视为对象 ([基类](classes.md#base-classes))。
     * 否则为`N.I`是一个无效*namespace_or_type_name*，并将发生编译时错误。
 
 一个*namespace_or_type_name*允许以引用静态类 ([静态类](classes.md#static-classes)) 仅当

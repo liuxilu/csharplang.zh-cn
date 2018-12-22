@@ -194,6 +194,6 @@ enum Circular
 
 枚举的成员具有其包含的枚举类型的类型 (在其他枚举成员初始值设定项除外： 请参阅[枚举成员](enums.md#enum-members))。 枚举类型中声明的枚举成员值`E`相关联的值与`v`是`(E)v`。
 
-以下运算符可以用于枚举类型的值： `==`， `!=`， `<`， `>`， `<=`， `>=` ([枚举的比较运算符](expressions.md#enumeration-comparison-operators))，二进制`+`([加法运算符](expressions.md#addition-operator))，二进制`-`([减法运算符](expressions.md#subtraction-operator))， `^`， `&`， `|` ([枚举逻辑运算符](expressions.md#enumeration-logical-operators))， `~` ([按位求补运算符](expressions.md#bitwise-complement-operator))，`++`并`--`([后缀递增和递减运算符](expressions.md#postfix-increment-and-decrement-operators)和[前缀递增和递减运算符](expressions.md#prefix-increment-and-decrement-operators))。
+以下运算符可以用于枚举类型的值： `==`， `!=`， `<`， `>`， `<=`， `>=`  ([枚举比较运算符](expressions.md#enumeration-comparison-operators))二进制`+`  ([加法运算符](expressions.md#addition-operator))，二进制`-`  ([减法运算符](expressions.md#subtraction-operator))， `^`， `&``|`  ([枚举逻辑运算符](expressions.md#enumeration-logical-operators))， `~`  ([按位求补运算符](expressions.md#bitwise-complement-operator))，`++`和`--` ([后缀递增和递减运算符](expressions.md#postfix-increment-and-decrement-operators)并[前缀递增和递减运算符](expressions.md#prefix-increment-and-decrement-operators))。
 
 每个枚举类型自动派生自类`System.Enum`(其中，反过来，派生`System.ValueType`和`object`)。 因此，此类的继承的方法和属性可以使用枚举类型的值。

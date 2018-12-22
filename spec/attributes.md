@@ -358,7 +358,7 @@ public class Class1 {}
 *  类型`E`特性参数类型 ([属性参数类型](attributes.md#attribute-parameter-types))。
 *  在编译时，值`E`可以解析为以下值之一：
    * 常量的值。
-   * 一个 `System.Type` 对象。
+   * `System.Type` 对象。
    * 一维数组*attribute_argument_expression*s。
 
 例如：
@@ -821,7 +821,7 @@ public void Log(
 
 ## <a name="attributes-for-interoperation"></a>互操作的特性
 
-注意： 此部分是仅适用于 C# 的 Microsoft.NET 实现。
+注意:本部分是仅适用于的 Microsoft.NET 实现的C#。
 
 ### <a name="interoperation-with-com-and-win32-components"></a>与 COM 和 Win32 组件互操作
 
