@@ -1,3 +1,11 @@
+---
+ms.openlocfilehash: c9f8417dc68153f02ceb72bb1d51f3615f3c4961
+ms.sourcegitcommit: 3fc033b6e98ed7ecdf46a85c79b00a3a3ddcf963
+ms.translationtype: MT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 01/18/2019
+ms.locfileid: "54272041"
+---
 # <a name="documentation-comments"></a>文档注释
 
 C# 提供了编程人员来记录其代码中使用一种特殊注释语法包含 XML 文本的一种机制。 在源代码文件中，具有特定格式的注释可以用于直接从这些注释和这些注释后面的源元素生成 XML 的工具。 注释使用这种语法称为***文档注释***。 它们必须紧跟 （如类、 委托或接口） 的用户定义的类型或成员 （例如字段、 事件、 属性或方法）。 调用 XML 生成工具***文档生成器***。 （此生成器可能是，但不是需要 C# 编译器本身。）调用文档生成器生成的输出***文档文件***。 文档文件用作输入***文档查看器***; 一个用于生成某种形式的类型信息和其关联的文档的可视显示的工具。

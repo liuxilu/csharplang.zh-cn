@@ -1,3 +1,11 @@
+---
+ms.openlocfilehash: 61eeae6173eaa19f9cf6d6e985f3dc107d4c3ac9
+ms.sourcegitcommit: 3fc033b6e98ed7ecdf46a85c79b00a3a3ddcf963
+ms.translationtype: MT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 01/18/2019
+ms.locfileid: "50245521"
+---
 # <a name="conversions"></a>转换
 
 一个***转换***使表达式能够被视为是指特定类型。 转换可能会导致要被视为具有不同类型的给定类型的表达式或它可能会导致没有要获得一种类型的类型的表达式。 转换可以是***隐式***或***显式***，这将确定是否需要显式强制转换。 例如，从类型转换`int`键入`long`是隐式的因此表达式的类型`int`隐式视为类型`long`。 从类型相反转换`long`键入`int`，是显式的因此显式强制转换为所需。

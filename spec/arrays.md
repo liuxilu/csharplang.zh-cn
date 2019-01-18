@@ -1,3 +1,11 @@
+---
+ms.openlocfilehash: 155c1beecddfdfcce2e7948bcb8d6b80428fbd7a
+ms.sourcegitcommit: 3fc033b6e98ed7ecdf46a85c79b00a3a3ddcf963
+ms.translationtype: MT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 01/18/2019
+ms.locfileid: "47229520"
+---
 # <a name="arrays"></a>数组
 
 数组是包含许多通过计算索引访问的变量的数据结构。 一个数组，也称为数组的元素中包含的变量包括所有相同的类型，而这种类型称为数组的元素类型。

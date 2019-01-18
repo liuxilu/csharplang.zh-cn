@@ -1,3 +1,11 @@
+---
+ms.openlocfilehash: 08c14d9ef2afe30580f456995066c141653ede92
+ms.sourcegitcommit: 3fc033b6e98ed7ecdf46a85c79b00a3a3ddcf963
+ms.translationtype: MT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 01/18/2019
+ms.locfileid: "47229521"
+---
 # <a name="delegates"></a>委托
 
 委托实现方案的其他语言，如 c + +、 Pascal 和 Modula-已，解决与函数指针。 与 c + + 函数指针不同，委托完全是面向对象的而且与 c + + 成员函数的指针，不同的委托封装的对象实例和方法。

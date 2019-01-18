@@ -1,3 +1,11 @@
+---
+ms.openlocfilehash: a8ad8a8b3eda1d00fa745bd92e4371eacc36b79f
+ms.sourcegitcommit: 3fc033b6e98ed7ecdf46a85c79b00a3a3ddcf963
+ms.translationtype: MT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 01/18/2019
+ms.locfileid: "47229508"
+---
 # <a name="attributes"></a>特性
 
 C# 语言的许多使程序员能够指定有关在程序中定义的实体的声明性信息。 例如，在类中方法的可访问性通过修饰来指定其与*method_modifier*s `public`， `protected`， `internal`，并`private`。
@@ -358,7 +366,7 @@ public class Class1 {}
 *  类型`E`特性参数类型 ([属性参数类型](attributes.md#attribute-parameter-types))。
 *  在编译时，值`E`可以解析为以下值之一：
    * 常量的值。
-   * `System.Type` 对象。
+   * 一个 `System.Type` 对象。
    * 一维数组*attribute_argument_expression*s。
 
 例如：

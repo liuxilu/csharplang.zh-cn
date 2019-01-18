@@ -1,3 +1,11 @@
+---
+ms.openlocfilehash: 72d17175dfb8ef284dce6cf7e5837420fa06f16a
+ms.sourcegitcommit: 3fc033b6e98ed7ecdf46a85c79b00a3a3ddcf963
+ms.translationtype: MT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 01/18/2019
+ms.locfileid: "47229507"
+---
 # <a name="structs"></a>结构
 
 结构与类很相似，因为它们表示可以包含数据成员和函数成员的数据结构。 但是，与类不同，结构是值类型，不需要堆分配。 结构类型的变量直接包含的数据结构，而类类型的变量包含数据后, 一种称为对象的引用。

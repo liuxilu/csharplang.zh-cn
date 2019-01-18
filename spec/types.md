@@ -1,3 +1,11 @@
+---
+ms.openlocfilehash: a28397b1ce97dbead6d5014e2b20e108a1018502
+ms.sourcegitcommit: 3fc033b6e98ed7ecdf46a85c79b00a3a3ddcf963
+ms.translationtype: MT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 01/18/2019
+ms.locfileid: "47229518"
+---
 # <a name="types"></a>类型
 
 C# 语言的类型分为两个主要类别：***值类型***并***引用类型***。 值类型和引用类型可能***泛型类型***，这需要一个或多个***类型参数***。 类型参数可以指定这两种值类型和引用类型。

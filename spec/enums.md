@@ -1,3 +1,11 @@
+---
+ms.openlocfilehash: c3b716e6eb331be2ee33fffeb42c1e2406cd3a5c
+ms.sourcegitcommit: 3fc033b6e98ed7ecdf46a85c79b00a3a3ddcf963
+ms.translationtype: MT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 01/18/2019
+ms.locfileid: "47229560"
+---
 # <a name="enums"></a>枚举
 
 ***枚举类型***是一个非重复值类型 ([值类型](types.md#value-types))，其用于声明一系列已命名常数。

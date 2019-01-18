@@ -1,3 +1,11 @@
+---
+ms.openlocfilehash: 75fcd5b00ea5cac218a9f7809c53b179df97825c
+ms.sourcegitcommit: 3fc033b6e98ed7ecdf46a85c79b00a3a3ddcf963
+ms.translationtype: MT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 01/18/2019
+ms.locfileid: "47229523"
+---
 # <a name="exceptions"></a>Exceptions
 
 C# 中的异常提供结构化、 统一的和类型安全方式来处理系统级别和应用程序级别的错误条件。 在 C# 中的异常机制是非常类似于 c + +，有几个重要的区别：

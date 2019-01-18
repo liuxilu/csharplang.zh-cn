@@ -1,3 +1,11 @@
+---
+ms.openlocfilehash: 90001cf3d48f216787fc65e59166ec57c5d0ca34
+ms.sourcegitcommit: 3fc033b6e98ed7ecdf46a85c79b00a3a3ddcf963
+ms.translationtype: MT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 01/18/2019
+ms.locfileid: "47229511"
+---
 # <a name="unsafe-code"></a>不安全代码
 
 Core C# 语言中，在前面的章节中，定义不同值得注意的是与 C 和 c + + 中的指针的数据类型作为其省略。 相反，C# 提供引用和创建由垃圾回收器管理的对象的功能。 这种设计，结合其他功能，使 C# 更安全语言比 C 或 c + +。 在 core C# 语言不只是可能具有未初始化的变量、"无关联"的指针或索引超出其边界的数组的表达式。 整个类别的 bug 总是烦扰 C 和 c + + 程序这样就消除了。

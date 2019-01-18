@@ -1,3 +1,11 @@
+---
+ms.openlocfilehash: 75454072a5137b3044f78bb896317fd88a29e336
+ms.sourcegitcommit: 3fc033b6e98ed7ecdf46a85c79b00a3a3ddcf963
+ms.translationtype: MT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 01/18/2019
+ms.locfileid: "49640907"
+---
 # <a name="expressions"></a>表达式
 
 表达式是一系列运算符和操作数。 本章定义的语法，操作数和运算符的求值和表达式的含义的顺序。
@@ -2700,9 +2708,9 @@ additive_expression
 
    |      |      |      |     |     |      |      |     |
    |:----:|-----:|:----:|:---:|:---:|:----:|:----:|:----|
-   |      | + y   | -y   | +0  | -0  | +inf | -inf | NaN | 
-   | + x   | + z   | -z   | +0  | -0  | +inf | -inf | NaN | 
-   | -x   | -z   | + z   | -0  | +0  | -inf | +inf | NaN | 
+   |      | +y   | -y   | +0  | -0  | +inf | -inf | NaN | 
+   | +x   | +z   | -z   | +0  | -0  | +inf | -inf | NaN | 
+   | -x   | -z   | +z   | -0  | +0  | -inf | +inf | NaN | 
    | +0   | +0   | -0   | +0  | -0  | NaN  | NaN  | NaN | 
    | -0   | -0   | +0   | -0  | +0  | NaN  | NaN  | NaN | 
    | +inf | +inf | -inf | NaN | NaN | +inf | -inf | NaN | 
@@ -2752,9 +2760,9 @@ additive_expression
 
    |      |      |      |      |      |      |      |      |
    |:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|
-   |      | + y   | -y   | +0   | -0   | +inf | -inf | NaN  | 
-   | + x   | + z   | -z   | +inf | -inf | +0   | -0   | NaN  | 
-   | -x   | -z   | + z   | -inf | +inf | -0   | +0   | NaN  | 
+   |      | +y   | -y   | +0   | -0   | +inf | -inf | NaN  | 
+   | +x   | +z   | -z   | +inf | -inf | +0   | -0   | NaN  | 
+   | -x   | -z   | +z   | -inf | +inf | -0   | +0   | NaN  | 
    | +0   | +0   | -0   | NaN  | NaN  | +0   | -0   | NaN  | 
    | -0   | -0   | +0   | NaN  | NaN  | -0   | +0   | NaN  | 
    | +inf | +inf | -inf | +inf | -inf | NaN  | NaN  | NaN  | 
@@ -2802,8 +2810,8 @@ additive_expression
 
    |      |      |      |      |      |      |      |      |
    |:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|
-   |      | + y   | -y   | +0   | -0   | +inf | -inf | NaN  | 
-   | + x   | + z   | + z   | NaN  | NaN  | x    | x    | NaN  | 
+   |      | +y   | -y   | +0   | -0   | +inf | -inf | NaN  | 
+   | +x   | +z   | +z   | NaN  | NaN  | x    | x    | NaN  | 
    | -x   | -z   | -z   | NaN  | NaN  | -x   | -x   | NaN  | 
    | +0   | +0   | +0   | NaN  | NaN  | +0   | +0   | NaN  | 
    | -0   | -0   | -0   | NaN  | NaN  | -0   | -0   | NaN  | 
@@ -3107,7 +3115,7 @@ equality_expression
 以下各节描述了预定义的比较运算符。 所有预定义的比较运算符将返回类型的结果`bool`下, 表中所述。
 
 
-| __操作__ | __结果__                                                       |
+| __Operation__ | __结果__                                                       |
 |---------------|------------------------------------------------------------------|
 | `x == y`      | `true` 如果`x`等同于`y`，`false`否则为                 | 
 | `x != y`      | `true` 如果`x`不等于`y`，`false`否则为             | 

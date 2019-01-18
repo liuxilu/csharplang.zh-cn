@@ -1,3 +1,11 @@
+---
+ms.openlocfilehash: 4e1534fc5523223042df468c4443a6722910543b
+ms.sourcegitcommit: 3fc033b6e98ed7ecdf46a85c79b00a3a3ddcf963
+ms.translationtype: MT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 01/18/2019
+ms.locfileid: "47229506"
+---
 <a name="c-language-specification"></a>C# 语言规范
 ===========================
 

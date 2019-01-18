@@ -1,3 +1,11 @@
+---
+ms.openlocfilehash: 8f9551b9e7f70379836c23a60f0d37dc02f8e18e
+ms.sourcegitcommit: 3fc033b6e98ed7ecdf46a85c79b00a3a3ddcf963
+ms.translationtype: MT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 01/18/2019
+ms.locfileid: "47229583"
+---
 # <a name="statements"></a>语句
 
 C# 提供了各种不同的语句。 大多数这些语句将熟悉的开发人员可以在 C 和 c + + 中具有编程经验。

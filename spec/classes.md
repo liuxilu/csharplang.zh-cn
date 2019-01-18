@@ -1,3 +1,11 @@
+---
+ms.openlocfilehash: af7af574814dc04ee3ece0396b7ae5f86b3ec8eb
+ms.sourcegitcommit: 3fc033b6e98ed7ecdf46a85c79b00a3a3ddcf963
+ms.translationtype: MT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 01/18/2019
+ms.locfileid: "47229519"
+---
 # <a name="classes"></a>类
 
 类是可以包含数据成员 （常量和字段），函数成员 （方法、 属性、 事件、 索引器、 运算符、 实例构造函数、 析构函数和静态构造函数） 以及嵌套的类型的数据结构。 类类型支持继承，因此派生的类可以扩展和专门针对基类的机制。
@@ -1827,7 +1835,7 @@ parameter_array
 
 一个`ref`或`out`参数不能具有*default_argument*。 *表达式*中*default_argument*必须是以下值之一：
 
-*  *constant_expression*
+*  a *constant_expression*
 *  形式的表达式`new S()`其中`S`是值类型
 *  形式的表达式`default(S)`其中`S`是值类型
 

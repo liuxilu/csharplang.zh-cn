@@ -1,3 +1,11 @@
+---
+ms.openlocfilehash: b7bb7dd575d9e2e6d5dd85bdd3e535411e29fcf4
+ms.sourcegitcommit: 3fc033b6e98ed7ecdf46a85c79b00a3a3ddcf963
+ms.translationtype: MT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 01/18/2019
+ms.locfileid: "47229510"
+---
 # <a name="variables"></a>变量
 
 变量表示存储位置。 每个变量具有类型，用于确定值可以是存储在变量中。 C# 是类型安全语言和 C# 编译器保证在将存储在变量中的值始终是适当的类型。 可以更改变量的值，通过分配或通过使用`++`和`--`运算符。
@@ -313,7 +321,7 @@ return ;
 ```
 
 *  如果*v*为 output 参数，则它必须绝对分配：
-    * 之前*stmt*
+    * before *stmt*
     * 或末尾处`finally`块`try` - `finally`或`try` - `catch` - `finally`包含`return`语句。
 
 #### <a name="try-catch-statements"></a>Try catch 语句
