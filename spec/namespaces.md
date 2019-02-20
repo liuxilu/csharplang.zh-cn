@@ -1,11 +1,3 @@
----
-ms.openlocfilehash: 9c3863c9a139f5b8309fca6e0c099d0fae7677c3
-ms.sourcegitcommit: 3fc033b6e98ed7ecdf46a85c79b00a3a3ddcf963
-ms.translationtype: MT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 01/18/2019
-ms.locfileid: "47229595"
----
 # <a name="namespaces"></a>命名空间
 
 C# 程序的组织结构使用的命名空间。 使用命名空间为"内部"组织系统的程序，并作为"外部"组织系统 — 一种方法提供向其他程序公开的程序元素。
@@ -434,7 +426,7 @@ namespace N2
     }
 }
 ```
-`N1` 包含类型成员`A`，并`C`包含一个静态方法`A`，因为`N2`导入两者，引用`A`作为*simple_name*已不明确以及编译时出现错误。 
+`N1` 包含类型成员`A`，并`C`包含静态字段`A`，并且因为`N2`导入两者，引用`A`作为*simple_name*已不明确以及编译时出现错误。 
 
 像*using_alias_directive*即*using_namespace_directive*不参与到编译单元或命名空间的基础的声明空间的任何新成员，但而不是仅影响它在其中出现的编译单元或命名空间体。
 

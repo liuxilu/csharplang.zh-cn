@@ -1,11 +1,3 @@
----
-ms.openlocfilehash: 75454072a5137b3044f78bb896317fd88a29e336
-ms.sourcegitcommit: 3fc033b6e98ed7ecdf46a85c79b00a3a3ddcf963
-ms.translationtype: MT
-ms.contentlocale: zh-CN
-ms.lasthandoff: 01/18/2019
-ms.locfileid: "49640907"
----
 # <a name="expressions"></a>表达式
 
 表达式是一系列运算符和操作数。 本章定义的语法，操作数和运算符的求值和表达式的含义的顺序。
@@ -92,7 +84,7 @@ Console.WriteLine(d);  // dynamic binding to Console.WriteLine(int)
 
 ### <a name="types-of-constituent-expressions"></a>构成表达式的类型
 
-当以静态方式绑定操作时，构成的表达式 （例如接收方和自变量、 索引或操作数） 的类型始终被视为可该表达式的编译时类型。
+当以静态方式绑定操作时，构成的表达式 （例如接收方、 参数、 索引或操作数） 的类型始终被视为可该表达式的编译时类型。
 
 当动态绑定操作时，具体取决于构成表达式的编译时类型不同的方式确定构成表达式的类型：
 
