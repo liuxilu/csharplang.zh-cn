@@ -1,3 +1,11 @@
+---
+ms.openlocfilehash: 67019511d49a786a5d6edf6fea442f745fc40f3f
+ms.sourcegitcommit: 0a80f26b8e455c4f09843a10e11e29c24d2d922e
+ms.translationtype: MT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 03/05/2019
+ms.locfileid: "57347269"
+---
 # <a name="expressions"></a>表达式
 
 表达式是一系列运算符和操作数。 本章定义的语法，操作数和运算符的求值和表达式的含义的顺序。
@@ -2943,7 +2951,7 @@ additive_expression
 
    |      |      |      |      |      |      |     |
    |:----:|:----:|:----:|:----:|:----:|:----:|:---:|
-   | NaN  | y    | +0   | -0   | +inf | -inf | NaN | 
+   |      | y    | +0   | -0   | +inf | -inf | NaN | 
    | x    | z    | x    | x    | -inf | +inf | NaN | 
    | +0   | -y   | +0   | +0   | -inf | +inf | NaN | 
    | -0   | -y   | -0   | +0   | -inf | +inf | NaN | 
