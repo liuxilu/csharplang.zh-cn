@@ -1,10 +1,10 @@
 ---
 ms.openlocfilehash: a8ad8a8b3eda1d00fa745bd92e4371eacc36b79f
-ms.sourcegitcommit: 3fc033b6e98ed7ecdf46a85c79b00a3a3ddcf963
+ms.sourcegitcommit: 94a3d151c438d34ede1d99de9eb4ebdc07ba4699
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/18/2019
-ms.locfileid: "47229508"
+ms.lasthandoff: 04/25/2019
+ms.locfileid: "64488826"
 ---
 # <a name="attributes"></a>特性
 
@@ -645,7 +645,7 @@ class Class3
 
 #### <a name="conditional-attribute-classes"></a>条件属性类
 
-特性类 ([属性类](attributes.md#attribute-classes)) 使用一个或多个修饰`Conditional`属性是***conditional 特性类***。 Conditional 特性类是因此与相关联的条件编译符号中声明其`Conditional`属性。 此示例中：
+特性类 ([属性类](attributes.md#attribute-classes)) 使用一个或多个修饰`Conditional`属性是***conditional 特性类***。 Conditional 特性类是因此与相关联的条件编译符号中声明其`Conditional`属性。 本示例：
 
 ```csharp
 using System;

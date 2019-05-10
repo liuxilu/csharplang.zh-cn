@@ -1,10 +1,10 @@
 ---
 ms.openlocfilehash: 1c3d05674f8f7b69e70e0d9e06021537fc45f7ed
-ms.sourcegitcommit: 3fc033b6e98ed7ecdf46a85c79b00a3a3ddcf963
+ms.sourcegitcommit: 94a3d151c438d34ede1d99de9eb4ebdc07ba4699
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/18/2019
-ms.locfileid: "47229525"
+ms.lasthandoff: 04/25/2019
+ms.locfileid: "64488492"
 ---
 # <a name="basic-concepts"></a>基本概念
 

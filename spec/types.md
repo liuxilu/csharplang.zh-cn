@@ -1,10 +1,10 @@
 ---
 ms.openlocfilehash: a28397b1ce97dbead6d5014e2b20e108a1018502
-ms.sourcegitcommit: 3fc033b6e98ed7ecdf46a85c79b00a3a3ddcf963
+ms.sourcegitcommit: 94a3d151c438d34ede1d99de9eb4ebdc07ba4699
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/18/2019
-ms.locfileid: "47229518"
+ms.lasthandoff: 04/25/2019
+ms.locfileid: "64488787"
 ---
 # <a name="types"></a>类型
 
@@ -237,7 +237,7 @@ C# 支持两个浮点类型：`float`和`double`。 `float`和`double`类型都�
 
 标准之间不存在转换`bool`和其他类型。 具体而言，`bool`类型是不同，独立于整型类型和一个`bool`值不能代替整数值，反之亦然。
 
-在 C 和 c + + 语言中，零整型或浮点值或 null 指针可以转换为布尔值`false`，和一个非零的整数或浮点值或非 null 指针可以转换为布尔值`true`。 在 C# 中，都完成此类转换，通过显式地将整数或浮点数值为零，或通过显式比较的对象引用`null`。
+C 和C++语言、 零整型或浮点值或 null 指针可以转换为布尔值`false`，和一个非零的整数或浮点值或非 null 指针可以转换为布尔值`true`. 在 C# 中，都完成此类转换，通过显式地将整数或浮点数值为零，或通过显式比较的对象引用`null`。
 
 ### <a name="enumeration-types"></a>枚举类型
 
@@ -381,7 +381,7 @@ delegate_type
 
 委托是指一个或多个方法的数据结构。 对于实例方法，它还指其对应的对象实例。
 
-最接近的 C 或 c + + 中的委托是函数指针，但函数指针只能引用静态函数，而委托可以引用静态和实例方法。 在后一种情况下，委托不仅存储存储的引用方法的入口点，还对在其上调用该方法的对象实例的引用。
+最接近的委托中 C 或C++为函数指针，但函数指针只能引用静态函数，而委托可以引用静态和实例方法。 在后一种情况下，委托不仅存储存储的引用方法的入口点，还对在其上调用该方法的对象实例的引用。
 
 中介绍了委托类型[委托](delegates.md)。
 

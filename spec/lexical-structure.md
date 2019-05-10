@@ -1,3 +1,11 @@
+---
+ms.openlocfilehash: e103f6629a363c6cd76607699ff74d69aa73ed57
+ms.sourcegitcommit: 94a3d151c438d34ede1d99de9eb4ebdc07ba4699
+ms.translationtype: MT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 04/25/2019
+ms.locfileid: "64488972"
+---
 # <a name="lexical-structure"></a>词法结构
 
 ## <a name="programs"></a>Programs
@@ -818,7 +826,7 @@ right_shift_assignment
 
 ## <a name="pre-processing-directives"></a>预处理指令
 
-预处理指令提供有条件地跳过的源代码文件，报告错误和警告条件节以及描绘不同区域的源代码的能力。 术语"预处理指令"仅用于与 C 和 c + + 编程语言的一致性。 在 C# 中，没有任何单独的预处理步骤;预处理指令处理作为词法分析阶段的一部分。
+预处理指令提供有条件地跳过的源代码文件，报告错误和警告条件节以及描绘不同区域的源代码的能力。 术语"预处理指令"仅用于与 C 的一致性和C++编程语言。 在 C# 中，没有任何单独的预处理步骤;预处理指令处理作为词法分析阶段的一部分。
 
 ```antlr
 pp_directive

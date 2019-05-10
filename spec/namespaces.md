@@ -1,3 +1,11 @@
+---
+ms.openlocfilehash: 3232163ed91d9d8bb6b0babf94c4282bfd60976c
+ms.sourcegitcommit: 94a3d151c438d34ede1d99de9eb4ebdc07ba4699
+ms.translationtype: MT
+ms.contentlocale: zh-CN
+ms.lasthandoff: 04/25/2019
+ms.locfileid: "64488925"
+---
 # <a name="namespaces"></a>命名空间
 
 C# 程序的组织结构使用的命名空间。 使用命名空间为"内部"组织系统的程序，并作为"外部"组织系统 — 一种方法提供向其他程序公开的程序元素。

@@ -1,10 +1,10 @@
 ---
 ms.openlocfilehash: af7af574814dc04ee3ece0396b7ae5f86b3ec8eb
-ms.sourcegitcommit: 3fc033b6e98ed7ecdf46a85c79b00a3a3ddcf963
+ms.sourcegitcommit: 94a3d151c438d34ede1d99de9eb4ebdc07ba4699
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/18/2019
-ms.locfileid: "47229519"
+ms.lasthandoff: 04/25/2019
+ms.locfileid: "64488904"
 ---
 # <a name="classes"></a>类
 
@@ -2556,7 +2556,7 @@ class A
 
 方法重载决策规则所述[类型推理](expressions.md#type-inference)。
 
-## <a name="properties"></a>Properties
+## <a name="properties"></a>属性
 
 一个***属性***成员提供访问权限的对象或类的特征。 属性的示例包括字符串的长度，一种字体，窗口中，客户的名称的标题的大小等等。 属性是字段的自然扩展，都命名的成员与相关的类型，并且访问字段和属性的语法相同。 不过，与字段不同的是，属性不指明存储位置。 相反，属性包含***访问器***，用于指定在读取或写入属性值时要执行的语句。 因此，属性提供用于将操作与读取和写入对象的属性，则相关联的机制此外，不允许此类属性，将进行计算。
 
@@ -2887,7 +2887,7 @@ Console.Out.WriteLine("hello, world");
 
 自动属性还可以具有*property_initializer*，这将直接应用到为支持字段*variable_initializer* ([变量初始值设定项](classes.md#variable-initializers)).
 
-下面的示例：
+如下示例中：
 ```csharp
 public class Point {
     public int X { get; set; } = 0;
@@ -2904,7 +2904,7 @@ public class Point {
 }
 ```
 
-下面的示例：
+如下示例中：
 ```csharp
 public class ReadOnlyPoint
 {
@@ -3619,7 +3619,7 @@ class Test
 }
 ```
 
-请注意如何运算符方法将返回通过将 1 添加到的操作数，就像后缀递增而产生的值和递减运算符 ([后缀递增和递减运算符](expressions.md#postfix-increment-and-decrement-operators))，和前缀递增和递减运算符 ([前缀递增和递减运算符](expressions.md#prefix-increment-and-decrement-operators))。 不同于在 c + +，此方法需要不修改其操作数的值直接。 事实上，修改操作数的值违反了后缀递增运算符的标准语义。
+请注意如何运算符方法将返回通过将 1 添加到的操作数，就像后缀递增而产生的值和递减运算符 ([后缀递增和递减运算符](expressions.md#postfix-increment-and-decrement-operators))，和前缀递增和递减运算符 ([前缀递增和递减运算符](expressions.md#prefix-increment-and-decrement-operators))。 不同于在C++，此方法需要直接修改其操作数的值。 事实上，修改操作数的值违反了后缀递增运算符的标准语义。
 
 ### <a name="binary-operators"></a>二元运算符
 

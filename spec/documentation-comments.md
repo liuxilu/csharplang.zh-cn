@@ -1,10 +1,10 @@
 ---
 ms.openlocfilehash: c9f8417dc68153f02ceb72bb1d51f3615f3c4961
-ms.sourcegitcommit: 3fc033b6e98ed7ecdf46a85c79b00a3a3ddcf963
+ms.sourcegitcommit: 94a3d151c438d34ede1d99de9eb4ebdc07ba4699
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/18/2019
-ms.locfileid: "54272041"
+ms.lasthandoff: 04/25/2019
+ms.locfileid: "64488915"
 ---
 # <a name="documentation-comments"></a>文档注释
 
@@ -594,7 +594,7 @@ public List<T> FetchData<T>(string query) {
 
    | 字符 | __说明__                                             |
    |---------------|-------------------------------------------------------------|
-   | E             | 事件                                                       |
+   | E             | Event                                                       |
    | F             | 字段                                                       |
    | M             | 方法 （包括构造函数、 析构函数和运算符） |
    | N             | 命名空间                                                   |

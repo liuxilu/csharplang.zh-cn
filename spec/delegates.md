@@ -1,14 +1,14 @@
 ---
 ms.openlocfilehash: 08c14d9ef2afe30580f456995066c141653ede92
-ms.sourcegitcommit: 3fc033b6e98ed7ecdf46a85c79b00a3a3ddcf963
+ms.sourcegitcommit: 94a3d151c438d34ede1d99de9eb4ebdc07ba4699
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/18/2019
-ms.locfileid: "47229521"
+ms.lasthandoff: 04/25/2019
+ms.locfileid: "64488987"
 ---
 # <a name="delegates"></a>委托
 
-委托实现方案的其他语言，如 c + +、 Pascal 和 Modula-已，解决与函数指针。 与 c + + 函数指针不同，委托完全是面向对象的而且与 c + + 成员函数的指针，不同的委托封装的对象实例和方法。
+委托实现方案的其他语言，如C++，Pascal 和 Modula-已解决与函数指针。 不同于C++函数指针，但是，委托是完全面向对象的并且不同于C++指向成员函数，委托封装的对象实例和方法。
 
 在委托声明定义了从类派生一个类`System.Delegate`。 委托实例封装一个调用列表，这是一个或多个方法，其中每个被称为可调用实体的列表。 对于实例方法，可调用实体实例和包含该实例上的方法。 对于静态方法，可调用实体包含的只是一种方法。 调用具有一组适当的参数的委托实例会导致每个委托的可调用实体使用给定的参数集的调用。
 

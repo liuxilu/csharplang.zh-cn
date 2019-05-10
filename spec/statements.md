@@ -1,14 +1,14 @@
 ---
 ms.openlocfilehash: 8f9551b9e7f70379836c23a60f0d37dc02f8e18e
-ms.sourcegitcommit: 3fc033b6e98ed7ecdf46a85c79b00a3a3ddcf963
+ms.sourcegitcommit: 94a3d151c438d34ede1d99de9eb4ebdc07ba4699
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/18/2019
-ms.locfileid: "47229583"
+ms.lasthandoff: 04/25/2019
+ms.locfileid: "64488817"
 ---
 # <a name="statements"></a>语句
 
-C# 提供了各种不同的语句。 大多数这些语句将熟悉的开发人员可以在 C 和 c + + 中具有编程经验。
+C# 提供了各种不同的语句。 将熟悉的开发人员可以在 C 中是否具有编程经验的大部分这些语句和C++。
 
 ```antlr
 statement
@@ -474,7 +474,7 @@ default:
     break;
 }
 ```
-无效，因为没有开关部分具有可访问的终结点。 与 C 和 c + +，不同的开关部分的执行不允许使用以"贯穿"到下一步的开关部分和示例
+无效，因为没有开关部分具有可访问的终结点。 与 C 不同， C++，执行的开关部分不允许使用以"贯穿"到下一步的开关部分和示例
 ```csharp
 switch (i) {
 case 0:
@@ -517,7 +517,7 @@ default:
 ```
 是有效的。 该示例不违反"无贯穿"规则，因为标签`case 2:`并`default:`是属于同一*switch_section*。
 
-"无贯穿"规则将禁止在 C 和 c + + 中出现的 bug 的公共类时`break`语句无意中遗漏了。 此外，由于此规则的开关部分`switch`语句可以随意重新排列而不会影响该语句的行为。 例如，部分`switch`上述语句可反转而不会影响该语句的行为：
+"无贯穿"规则将禁止在 C 中出现的 bug 的公共类和C++时`break`语句会无意中遗漏了。 此外，由于此规则的开关部分`switch`语句可以随意重新排列而不会影响该语句的行为。 例如，部分`switch`上述语句可反转而不会影响该语句的行为：
 ```csharp
 switch (i) {
 default:

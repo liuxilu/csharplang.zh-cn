@@ -1,10 +1,10 @@
 ---
-ms.openlocfilehash: 67019511d49a786a5d6edf6fea442f745fc40f3f
-ms.sourcegitcommit: 0a80f26b8e455c4f09843a10e11e29c24d2d922e
+ms.openlocfilehash: 066c300d4c2baa8749e132730ecd48275e2957f7
+ms.sourcegitcommit: 94a3d151c438d34ede1d99de9eb4ebdc07ba4699
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/05/2019
-ms.locfileid: "57347269"
+ms.lasthandoff: 04/25/2019
+ms.locfileid: "64489002"
 ---
 # <a name="expressions"></a>表达式
 
@@ -1517,7 +1517,7 @@ base_access
 
 当*base_access*引用确定该函数在运行时调用的成员的虚函数成员 （方法、 属性或索引器），([编译时检查的动态重载决策](expressions.md#compile-time-checking-of-dynamic-overload-resolution)) 发生更改。 通过查找派生程度最高的实现来确定调用的函数成员 ([虚拟方法](classes.md#virtual-methods)) 的函数成员与`B`(而不是相对于的运行时类型`this`，作为是通常在非基本访问权限）。 因此，在`override`的`virtual`函数成员*base_access*可用于调用的函数成员的继承的实现。 如果引用的函数成员*base_access*是抽象的绑定时出错。
 
-### <a name="postfix-increment-and-decrement-operators"></a>后缀递增和递减运算符
+### <a name="postfix-increment-and-decrement-operators"></a>后缀增量和减量运算符
 
 ```antlr
 post_increment_expression
@@ -2159,7 +2159,7 @@ X`1[T]
 
 另请注意的结果`typeof(X<>)`不依赖于类型参数，但的结果`typeof(X<T>)`does。
 
-### <a name="the-checked-and-unchecked-operators"></a>Checked 和 unchecked 运算符
+### <a name="the-checked-and-unchecked-operators"></a>checked 和 unchecked 运算符
 
 `checked`并`unchecked`运算符用于控制***溢出检查上下文***整型类型算术运算和转换。
 
@@ -2478,7 +2478,7 @@ decimal operator +(decimal x);
 
 对于每个这些运算符，结果就是操作数的值。
 
-### <a name="unary-minus-operator"></a>一元负运算符
+### <a name="unary-minus-operator"></a>一元减法运算符
 
 有关操作的窗体`-x`，一元运算符重载决策 ([一元运算符重载决策](expressions.md#unary-operator-overload-resolution)) 应用以选择特定的运算符实现。 操作数转换为所选运算符的参数类型和结果的类型是运算符的返回类型。 预定义的求反运算符为：
 
@@ -2512,7 +2512,7 @@ decimal operator +(decimal x);
 
    通过减去计算结果`x`从零开始。 十进制求反运算等效于使用一元负运算符类型的`System.Decimal`。
 
-### <a name="logical-negation-operator"></a>逻辑求反运算符
+### <a name="logical-negation-operator"></a>逻辑非运算符
 
 有关操作的窗体`!x`，一元运算符重载决策 ([一元运算符重载决策](expressions.md#unary-operator-overload-resolution)) 应用以选择特定的运算符实现。 操作数转换为所选运算符的参数类型和结果的类型是运算符的返回类型。 只有一个预定义的逻辑求反运算符存在：
 ```csharp
@@ -3485,7 +3485,7 @@ E operator ^(E x, E y);
 
 计算结果`x op y`，其中`x`并`y`是枚举类型的表达式`E`与基础类型`U`，并`op`是一个逻辑运算符，是完全相同评估`(E)((U)x op (U)y)`。 换而言之，枚举类型的逻辑运算符只需执行两个操作数的基础类型上的逻辑操作。
 
-### <a name="boolean-logical-operators"></a>布尔逻辑运算符
+### <a name="boolean-logical-operators"></a>Boolean 逻辑运算符
 
 预定义的布尔逻辑运算符为：
 ```csharp

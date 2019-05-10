@@ -1,17 +1,17 @@
 ---
 ms.openlocfilehash: 75fcd5b00ea5cac218a9f7809c53b179df97825c
-ms.sourcegitcommit: 3fc033b6e98ed7ecdf46a85c79b00a3a3ddcf963
+ms.sourcegitcommit: 94a3d151c438d34ede1d99de9eb4ebdc07ba4699
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/18/2019
-ms.locfileid: "47229523"
+ms.lasthandoff: 04/25/2019
+ms.locfileid: "64488941"
 ---
 # <a name="exceptions"></a>Exceptions
 
-C# 中的异常提供结构化、 统一的和类型安全方式来处理系统级别和应用程序级别的错误条件。 在 C# 中的异常机制是非常类似于 c + +，有几个重要的区别：
+C# 中的异常提供结构化、 统一的和类型安全方式来处理系统级别和应用程序级别的错误条件。 中的异常机制C#是非常类似于C++，有几个重要的区别：
 
-*  在 C# 中，必须由派生自类类型的实例表示的所有异常`System.Exception`。 在 c + +，可以使用任何类型的任何值表示该异常。
-*  在 C# 中，finally 块 ([try 语句](statements.md#the-try-statement)) 可用于编写在正常执行和异常情况中执行的终止代码。 此类代码不易编写 c + + 中，无需复制代码。
+*  在 C# 中，必须由派生自类类型的实例表示的所有异常`System.Exception`。 在C++，可以使用任何类型的任何值，表示该异常。
+*  在 C# 中，finally 块 ([try 语句](statements.md#the-try-statement)) 可用于编写在正常执行和异常情况中执行的终止代码。 此类代码都很难编写C++无需复制代码。
 *  在 C# 中，系统级别的异常例如溢出、 被零除和 null 取消引用有明确定义的异常类，等同于应用程序级别的错误条件。
 
 ## <a name="causes-of-exceptions"></a>引发异常的原因
