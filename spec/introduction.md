@@ -1,10 +1,10 @@
 ---
-ms.openlocfilehash: 9a9baf63b83ae4eb8af0e3b8c65ed3256222f12f
-ms.sourcegitcommit: 94a3d151c438d34ede1d99de9eb4ebdc07ba4699
+ms.openlocfilehash: 201db57d243c9d0e22553366bc653d02e183aa4b
+ms.sourcegitcommit: 09e0ddec3bb6aa99b7340158bbac86a5a8243b43
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/25/2019
-ms.locfileid: "64488895"
+ms.lasthandoff: 05/24/2019
+ms.locfileid: "66193874"
 ---
 # <a name="introduction"></a>介绍
 
@@ -648,8 +648,7 @@ Pair<int,string> pair = new Pair<int,string> { First = 1, Second = "two" };
 int i = pair.First;     // TFirst is int
 string s = pair.Second; // TSecond is string
 ```
-泛型类型包含类型自变量，如`Pair<int,string>
-    `更高版本，称为构造的类型。
+泛型类型包含类型自变量，如`Pair<int,string>`更高版本，称为构造的类型。
 
 ### <a name="base-classes"></a>基类
 
@@ -1131,9 +1130,7 @@ C# 支持实例和静态构造函数。 ***实例构造函数***是实现初始�
 
 构造函数的声明方式与方法一样，都没有返回类型，且与所含类同名。 如果构造函数声明包含`static`修饰符，它声明了静态构造函数。 否则，声明的是实例构造函数。
 
-实例构造函数可以进行重载。 例如，`List<T>
-` 类声明两个实例构造函数：一个没有参数，另一个需要使用 `int` 参数。 实例构造函数使用 `new` 运算符进行调用。 以下语句分配两个`List<string>
-`实例使用的构造函数的每个`List`类。
+实例构造函数可以进行重载。 例如，`List<T>` 类声明两个实例构造函数：一个没有参数，另一个需要使用 `int` 参数。 实例构造函数使用 `new` 运算符进行调用。 以下语句分配两个`List<string>`实例使用的构造函数的每个`List`类。
 
 ```csharp
 List<string> list1 = new List<string>();
@@ -1151,8 +1148,7 @@ List<string> list2 = new List<string>(10);
 
 一个`set`访问器对应于一种方法具有一个名为的单个参数`value`且没有返回类型。 为作为赋值目标或的操作数时引用属性`++`或`--`，则`set`用提供的新值的参数调用访问器。
 
-`List<T>
-` 类声明以下两个属性：`Count` 和 `Capacity`（分别为只读和读写）。 下面的示例展示了如何使用这些属性。
+`List<T>` 类声明以下两个属性：`Count` 和 `Capacity`（分别为只读和读写）。 下面的示例展示了如何使用这些属性。
 
 ```csharp
 List<string> names = new List<string>();
@@ -1188,11 +1184,9 @@ for (int i = 0; i < names.Count; i++) {
 
 在声明事件成员的类中，事件的行为与委托类型的字段完全相同（前提是事件不是抽象的，且不声明访问器）。 字段存储对委托的引用，委托表示已添加到事件的事件处理程序。 如果没有事件处理程序，该字段是`null`。
 
-`List<T>
-` 类声明一个 `Changed` 事件成员，指明已向列表添加了新项。 `Changed`引发事件`OnChanged`虚拟方法，以便先检查是否`null`（这意味着没有处理程序是否存在）。 引发事件的概念恰恰等同于调用由事件表示的委托，因此，没有用于引发事件的特殊语言构造。
+`List<T>` 类声明一个 `Changed` 事件成员，指明已向列表添加了新项。 `Changed`引发事件`OnChanged`虚拟方法，以便先检查是否`null`（这意味着没有处理程序是否存在）。 引发事件的概念恰恰等同于调用由事件表示的委托，因此，没有用于引发事件的特殊语言构造。
 
-客户端通过***事件处理程序***响应事件。 使用 `+=` 和 `-=` 运算符分别可以附加和删除事件处理程序。 下面的示例展示了如何向 `List<string>
-` 的 `Changed` 事件附加事件处理程序。
+客户端通过***事件处理程序***响应事件。 使用 `+=` 和 `-=` 运算符分别可以附加和删除事件处理程序。 下面的示例展示了如何向 `List<string>` 的 `Changed` 事件附加事件处理程序。
 
 ```csharp
 using System;
@@ -1221,10 +1215,7 @@ class Test
 
 ***运算符***是定义向类实例应用特定表达式运算符的含义的成员。 可以定义三种类型的运算符：一元运算符、二元运算符和转换运算符。 所有运算符都必须声明为 `public` 和 `static`。
 
-`List<T>
-` 类声明两个运算符（`operator==` 和 `operator!=`），因此定义了向 `List` 实例应用这些运算符的表达式的新含义。 具体而言，这些运算符定义两个相等`List<T>
-`实例作为比较每个包含的对象使用其`Equals`方法。 下面的示例展示了如何使用 `==` 运算符比较两个 `List<int>
-` 实例。
+`List<T>` 类声明两个运算符（`operator==` 和 `operator!=`），因此定义了向 `List` 实例应用这些运算符的表达式的新含义。 具体而言，这些运算符定义两个相等`List<T>`实例作为比较每个包含的对象使用其`Equals`方法。 下面的示例展示了如何使用 `==` 运算符比较两个 `List<int>` 实例。
 
 ```csharp
 using System;
@@ -1245,9 +1236,7 @@ class Test
 }
 ```
 
-第一个 `Console.WriteLine` 输出 `True`，因为两个列表包含的对象不仅数量相同，而且值和顺序也相同。 如果 `List<T>
-` 未定义 `operator==`，那么第一个 `Console.WriteLine` 会输出 `False`，因为 `a` 和 `b` 引用不同的 `List<int>
-` 实例。
+第一个 `Console.WriteLine` 输出 `True`，因为两个列表包含的对象不仅数量相同，而且值和顺序也相同。 如果 `List<T>` 未定义 `operator==`，那么第一个 `Console.WriteLine` 会输出 `False`，因为 `a` 和 `b` 引用不同的 `List<int>` 实例。
 
 #### <a name="destructors"></a>析构函数
 

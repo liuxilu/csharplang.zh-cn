@@ -1,10 +1,10 @@
 ---
-ms.openlocfilehash: b7bb7dd575d9e2e6d5dd85bdd3e535411e29fcf4
-ms.sourcegitcommit: 94a3d151c438d34ede1d99de9eb4ebdc07ba4699
+ms.openlocfilehash: ff285fc202d14c2060c5f005c319c7886458a168
+ms.sourcegitcommit: 8152182f0a477cb3082e625b607262cc459a17f3
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/25/2019
-ms.locfileid: "64488867"
+ms.lasthandoff: 05/23/2019
+ms.locfileid: "66174234"
 ---
 # <a name="variables"></a>变量
 
@@ -574,7 +574,7 @@ class A
 *  明确赋值国*v*之前*expr_first*是明确的赋值状态的相同*v*之前*expr*。
 *  明确赋值国*v*之前*expr_second*是明确的赋值状态的相同*v*后*expr_first*。
 *  明确的赋值语句*v*后*expr*由：
-    * 如果*expr_first*是常量表达式 ([常量表达式](expressions.md#constant-expressions)) 具有值为 null，则状态*v*后*expr*相同状态*v*后*expr_second*。
+    * 如果*expr_first*是常量表达式 ([常量表达式](expressions.md#constant-expressions)) 的值为 null，则状态*v*后*expr*相同状态*v*后*expr_second*。
 *  否则为状态*v*后*expr*是明确的赋值状态的相同*v*后*expr_first*。
 
 #### <a name="-conditional-expressions"></a>？: （条件） 表达式

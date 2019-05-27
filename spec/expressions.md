@@ -1,10 +1,10 @@
 ---
-ms.openlocfilehash: 066c300d4c2baa8749e132730ecd48275e2957f7
-ms.sourcegitcommit: 94a3d151c438d34ede1d99de9eb4ebdc07ba4699
+ms.openlocfilehash: 130898a8b5a7b8eb986b314cb4cf78038e840b02
+ms.sourcegitcommit: 09e0ddec3bb6aa99b7340158bbac86a5a8243b43
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/25/2019
-ms.locfileid: "64489002"
+ms.lasthandoff: 05/24/2019
+ms.locfileid: "66193935"
 ---
 # <a name="expressions"></a>表达式
 
@@ -2489,7 +2489,7 @@ decimal operator +(decimal x);
    long operator -(long x);
    ```
 
-   通过减去计算结果`x`从零开始。 如果的值的`x`是最小的可表示的操作数类型值 (-2 ^31 个`int`或-2 ^63 有关`long`)，然后的算术求反`x`不能显示中的操作数类型。 如果发生此情况中`checked`上下文中，`System.OverflowException`引发; 如果它出现在`unchecked`上下文中，结果是操作数的值，并且不报告溢出。
+   通过减去计算结果`x`从零开始。 如果的值`x`是最小的可表示的操作数类型值 (-2 ^31 个`int`或-2 ^63 有关`long`)，然后的算术求反`x`不能显示中的操作数类型。 如果发生此情况中`checked`上下文中，`System.OverflowException`引发; 如果它出现在`unchecked`上下文中，结果是操作数的值，并且不报告溢出。
 
    求反运算符的操作数是否为类型`uint`，它将转换为类型`long`，并且结果的类型为`long`。 例外情况是规则，允许`int`值介于-2147483648 (-2 ^31) 写为十进制整数 ([整数文本](lexical-structure.md#integer-literals))。
 

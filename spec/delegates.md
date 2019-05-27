@@ -1,10 +1,10 @@
 ---
-ms.openlocfilehash: 08c14d9ef2afe30580f456995066c141653ede92
-ms.sourcegitcommit: 94a3d151c438d34ede1d99de9eb4ebdc07ba4699
+ms.openlocfilehash: 994b22f5375d57cfc4c7537c64345a27ddf3e416
+ms.sourcegitcommit: 09e0ddec3bb6aa99b7340158bbac86a5a8243b43
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/25/2019
-ms.locfileid: "64488987"
+ms.lasthandoff: 05/24/2019
+ms.locfileid: "66193882"
 ---
 # <a name="delegates"></a>委托
 
@@ -73,7 +73,7 @@ class B
 }
 ```
 
-方法`A.M1`并`B.M1 `与委托类型兼容`D1`和`D2`，因为它们具有相同的返回类型和参数列表; 但是，这些委托类型是两种不同类型，因此它们不是可互换。 方法`B.M2`， `B.M3`，并`B.M4`与委托类型不兼容`D1`和`D2`，因为它们具有不同的返回类型或参数列表。
+方法`A.M1`并`B.M1`与委托类型兼容`D1`和`D2`，因为它们具有相同的返回类型和参数列表; 但是，这些委托类型是两种不同类型，因此它们不是可互换。 方法`B.M2`， `B.M3`，并`B.M4`与委托类型不兼容`D1`和`D2`，因为它们具有不同的返回类型或参数列表。
 
 如其他泛型类型声明，必须提供类型参数以创建构造的委托类型。 通过将替换为在委托声明中，每个类型参数的构造的委托类型的相应类型参数创建的参数类型和构造的委托类型的返回类型。 生成的返回类型和参数类型用于确定使用哪些方法将与构造的委托类型兼容。 例如：
 

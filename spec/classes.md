@@ -1,10 +1,10 @@
 ---
-ms.openlocfilehash: af7af574814dc04ee3ece0396b7ae5f86b3ec8eb
-ms.sourcegitcommit: 94a3d151c438d34ede1d99de9eb4ebdc07ba4699
+ms.openlocfilehash: 917e2f1e196013f85eefbda21fb3d717cc681084
+ms.sourcegitcommit: 09e0ddec3bb6aa99b7340158bbac86a5a8243b43
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/25/2019
-ms.locfileid: "64488904"
+ms.lasthandoff: 05/24/2019
+ms.locfileid: "66193908"
 ---
 # <a name="classes"></a>类
 
@@ -1500,7 +1500,7 @@ namespace Program2
 这些限制确保所有线程观察易失性写入操作（由任何其他线程执行）时的观察顺序与写入操作的执行顺序一致。 符合标准的实现不需要提供的单一总排序的所有线程的执行中显示的易失性写入。 可变字段的类型必须是以下值之一：
 
 *  一个*reference_type*。
-*  类型`byte`， `sbyte`， `short`， `ushort`， `int`， `uint`， `char`， `float`， `bool`， `System.IntPtr`，或` System.UIntPtr`。
+*  类型`byte`， `sbyte`， `short`， `ushort`， `int`， `uint`， `char`， `float`， `bool`， `System.IntPtr`，或`System.UIntPtr`。
 *  *Enum_type*具有枚举基类型的`byte`， `sbyte`， `short`， `ushort`， `int`，或`uint`。
 
 该示例
