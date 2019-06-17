@@ -1,10 +1,10 @@
 ---
-ms.openlocfilehash: 61eeae6173eaa19f9cf6d6e985f3dc107d4c3ac9
-ms.sourcegitcommit: 94a3d151c438d34ede1d99de9eb4ebdc07ba4699
+ms.openlocfilehash: d082393a00496b948ad4e3ff9e135d94e89d2448
+ms.sourcegitcommit: 1a46441156b13db6c845f4bbb886284387d73023
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/25/2019
-ms.locfileid: "64488962"
+ms.lasthandoff: 06/13/2019
+ms.locfileid: "67047034"
 ---
 # <a name="conversions"></a>转换
 
@@ -47,7 +47,7 @@ int c = (int) b;    // explicit conversion from long to int
 
 标识转换将从任何类型转换为同一类型。 这样可以认为已具有所需的类型的实体可以转换为该类型已存在此转换。
 
-*  因为对象和动态被视为等效之间不存在标识转换`object`并`dynamic`，并替换的所有匹配项时都是相同的构造类型之间`dynamic`与`object`。
+*  因为`object`和`dynamic`被视为的等效标识转换之间`object`并`dynamic`，并替换的所有匹配项时都是相同的构造类型之间`dynamic`与`object`.
 
 ### <a name="implicit-numeric-conversions"></a>隐式数值转换
 
