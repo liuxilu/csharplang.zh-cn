@@ -1,17 +1,17 @@
 ---
-ms.openlocfilehash: 4e1534fc5523223042df468c4443a6722910543b
-ms.sourcegitcommit: 3fc033b6e98ed7ecdf46a85c79b00a3a3ddcf963
+ms.openlocfilehash: e56caa7b2fabb4b5ade242ec43f4592689e8ba3d
+ms.sourcegitcommit: 7f7fc6e9e195e51b7ff8229aeaa70aa9fbbb63cb
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/18/2019
-ms.locfileid: "47229506"
+ms.lasthandoff: 09/10/2019
+ms.locfileid: "70876825"
 ---
 <a name="c-language-specification"></a>C# 语言规范
 ===========================
 
-__版本 6__
+__版本6__
 
-这是为方便起见在此处发布的非官方草稿。 当我们提交给 ECMA （当前正在完成的 C# 5.0 Standard） 一个 C# 6.0 规范建议时，将此处共享。
+这是一种非正式草案，出于方便而发布。 当我们将C# 6.0 spec 提议提交给 ECMA 时，它将在此处共享。
 
 <!--
 (This document is also available for download: [csharp.pdf](CSharp%20Language%20Specification.pdf?raw=true) and [csharp.docx](CSharp%20Language%20Specification.docx?raw=true))
@@ -111,7 +111,7 @@ __版本 6__
     * [分部类型](classes.md#partial-types)
     * [类成员](classes.md#class-members)
     * [常量](classes.md#constants)
-    * [字段](classes.md#fields)
+    * [Fields](classes.md#fields)
     * [方法](classes.md#methods)
     * [属性](classes.md#properties)
     * [事件](classes.md#events)
@@ -155,7 +155,7 @@ __版本 6__
     * [System.Exception 类](exceptions.md#the-systemexception-class)
     * [异常的处理方式](exceptions.md#how-exceptions-are-handled)
     * [常见的异常类](exceptions.md#common-exception-classes)
-* [属性](attributes.md)
+* [特性](attributes.md)
     * [特性类](attributes.md#attribute-classes)
     * [特性规范](attributes.md#attribute-specification)
     * [特性实例](attributes.md#attribute-instances)
