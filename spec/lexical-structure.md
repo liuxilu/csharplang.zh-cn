@@ -1,10 +1,10 @@
 ---
-ms.openlocfilehash: 5fbe0267b5b33b1a24dbdca493d118c576092573
-ms.sourcegitcommit: 7f7fc6e9e195e51b7ff8229aeaa70aa9fbbb63cb
+ms.openlocfilehash: 4676bcd3f0a92260b4e5e20a0aa5b5ec00bf204e
+ms.sourcegitcommit: 892af9016b3317a8fae12d195014dc38ba51cf16
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/10/2019
-ms.locfileid: "70876915"
+ms.lasthandoff: 10/01/2019
+ms.locfileid: "71704074"
 ---
 # <a name="lexical-structure"></a>词法结构
 
@@ -382,7 +382,7 @@ boolean_literal
     ;
 ```
 
-*Boolean_literal*的类型为`bool`。
+*Boolean_literal*的类型为 `bool`。
 
 #### <a name="integer-literals"></a>整数文本
 
@@ -429,8 +429,8 @@ hex_digit
 
 若要允许尽可能`int`小的和`long`值写入为十进制整数文本，请满足以下两个规则：
 
-* 如果*decimal_integer_literal*的值为2147483648（2 ^ 31）且没有*integer_type_suffix*显示为紧跟一元减号运算符（[一元减号运算符](expressions.md#unary-minus-operator)）后面的标记，则结果为类型`int`的常量，其值为-2147483648 （-2 ^ 31）。 在所有其他情况下，此类*decimal_integer_literal*的类型`uint`为。
-* 如果*decimal_integer_literal*的值为9223372036854775808（2 ^ 63）且没有*integer_type_suffix*或*integer_type_suffix* `L` ，或`l`显示为紧跟一元减号后的标记，运算符标记（[一元减号运算符](expressions.md#unary-minus-operator)），结果为类型`long`的常量，其值为-9223372036854775808 （-2 ^ 63）。 在所有其他情况下，此类*decimal_integer_literal*的类型`ulong`为。
+* 当值为2147483648（2 ^ 31）且没有*integer_type_suffix*的*decimal_integer_literal*显示为紧跟一元减号运算符（[一元减号运算符](expressions.md#unary-minus-operator)）的标记时，结果为类型 `int` 的常量，其值为-2147483648 （-2 ^ 31）。 在所有其他情况下，此类*decimal_integer_literal*的类型为 `uint`。
+* 当具有值9223372036854775808（2 ^ 63）且没有*integer_type_suffix*或*integer_type_suffix* `L` 或 `l` 的*decimal_integer_literal*显示为紧跟一元减号运算符标记的标记后（[一元减号运算符](expressions.md#unary-minus-operator)），则结果为类型 `long`，其值为-9223372036854775808 （-2 ^ 63）。 在所有其他情况下，此类*decimal_integer_literal*的类型为 `ulong`。
 
 #### <a name="real-literals"></a>真实文本
 
@@ -459,7 +459,7 @@ real_type_suffix
     ;
 ```
 
-如果未指定*real_type_suffix* ，则真实文本的类型为`double`。 否则，实数类型后缀将确定真实文本的类型，如下所示：
+如果未指定*real_type_suffix* ，则真实文本的类型为 `double`。 否则，实数类型后缀将确定真实文本的类型，如下所示：
 
 *  用`F` `float`或`f`作为后缀的实文本的类型为。 例如`1f`，文本`float`、 `1.5f`、和`123.456F`都是类型。 `1e10f`
 *  用`D` `double`或`d`作为后缀的实文本的类型为。 例如`1d`，文本`double`、 `1.5d`、和`123.456D`都是类型。 `1e10d`
@@ -516,7 +516,7 @@ hexadecimal_escape_sequence
 |---------------------|--------------------|----------------------|
 | `\'`                | 单引号       | `0x0027`             | 
 | `\"`                | 双引号       | `0x0022`             | 
-| `\\`|反斜杠 |`0x005C`             | 
+| `\\`                | 反斜杠          | `0x005C`             | 
 | `\0`                | null               | `0x0000`             | 
 | `\a`                | 警报              | `0x0007`             | 
 | `\b`                | Backspace          | `0x0008`             | 
@@ -526,7 +526,7 @@ hexadecimal_escape_sequence
 | `\t`                | 水平制表符     | `0x0009`             | 
 | `\v`                | 垂直制表符       | `0x000B`             | 
 
-*Character_literal*的类型为`char`。
+*Character_literal*的类型为 `char`。
 
 #### <a name="string-literals"></a>字符串文本
 
@@ -575,7 +575,7 @@ quote_escape_sequence
     ;
 ```
 
-在 regular_string_literal_character 中的反斜杠字符（`\`）后面的字符必须是下列字符之一： `'`、 `"`、 `\`、 `0`、、 `b` `a`, `f`, `n`, `r`, `t`, `u`, `U`, `x`, `v`. 否则，将发生编译时错误。
+在*regular_string_literal_character*中反斜杠字符（`\`）后面的字符必须是下列字符之一： `'`、`"`、`\`、`0`、`a`、`b`、`f`、`n`、0 @no__tt-sql，3，4，5。 否则，将发生编译时错误。
 
 示例
 ```csharp
@@ -600,7 +600,7 @@ three";
 
 由于十六进制转义序列可以具有可变数量的十六进制数字，因此字符串文本`"\x123"`包含一个具有十六进制值123的单个字符。 若要创建一个字符串，该字符串包含的字符的十六进制值为12，后跟字符`"\x00123"` 3 `"\x12" + "3"` ，则可以写。
 
-*String_literal*的类型为`string`。
+*String_literal*的类型为 `string`。
 
 每个字符串文本不一定会生成新的字符串实例。 如果两个或更多的字符串文本在同一程序中出现，则根据字符串相等运算符（[字符串相等运算符](expressions.md#string-equality-operators)）进行等效时，这些字符串将引用相同的字符串实例。 例如，生成的输出
 ```csharp
@@ -782,7 +782,7 @@ single_verbatim_balanced_text_character
 
 *Interpolated_string_literal*标记作为多个标记和其他输入元素，按以下顺序出现在*interpolated_string_literal*中：
 
-* 以下各项分别重新解释为单独的`$`标记：前导 sign、 *interpolated_regular_string_whole*、 *interpolated_regular_string_start*、 *interpolated_regular_string_mid*、*interpolated_regular_string_end*、 *interpolated_verbatim_string_whole*、 *interpolated_verbatim_string_start*、 *interpolated_verbatim_string_mid*和*interpolated_verbatim_string_end*。
+* 以下各项分别重新解释为单独的标记：前导 `$` sign、 *interpolated_regular_string_whole*、 *interpolated_regular_string_start*、 *interpolated_regular_string_mid*、 *interpolated_regular_string_end*、 *interpolated_verbatim_string_whole*、 *interpolated_verbatim_string_start*、 *interpolated_verbatim_string_mid*和*interpolated_verbatim_string_end*。
 * 在这些*regular_balanced_text*和*verbatim_balanced_text*之间出现的情况被重新处理为*input_section* （[词法分析](lexical-structure.md#lexical-analysis)），并重新解释作为输入元素的结果序列。 这些转换可能会将内插字符串文本标记包含为重新解释。
 
 语法分析会将令牌重新组合到*interpolated_string_expression* （内[插的字符串](expressions.md#interpolated-strings)）。
@@ -1054,13 +1054,13 @@ not_number_sign
 
 *Pp_conditional*最多为常规词法处理选择一个包含的*conditional_section*：
 
-*  将按顺序计算`#if`和指令`#elif`的 pp_expression，直到有一个结果。  `true` 如果表达式生成`true`，则选择相应指令的*conditional_section* 。
-*  如果所有*pp_expression*均`false` `#else`为yield ，并且存在指令，则选择 指令的`#else` conditional_section。
+*  将按顺序计算 `#if` 和 @no__t 2 指令的*pp_expression*，直到其中一个结果 @no__t 为3。 如果表达式产生 `true`，则选择相应指令的*conditional_section* 。
+*  如果所有*pp_expression*都 `false`，并且 `#else` 指令存在，则选择 `#else` 指令的*conditional_section* 。
 *  否则，不会选择任何*conditional_section* 。
 
 所选的*conditional_section*（如果有）将作为一般*input_section*进行处理：节中包含的源代码必须符合词法语法;标记是从节中的源代码生成的;部分中的和预处理指令具有指定的效果。
 
-剩余的*conditional_section*（如果有）将被处理为*skipped_section*s：除预处理指令以外，部分中的源代码无需遵守词法语法;不会从该部分中的源代码生成任何标记;部分中的和预处理指令必须在词法上是正确的，但不会进行处理。 在处理为*skipped_section*的*conditional_section*中，任何嵌套的*conditional_section*（包含在嵌套`#if`.。。`#endif` and ...`#region`构造）也作为 skipped_section 处理。  `#endregion`
+剩余的*conditional_section*（如果有）将被处理为*skipped_section*s：除预处理指令以外，部分中的源代码无需遵守词法语法;不会从该部分中的源代码生成任何标记;部分中的和预处理指令必须在词法上是正确的，但不会进行处理。 在处理为*skipped_section*的*conditional_section*中，任何嵌套的*conditional_section*（包含在嵌套 `#if` @no__t ... `#endregion` 和 `#region` ...-6 构造）中也作为*skipped_ 处理节*。
 
 下面的示例说明了条件编译指令如何嵌套：
 ```csharp
@@ -1115,7 +1115,7 @@ class Hello
 }
 ```
 输出结果为：
-```
+```console
 hello,
 #if Debug
         world
@@ -1160,7 +1160,7 @@ pp_message
 
 class Test {...}
 ```
-始终产生警告（"签入前需要代码评审"），并且如果同时定义了条件符号`Debug`和`Retail` ，则生成编译时错误（"a build 不能同时为调试和零售"）。 请注意， *pp_message*可以包含任意文本;具体而言，它不需要包含格式正确的标记，如单词`can't`中的单引号所示。
+始终产生警告（"签入前需要代码评审"），并且如果同时定义了条件符号`Debug`和`Retail` ，则生成编译时错误（"a build 不能同时为调试和零售"）。 请注意， *pp_message*可以包含任意文本;具体而言，它不需要包含格式正确的标记，如单词 `can't` 中的单引号所示。
 
 ### <a name="region-directives"></a>区域指令
 
@@ -1180,7 +1180,7 @@ pp_end_region
     ;
 ```
 
-无语义含义附加到区域;区域旨在供程序员或自动工具用来标记源代码的一部分。 `#region` 或`#endregion`指令中指定的消息同样没有语义含义; 它仅用于标识区域。 匹配`#region`的`#endregion`和指令可能具有不同的*pp_message*。
+无语义含义附加到区域;区域旨在供程序员或自动工具用来标记源代码的一部分。 `#region` 或`#endregion`指令中指定的消息同样没有语义含义; 它仅用于标识区域。 匹配 `#region` 和 `#endregion` 指令可能具有不同的*pp_message*。
 
 区域的词法处理：
 ```csharp
@@ -1222,7 +1222,7 @@ file_name_character
     ;
 ```
 
-当不`#line`存在任何指令时，编译器会在其输出中报告真实的行号和源文件名。 当处理`#line`包含不`default`是的*line_indicator*的指令时，编译器会将指令后的行视为具有给定的行号（和文件名，如果指定）。
+当不`#line`存在任何指令时，编译器会在其输出中报告真实的行号和源文件名。 当处理包含不 `default` 的*line_indicator*的 @no__t 0 指令时，编译器会将指令后的行视为具有给定的行号（和文件名，如果指定）。
 
 `#line default`指令反转所有前面 #line 指令的作用。 编译器会报告后续行的真实行信息，就像未`#line`处理过指令一样。
 

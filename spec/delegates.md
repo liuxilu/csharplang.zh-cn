@@ -1,22 +1,22 @@
 ---
-ms.openlocfilehash: 994b22f5375d57cfc4c7537c64345a27ddf3e416
-ms.sourcegitcommit: 09e0ddec3bb6aa99b7340158bbac86a5a8243b43
+ms.openlocfilehash: d162d4b6a489032dcdfca9094a39d88fd03d4013
+ms.sourcegitcommit: 892af9016b3317a8fae12d195014dc38ba51cf16
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/24/2019
-ms.locfileid: "66193882"
+ms.lasthandoff: 10/01/2019
+ms.locfileid: "71704097"
 ---
 # <a name="delegates"></a>委托
 
-委托实现方案的其他语言，如C++，Pascal 和 Modula-已解决与函数指针。 不同于C++函数指针，但是，委托是完全面向对象的并且不同于C++指向成员函数，委托封装的对象实例和方法。
+委托可实现其他语言（例如C++，Pascal 和 Modula）使用函数指针进行寻址的方案。 但C++与函数指针不同，委托是完全面向对象的，不同C++于指向成员函数的指针，委托封装对象实例和方法。
 
-在委托声明定义了从类派生一个类`System.Delegate`。 委托实例封装一个调用列表，这是一个或多个方法，其中每个被称为可调用实体的列表。 对于实例方法，可调用实体实例和包含该实例上的方法。 对于静态方法，可调用实体包含的只是一种方法。 调用具有一组适当的参数的委托实例会导致每个委托的可调用实体使用给定的参数集的调用。
+委托声明定义派生自类 `System.Delegate` 的类。 委托实例封装一个调用列表，它是一个或多个方法的列表，其中每个方法都称为可调用实体。 对于实例方法，可调用实体包含实例和该实例上的方法。 对于静态方法，可调用实体仅包含方法。 使用适当的参数集调用委托实例会导致使用给定的参数集调用每个委托的可调用实体。
 
-委托实例的一个有趣且有用的属性是它不会知道或关心封装; 方法的类最重要的就是这些方法为兼容 ([委托声明](delegates.md#delegate-declarations)) 与委托的类型。 这样，非常适合于"匿名"调用的委托。
+委托实例的一个有趣且有用的属性是它不知道或关心它所封装的方法的类;重要的是，这些方法与委托的类型兼容（[委托声明](delegates.md#delegate-declarations)）。 这使委托非常适合用于 "匿名" 调用。
 
 ## <a name="delegate-declarations"></a>委托声明
 
-一个*delegate_declaration*是*type_declaration* ([类型声明](namespaces.md#type-declarations))，其用于声明新的委托类型。
+*Delegate_declaration*是声明新委托类型的*type_declaration* （[类型声明](namespaces.md#type-declarations)）。
 
 ```antlr
 delegate_declaration
@@ -35,23 +35,23 @@ delegate_modifier
     ;
 ```
 
-它是在委托声明中多次出现同一修饰符的编译时错误。
+同一修饰符在一个委托声明中多次出现是编译时错误。
 
-`new`修饰符仅允许在委托声明中另一种类型，它指定此类委托在这种情况下隐藏继承的成员通过相同的名称，如中所述[的新修饰符](classes.md#the-new-modifier)。
+仅允许在另一种类型中声明的委托上使用 `new` 修饰符，在这种情况下，它指定此类委托隐藏同名的继承成员，如[new 修饰符](classes.md#the-new-modifier)中所述。
 
-`public`， `protected`， `internal`，和`private`修饰符控制委托类型的可访问性。 具体取决于与委托声明发生的上下文，其中某些修饰符可能不允许使用 ([声明可访问性](basic-concepts.md#declared-accessibility))。
+@No__t-0、`protected`、@no__t 和 @no__t 修饰符控制委托类型的可访问性。 根据委托声明发生的上下文，可能无法使用其中某些修饰符（[声明的可访问性](basic-concepts.md#declared-accessibility)）。
 
-委托的类型名称是*标识符*。
+委托的类型名称为*标识符*。
 
-可选*formal_parameter_list*指定的参数的委托，并*return_type*指示委托的返回类型。
+可选的*formal_parameter_list*指定委托的参数， *return_type*指示委托的返回类型。
 
-可选*variant_type_parameter_list* ([变体类型的参数列表](interfaces.md#variant-type-parameter-lists)) 指定自身的委托的类型参数。
+可选的*variant_type_parameter_list* （[变体类型参数列表](interfaces.md#variant-type-parameter-lists)）指定委托本身的类型参数。
 
-委托类型的返回类型必须是`void`，或输出安全 ([变体安全](interfaces.md#variance-safety))。
+委托类型的返回类型必须是 `void` 或输出安全（[差异安全](interfaces.md#variance-safety)）。
 
-所有委托类型的正式参数类型必须都是输入安全。 此外，如果`out`或`ref`参数类型还必须是安全的输出。 请注意，甚至`out`参数需是输入安全的由于基础执行平台的限制。
+委托类型的所有形参类型都必须为输入安全类型。 此外，任何 @no__t 0 或 @no__t 参数类型也必须是输出安全类型。 请注意，由于基础执行平台受到限制，因此即使 @no__t 参数是输入安全的，也是必需的。
 
-等效的而不是结构等效的 C# 中的委托类型是名称。 具体而言，具有相同的参数的两种不同的委托类型列出并返回类型被视为不同的委托类型。 但是，两个不同但结构等效的委托类型的实例可能会比较结果相等 ([委托相等运算符](expressions.md#delegate-equality-operators))。
+中的C#委托类型是等效的名称，而不是结构上等效的。 具体而言，具有相同参数列表和返回类型的两个不同的委托类型被视为不同的委托类型。 不过，两个不同但结构等效的委托类型的实例可以比较为等于（[委托相等运算符](expressions.md#delegate-equality-operators)）。
 
 例如：
 
@@ -73,9 +73,9 @@ class B
 }
 ```
 
-方法`A.M1`并`B.M1`与委托类型兼容`D1`和`D2`，因为它们具有相同的返回类型和参数列表; 但是，这些委托类型是两种不同类型，因此它们不是可互换。 方法`B.M2`， `B.M3`，并`B.M4`与委托类型不兼容`D1`和`D2`，因为它们具有不同的返回类型或参数列表。
+@No__t-0 和 `B.M1` 的方法与委托类型 `D1` 和 @no__t 都兼容，因为它们具有相同的返回类型和参数列表;不过，这些委托类型是两种不同的类型，因此它们不能互换。 @No__t-0、`B.M3` 和 `B.M4` 的方法与委托 @no__t 类型不兼容，因为它们具有不同 @no__t 的返回类型或参数列表。
 
-如其他泛型类型声明，必须提供类型参数以创建构造的委托类型。 通过将替换为在委托声明中，每个类型参数的构造的委托类型的相应类型参数创建的参数类型和构造的委托类型的返回类型。 生成的返回类型和参数类型用于确定使用哪些方法将与构造的委托类型兼容。 例如：
+与其他泛型类型声明一样，必须提供类型参数来创建构造的委托类型。 构造委托类型的参数类型和返回类型是通过将委托声明中的每个类型参数替换为构造委托类型的相应类型参数来创建的。 生成的返回类型和参数类型用于确定哪些方法与构造的委托类型兼容。 例如：
 
 ```csharp
 delegate bool Predicate<T>(T value);
@@ -87,17 +87,17 @@ class X
 }
 ```
 
-该方法`X.F`委托类型与兼容`Predicate<int>`和方法`X.G`与委托类型兼容`Predicate<string>`。
+方法 `X.F` 与委托类型 `Predicate<int>` 兼容，方法 `X.G` 与委托类型 `Predicate<string>` 兼容。
 
-声明委托类型的唯一方法是通过*delegate_declaration*。 委托类型是派生自的类类型`System.Delegate`。 委托类型是隐式`sealed`，因此不允许从委托类型派生的任何类型。 此外，也不允许派生类非委托类型从`System.Delegate`。 请注意，`System.Delegate`是委托类型本身不; 它是所有委托类型都派生的类类型。
+声明委托类型的唯一方法是通过*delegate_declaration*。 委托类型是派生自 @no__t 0 的类类型。 委托类型隐式 `sealed`，因此不允许从委托类型派生任何类型。 也不允许从 @no__t 派生非委托类类型。 请注意，`System.Delegate` 本身不是委托类型;它是派生所有委托类型的类类型。
 
-C# 提供特殊语法委托实例化和调用。 实例化，除了可以应用于类或类实例的任何操作可以也应用于委托类或实例，分别。 具体而言，就可以访问的成员`System.Delegate`通过常用的成员访问语法类型。
+C#提供委托实例化和调用的特殊语法。 除实例化外，可以应用于类或类实例的任何操作也可以分别应用于委托类或实例。 具体而言，可以通过常规成员访问语法来访问 `System.Delegate` 类型的成员。
 
-委托实例封装的方法集称为一个调用列表。 创建委托实例时 ([委托兼容性](delegates.md#delegate-compatibility)) 的单个方法，它封装此方法，并且其调用列表中包含只有一个条目。 但是，当组合两个非 null 委托实例时，它们的调用列表串联起来，-顺序从左操作数，则右操作数-以形成新的调用列表，其中包含两个或多个条目。
+委托实例封装的方法集称为调用列表。 当从单个方法创建委托实例（[委托兼容性](delegates.md#delegate-compatibility)）时，它会封装该方法，并且它的调用列表只包含一个条目。 但是，如果两个非 null 委托实例组合在一起，则会将其调用列表串联在顺序左操作数和右操作数之间，以形成包含两个或多个条目的新调用列表。
 
-使用二进制组合委托`+`([加法运算符](expressions.md#addition-operator)) 和`+=`运算符 ([复合赋值](expressions.md#compound-assignment))。 委托可以从委托，使用二进制文件的组合`-`([减法运算符](expressions.md#subtraction-operator)) 和`-=`运算符 ([复合赋值](expressions.md#compound-assignment))。 委托可以比较它们是否相等 ([委托相等运算符](expressions.md#delegate-equality-operators))。
+使用二进制 `+` （[加法运算符](expressions.md#addition-operator)）和 `+=` 运算符（[复合赋值](expressions.md#compound-assignment)）组合委托。 可以使用二进制 `-` （[减法运算符](expressions.md#subtraction-operator)）和 `-=` 运算符（[复合赋值](expressions.md#compound-assignment)）从委托组合中删除委托。 可以比较委托是否相等（[委托相等运算符](expressions.md#delegate-equality-operators)）。
 
-下面的示例演示实例化多个委托，并列出其对应的调用：
+下面的示例演示了多个委托的实例化及其相应的调用列表：
 
 ```csharp
 delegate void D(int x);
@@ -122,24 +122,24 @@ class Test
 }
 ```
 
-当`cd1`和`cd2`是实例化，它们分别封装一个方法。 当`cd3`是实例化，它具有两种方法的调用列表`M1`和`M2`按顺序。 `cd4`调用列表包含`M1`， `M2`，和`M1`按顺序。 最后，`cd5`的调用列表包含`M1`， `M2`， `M1`， `M1`，并`M2`按顺序。 组合 （也为删除） 委托的更多示例，请参阅[委托调用](delegates.md#delegate-invocation)。
+当 `cd1` 并实例化 `cd2` 时，它们将封装一个方法。 在实例化 `cd3` 时，它具有两个方法的调用列表，`M1` 和 `M2`，按顺序排列。 @no__t 的调用列表以该顺序包含 `M1`、@no__t 和 @no__t。 最后，@no__t 0 的调用列表包含 `M1`、`M2`、`M1`、@no__t 和 @no__t，按顺序排列。 有关组合（以及删除）委托的更多示例，请参阅[委托调用](delegates.md#delegate-invocation)。
 
 ## <a name="delegate-compatibility"></a>委托兼容性
 
-方法或委托`M`是***兼容***与委托类型`D`如果满足所有以下：
+如果满足以下所有条件，则方法或委托 `M` 与委托类型 `D`***兼容***：
 
-*  `D` 并`M`具有相同数目的参数，以及在每个参数`D`具有相同`ref`或`out`与中的相应参数的修饰符`M`。
-*  对于每个值参数 (不带参数`ref`或`out`修饰符)，标识转换 ([标识转换](conversions.md#identity-conversion)) 或隐式引用转换 ([隐式引用转换](conversions.md#implicit-reference-conversions))存在从中的参数类型`D`中的相应参数类型为`M`。
-*  每个`ref`或`out`中的参数，参数类型`D`中的参数类型与相同`M`。
-*  存在从的返回类型的标识或隐式引用转换`M`的返回类型为`D`。
+*  @no__t 0 和 `M` 具有相同数量的参数，`D` 中的每个参数都具有与 `M` 中的相应参数相同的 @no__t 或 @no__t 修饰符修饰符。
+*  对于每个值参数（不带 @no__t 0 或 @no__t 修饰符的参数），将从 `D` 到中的参数类型存在标识转换（[标识转换](conversions.md#identity-conversion)）或隐式引用转换（[隐式引用转换](conversions.md#implicit-reference-conversions)）@no__t 中的相应参数类型。
+*  对于每个 @no__t 0 或 `out` 参数，`D` 中的参数类型与 `M` 中的参数类型相同。
+*  存在从 `M` 到 @no__t 的返回类型的返回类型的标识或隐式引用转换。
 
 ## <a name="delegate-instantiation"></a>委托实例化
 
-通过创建委托的实例*delegate_creation_expression* ([委托创建表达式](expressions.md#delegate-creation-expressions)) 或转换为委托类型。 为然后引用新创建的委托实例：
+委托的实例是由*delegate_creation_expression* （[委托创建表达式](expressions.md#delegate-creation-expressions)）或到委托类型的转换创建的。 然后，新创建的委托实例指的是：
 
-*  中引用的静态方法*delegate_creation_expression*，或
-*  目标对象 (这不能`null`) 和实例方法中引用*delegate_creation_expression*，或
-*  另一个委托。
+*  *Delegate_creation_expression*中引用的静态方法，或
+*  *Delegate_creation_expression*中引用的目标对象（不能是 `null`）和实例方法，或
+*  其他委托。
 
 例如：
 
@@ -163,19 +163,19 @@ class Test
 }
 ```
 
-实例化后，委托实例始终引用相同的目标对象和方法。 请记住，当结合使用两个委托，或一个已从另一种，使用它自己的调用列表; 的新委托结果合并或移除的委托的调用列表将保持不变。
+实例化后，委托实例始终引用相同的目标对象和方法。 请记住，当合并两个委托或从另一个委托移除时，将使用其自己的调用列表生成新的委托结果;合并或移除的委托的调用列表保持不变。
 
 ## <a name="delegate-invocation"></a>委托调用
 
-C# 提供特殊的语法调用委托。 当调用其调用列表包含一项的非 null 委托实例时，它调用具有它提供，并返回相同的值均与相同的参数的方法到方法。 (请参阅[委托调用](expressions.md#delegate-invocations)的委托调用的详细信息。)如果此类委托的调用期间发生异常，并且未调用的方法中捕获该异常，就像已直接调用该方法，该异常的 catch 子句的搜索将继续在调用该委托的方法方法的委托到的引用。
+C#提供调用委托的特殊语法。 当调用列表包含一个项的非 null 委托实例调用时，它将调用一个方法，该方法具有给定的参数，并返回与被引用方法相同的值。 （有关委托调用的详细信息，请参阅[委托调用](expressions.md#delegate-invocations)。）如果在调用此类委托的过程中发生异常，且未在调用的方法中捕获该异常，则会在调用委托的方法中继续搜索异常 catch 子句，就好像该方法直接调用了委托引用的方法。
 
-通过调用每个调用列表中的方法以同步方式，按顺序将继续对其调用列表包含多个条目的委托实例的调用。 所谓的每个方法传递一组相同的参数与提供给委托实例。 如果此类委托调用包括引用参数 ([引用参数](classes.md#reference-parameters))，每个方法调用都将使用相同的变量的引用; 将更改该变量的调用列表中的另一种方法到后面的方法调用列表中向下可见。 如果委托调用包含输出参数或返回值，其最终值将来自列表中的最后一个委托的调用。
+调用列表中包含多个项的委托实例的调用将按顺序同步调用调用列表中的每个方法。 调用的每个方法都被传递给为委托实例指定的相同的一组参数。 如果此类委托调用包括引用参数（[引用参数](classes.md#reference-parameters)），则将发生每个方法调用，同时引用同一变量;调用列表中的方法对该变量所做的更改将对调用列表中的方法可见。 如果委托调用包含输出参数或返回值，则其最终值将来自列表中最后一个委托的调用。
 
-如果在处理此类委托的调用期间发生异常，并且未调用的方法中捕获该异常，该异常的 catch 子句的搜索将继续中调用该委托的方法和任何方法的后面部分不会调用调用列表。
+如果在处理此类委托的调用过程中发生异常，且未在调用的方法中捕获该异常，则会在调用委托的方法中继续执行异常 catch 子句的搜索，并使任何方法不会调用调用列表。
 
-尝试调用的委托实例，其值为 null 类型的异常将导致`System.NullReferenceException`。
+尝试调用值为 null 的委托实例会导致类型 @no__t 为异常。
 
-下面的示例演示如何实例化、 合并、 删除和调用委托：
+下面的示例演示如何实例化、组合、移除和调用委托：
 
 ```csharp
 using System;
@@ -238,13 +238,13 @@ class Test
 }
 ```
 
-该语句中所示`cd3 += cd1;`，多个时间时，可调用列表中出现一个委托。 在这种情况下，它是只需调用一次每个匹配项。 在这样的调用列表，删除该委托，调用列表中的最后一个匹配项是实际删除。
+如语句 `cd3 += cd1;` 中所示，一个委托可以在调用列表中多次出现。 在这种情况下，它只会在每次出现时调用一次。 在此类调用列表中，移除该委托时，调用列表中的最后一个匹配项将被实际删除。
 
-最后一条语句执行之前立即`cd3 -= cd1;`，该委托`cd3`引用了一个空的调用列表。 尝试从空白列表删除委托 （或从非空列表中删除不存在委托） 不是错误。
+在执行最后一个语句 `cd3 -= cd1;` 之前，委托 `cd3` 表示空调用列表。 尝试从空列表中删除委托（或从非空列表中删除不存在的委托）不是错误。
 
-生成的输出是：
+生成的输出为：
 
-```
+```console
 C.M1: -1
 C.M2: -2
 C.M1: 10

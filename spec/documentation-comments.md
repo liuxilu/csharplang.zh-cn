@@ -1,10 +1,10 @@
 ---
-ms.openlocfilehash: adf81842e3c763c7bbdd3f10bb884dc1207b9099
-ms.sourcegitcommit: 0489cb64b7dfb328813d757f4d447a15b85a5851
+ms.openlocfilehash: 2026fc1bf9d3576b967cbc2e9a670aa44b7eab3a
+ms.sourcegitcommit: 892af9016b3317a8fae12d195014dc38ba51cf16
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/11/2019
-ms.locfileid: "70912439"
+ms.lasthandoff: 10/01/2019
+ms.locfileid: "71704025"
 ---
 # <a name="documentation-comments"></a>文档注释
 
@@ -28,7 +28,7 @@ delimited_doc_comment
     ;
 ```
 
-在*single_line_doc_comment*中，如果在与当前*single_line_doc_comment*相邻的每`///`个*single_line_doc_comment*上的字符后面有一个*空格*字符，则该XML 输出中不包含空格字符。
+在*single_line_doc_comment*中，如果在与当前*single_line_doc_comment*相邻的每个*single_line_doc_comment*上 @no__t 的第2个字符后面有一个*空格*字符，则该*空格*不在 XML 输出中包含字符。
 
 在分隔的文档注释中，如果第二行中的第一个非空白字符为星号并且具有相同的可选空白字符模式，并且在分隔的文档注释中每一行的开头重复星号字符，然后，XML 输出中不包括重复模式的字符。 此模式可能包含后面和星号字符后面的空白字符。
 
@@ -186,7 +186,7 @@ public class DataBaseOperations
 
 __语法__
 
-```
+```xml
 <include file="filename" path="xpath" />
 ```
 

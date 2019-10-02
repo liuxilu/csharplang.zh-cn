@@ -1,10 +1,10 @@
 ---
-ms.openlocfilehash: 8bc4bf6310fb8a8457beee167f18d30aaca10a8e
-ms.sourcegitcommit: 7f7fc6e9e195e51b7ff8229aeaa70aa9fbbb63cb
+ms.openlocfilehash: 300d5fc2a2fadd98472d73c122226146605b01dd
+ms.sourcegitcommit: 892af9016b3317a8fae12d195014dc38ba51cf16
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/10/2019
-ms.locfileid: "70876889"
+ms.lasthandoff: 10/01/2019
+ms.locfileid: "71703993"
 ---
 # <a name="introduction"></a>介绍
 
@@ -36,11 +36,11 @@ class Hello
 ```
 
 C# 源文件的文件扩展名通常为 `.cs`。 假设 "Hello，World" 程序存储在文件`hello.cs`中，则可以使用命令行通过 Microsoft C#编译器编译该程序
-```
+```console
 csc hello.cs
 ```
 这会生成一个名为`hello.exe`的可执行程序集。 此应用程序在运行时生成的输出为
-```
+```console
 Hello, World
 ```
 
@@ -91,7 +91,7 @@ namespace Acme.Collections
 ```
 在名`Stack` `Acme.Collections`为的命名空间中声明一个名为的类。 此类的完全限定的名称为 `Acme.Collections.Stack`。 此类包含多个成员：一个 `top` 字段、两个方法（`Push` 和 `Pop`）和一个 `Entry` 嵌套类。 `Entry` 类还包含三个成员：一个 `next` 字段、一个 `data` 字段和一个构造函数。 假定示例的源代码存储在 `acme.cs` 文件中，以下命令行
 
-```
+```console
 csc /t:library acme.cs
 ```
 将示例编译成库（不含 `Main` 入口点的代码），并生成 `acme.dll` 程序集。
@@ -119,12 +119,12 @@ class Test
 ```
 如果程序`test.cs`存储在文件中，则编译时`test.cs` ， `acme.dll`可以使用编译器的`/r`选项来引用程序集：
 
-```
+```console
 csc /r:acme.dll test.cs
 ```
 这会创建 `test.exe` 可执行程序集，它将在运行时输出以下内容：
 
-```
+```console
 100
 10
 1
