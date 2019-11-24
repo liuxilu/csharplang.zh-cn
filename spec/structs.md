@@ -12,7 +12,7 @@ ms.locfileid: "71704031"
 
 结构对包含值语义的小型数据结构特别有用。 复数、坐标系中的点或字典中的键值对都是结构的典型示例。 这些数据结构的关键在于它们有少量的数据成员，它们不需要使用继承或引用标识，并且可以使用赋值语义方便地实现这些数据结构，赋值将复制值而不是引用。
 
-如[简单类型](types.md#simple-types)中所述，提供的简单类型C#（如 `int`、`double` 和 @no__t）实际上都是所有结构类型。 正如这些预定义类型是结构一样，还可以使用结构和运算符重载来实现语言的C#新 "基元" 类型。 本章末尾提供了两种类型的示例（[结构示例](structs.md#struct-examples)）。
+如[简单类型](types.md#simple-types)中所述，提供的简单类型C#（如 `int`、`double`和 `bool`）实际上都是所有结构类型。 正如这些预定义类型是结构一样，还可以使用结构和运算符重载来实现语言的C#新 "基元" 类型。 本章末尾提供了两种类型的示例（[结构示例](structs.md#struct-examples)）。
 
 ## <a name="struct-declarations"></a>结构声明
 
@@ -25,7 +25,7 @@ struct_declaration
     ;
 ```
 
-*Struct_declaration*包含一组可选的*属性*（[属性](attributes.md)），后跟一组可选的*struct_modifier*s （[结构修饰符](structs.md#struct-modifiers)），后跟一个可选的 `partial` 修饰符，后面是关键字 `struct` 和一个命名该结构的*标识符*，后跟可选的*Type_parameter_list*规范（[类型参数](classes.md#type-parameters)），后跟可选的*struct_interfaces*规范（[Partial修饰符](structs.md#partial-modifier)）），后跟一个可选的*type_parameter_constraints_clause*s 规范（[类型参数约束](classes.md#type-parameter-constraints)），后跟一个*struct_body* （[struct 体](structs.md#struct-body)），后跟一个分号。
+*Struct_declaration*包含一组可选的*特性*（[特性](attributes.md)），后跟一组可选的*struct_modifier*s （[结构修饰符](structs.md#struct-modifiers)），后跟一个可选的 `partial` 修饰符 `struct`，然后是一个可选的修饰符，后面跟一个可选的修饰符，然后是一个命名该结构的*标识符*（[类型参数](classes.md#type-parameters)），后跟可选的 type_parameter_list 规范（ [Partial 修饰符](structs.md#partial-modifier)）），后跟一个可选的*type_parameter_constraints_clause*s 规范（[类型参数约束](classes.md#type-parameter-constraints)），后跟一个*struct_body* （[结构体](structs.md#struct-body)），后面可以跟一个分号。
 
 ### <a name="struct-modifiers"></a>结构修饰符
 
@@ -48,7 +48,7 @@ struct_modifier
 
 ### <a name="partial-modifier"></a>Partial 修饰符
 
-@No__t-0 修饰符指示此*struct_declaration*是分部类型声明。 在封闭命名空间或类型声明中具有相同名称的多个分部结构声明组合在一起，并遵循在[部分类型](classes.md#partial-types)中指定的规则组成一个结构声明。
+`partial` 修饰符指示此*struct_declaration*为分部类型声明。 在封闭命名空间或类型声明中具有相同名称的多个分部结构声明组合在一起，并遵循在[部分类型](classes.md#partial-types)中指定的规则组成一个结构声明。
 
 ### <a name="struct-interfaces"></a>结构接口
 
@@ -101,9 +101,9 @@ struct_member_declaration
 *  结构是值类型（[值语义](structs.md#value-semantics)）。
 *  所有结构类型均隐式继承自类 `System.ValueType` （[继承](structs.md#inheritance)）。
 *  对结构类型的变量赋值会创建所赋的值（[赋值](structs.md#assignment)）的副本。
-*  结构的默认值是通过将所有值类型字段设置为其默认值，并将所有引用类型字段设置为 `null` （[默认值](structs.md#default-values)）生成的值。
+*  结构的默认值是通过将所有值类型字段设置为其默认值，并将所有引用类型字段设置为 `null` （[默认值](structs.md#default-values)）而产生的值。
 *  装箱和取消装箱操作用于在结构类型和 `object` （[装箱和取消装箱](structs.md#boxing-and-unboxing)）之间进行转换。
-*  对于结构（[此访问](expressions.md#this-access)），@no__t 的含义是不同的。
+*  对于结构（[此访问](expressions.md#this-access)），`this` 的含义是不同的。
 *  不允许结构的实例字段声明包含变量初始值设定项（[字段初始值设定](structs.md#field-initializers)项）。
 *  不允许结构声明无参数的实例构造函数（[构造函数](structs.md#constructors)）。
 *  不允许结构声明析构函数（[析构函数](structs.md#destructors)）。
@@ -112,7 +112,7 @@ struct_member_declaration
 
 结构是值类型（[值类型](types.md#value-types)），被称为具有值语义。 另一方面，类是引用类型（[引用类型](types.md#reference-types)），并且称为具有引用语义。
 
-结构类型的变量直接包含结构的数据，而类类型的变量包含对数据的引用，后者称为对象。 当结构 `B` 包含类型 @no__t 为-1 的实例字段并且 `A` 为结构类型时，`A` 的编译时错误将依赖于 `B` 或从 `B` 构造的类型。 如果 `X` 包含类型 `Y` 的实例字段，则结构 @no__t***直接依赖于***结构 `Y`。 根据此定义，结构所依赖的整个结构集是***直接取决于***关系的传递闭包。  例如
+结构类型的变量直接包含结构的数据，而类类型的变量包含对数据的引用，后者称为对象。 当结构 `B` 包含类型 `A` 的实例字段并且 `A` 为结构类型时，`A` 依赖于 `B` 或从 `B`构造的类型，则会发生编译时错误。 如果 `X` 包含类型 `Y`的实例字段，则结构 `X`***直接依赖于***结构 `Y`。 根据此定义，结构所依赖的整个结构集是***直接取决于***关系的传递闭包。  例如
 ```csharp
 struct Node
 {
@@ -120,7 +120,7 @@ struct Node
     Node next; // error, Node directly depends on itself
 }
 ```
-是错误的，因为 `Node` 包含自己的类型的实例字段。  另一个示例
+是一个错误，因为 `Node` 包含自己的类型的实例字段。  另一个示例
 ```csharp
 struct A { B b; }
 
@@ -128,9 +128,9 @@ struct B { C c; }
 
 struct C { A a; }
 ```
-是错误，因为每个类型 `A`、`B` 和 `C` 相互依赖。
+是错误的，因为每种类型 `A`、`B`和 `C` 都相互依赖。
 
-对于类，两个变量可以引用同一对象，因此，对一个变量执行的运算可能会影响另一个变量所引用的对象。 使用结构，每个变量都有自己的数据副本（在 `ref` 和 @no__t 参数变量的情况下除外），对一个变量执行的操作不可能影响另一个变量。 此外，由于结构不是引用类型，因此结构类型的值不可能 `null`。
+对于类，两个变量可以引用同一对象，因此，对一个变量执行的运算可能会影响另一个变量所引用的对象。 使用结构，每个变量都有自己的数据副本（在 `ref` 和 `out` 参数变量的情况下除外），对一个变量执行的操作不可能影响另一个变量。 此外，由于结构不是引用类型，因此不可能 `null`结构类型的值。
 
 给定声明
 ```csharp
@@ -151,37 +151,37 @@ Point b = a;
 a.x = 100;
 System.Console.WriteLine(b.x);
 ```
-输出值 `10`。 将 @no__t 0 分配给 `b` 将创建值的副本，而 @no__t，则不会将赋值不受 `a.x` 的赋值影响。 如果将 `Point` 改为作为类进行声明，则输出将为 `100`，因为 @no__t 和 @no__t 将引用相同的对象。
+输出 `10`的值。 将 `a` 分配给 `b` 会创建值的副本，`b` 因此不受 `a.x`赋值的影响。 `Point` 改为作为类进行声明，输出将 `100`，因为 `a` 和 `b` 将引用相同的对象。
 
 ### <a name="inheritance"></a>继承
 
-所有结构类型都隐式继承自类 `System.ValueType`，后者又继承自类 `object`。 结构声明可以指定实现接口的列表，但结构声明不可能指定基类。
+所有结构类型都隐式继承自类 `System.ValueType`，而该类又从类 `object`继承。 结构声明可以指定实现接口的列表，但结构声明不可能指定基类。
 
-结构类型永远不是抽象类型，并且始终隐式密封。 因此，在结构声明中不允许使用 @no__t 0 和 @no__t 修饰符。
+结构类型永远不是抽象类型，并且始终隐式密封。 因此，在结构声明中不允许使用 `abstract` 和 `sealed` 修饰符。
 
 由于结构不支持继承，因此结构成员的声明的可访问性不能 `protected` 或 `protected internal`。
 
-不能将结构中的函数成员 `abstract` 或 `virtual`，并且仅允许 `override` 修饰符重写继承自 @no__t 的方法。
+结构中的函数成员不能是 `abstract` 或 `virtual`，只允许 `override` 修饰符重写继承自 `System.ValueType`的方法。
 
 ### <a name="assignment"></a>赋值
 
 对结构类型的变量赋值会创建要分配的值的副本。 这不同于对类类型的变量的赋值，后者复制引用，而不是由引用标识的对象。
 
-与赋值类似，当结构作为值参数传递或作为函数成员的结果返回时，将创建结构的副本。 可以通过使用 @no__t 0 或 `out` 参数的函数成员引用来传递结构。
+与赋值类似，当结构作为值参数传递或作为函数成员的结果返回时，将创建结构的副本。 可以通过使用 `ref` 或 `out` 参数的函数成员引用来传递结构。
 
 当结构的属性或索引器是赋值的目标时，与属性或索引器访问关联的实例表达式必须归类为变量。 如果实例表达式归类为值，则会发生编译时错误。 这将在[简单的赋值](expressions.md#simple-assignment)中更详细地介绍。
 
 ### <a name="default-values"></a>默认值
 
-如 "[默认值](variables.md#default-values)" 中所述，在创建多个变量时，它们会自动初始化为其默认值。 对于类类型和其他引用类型的变量，此默认值为 `null`。 但是，由于结构是值类型，因此不能 `null`，结构的默认值是通过将所有值类型字段设置为其默认值，并将所有引用类型字段设置为 `null` 生成的值。
+如 "[默认值](variables.md#default-values)" 中所述，在创建多个变量时，它们会自动初始化为其默认值。 对于类类型和其他引用类型的变量，此默认值为 `null`。 但是，由于结构是不能 `null`的值类型，因此结构的默认值是通过将所有值类型字段设置为其默认值，并将所有引用类型字段设置为 `null`生成的值。
 
 引用上面声明的 `Point` 结构，示例
 ```csharp
 Point[] a = new Point[100];
 ```
-将数组中的每个 `Point` 初始化为通过将 "@no__t" 和 "`y`" 字段设置为 "零" 生成的值。
+将数组中的每个 `Point` 初始化为通过将 "`x`" 和 "`y`" 字段设置为零而生成的值。
 
-结构的默认值对应于结构的默认构造函数返回的值（[默认构造函数](types.md#default-constructors)）。 与类不同，结构不允许声明无参数的实例构造函数。 相反，每个结构都隐式包含一个无参数的实例构造函数，该构造函数始终返回将所有值类型字段设置为其默认值并将所有引用类型字段设置为 @no__t 的值。
+结构的默认值对应于结构的默认构造函数返回的值（[默认构造函数](types.md#default-constructors)）。 与类不同，结构不允许声明无参数的实例构造函数。 相反，每个结构都隐式包含一个无参数的实例构造函数，该构造函数始终返回通过将所有值类型字段设置为其默认值，并将所有引用类型字段设置为 `null`而产生的值。
 
 结构应设计为将默认初始化状态视为有效状态。 示例中
 ```csharp
@@ -199,15 +199,15 @@ struct KeyValuePair
     }
 }
 ```
-用户定义实例构造函数仅在显式调用它的位置保护 null 值。 在 `KeyValuePair` 变量服从默认值初始化的情况下，@no__t 和 @no__t 2 字段将为 null，并且该结构必须准备好处理此状态。
+用户定义实例构造函数仅在显式调用它的位置保护 null 值。 如果 `KeyValuePair` 变量服从于默认值初始化，则 `key` 和 `value` 字段将为 null，并且该结构必须准备好处理此状态。
 
 ### <a name="boxing-and-unboxing"></a>装箱和取消装箱
 
-类类型的值可以转换为类型 `object` 或通过类实现的接口类型，只需在编译时将引用视为其他类型即可实现。 同样，类型 `object` 或接口类型的值的值可以转换回类类型，而不会更改引用（当然，在这种情况下，需要运行时类型检查）。
+类类型的值可以转换为类型 `object` 或由类实现的接口类型，只需在编译时将引用视为另一种类型即可实现。 同样，可以在不更改引用的情况下将类型的值 `object` 或接口类型的值转换回类类型（但在这种情况下，需要运行时类型检查）。
 
-由于结构不是引用类型，因此对于结构类型，这些操作的实现方式有所不同。 当结构类型的值转换为类型 `object` 或结构实现的接口类型时，将发生装箱操作。 同样，如果类型 @no__t 值为0或接口类型的值转换回结构类型，则会发生取消装箱操作。 对类类型的相同操作的主要区别是装箱和取消装箱操作会将结构值复制到或传出装箱的实例。 因此，在装箱或取消装箱操作后，对取消装箱的结构所做的更改不会反映在已装箱的结构中。
+由于结构不是引用类型，因此对于结构类型，这些操作的实现方式有所不同。 当结构类型的值转换为类型 `object` 或结构实现的接口类型时，将发生装箱操作。 同样，当类型 `object` 或接口类型的值转换回结构类型时，将发生取消装箱操作。 对类类型的相同操作的主要区别是装箱和取消装箱操作会将结构值复制到或传出装箱的实例。 因此，在装箱或取消装箱操作后，对取消装箱的结构所做的更改不会反映在已装箱的结构中。
 
-当结构类型重写从 @no__t （例如，`Equals`、`GetHashCode` 或 `ToString`）继承的虚方法时，通过该结构类型的实例调用虚拟方法不会导致装箱发生。 即使将结构用作类型参数，并且通过类型参数类型的实例进行调用，也是如此。 例如：
+当结构类型重写从 `System.Object` （如 `Equals`、`GetHashCode`或 `ToString`）继承的虚方法时，通过该结构类型的实例调用虚拟方法不会导致装箱发生。 即使将结构用作类型参数，并且通过类型参数类型的实例进行调用，也是如此。 例如：
 ```csharp
 using System;
 
@@ -243,9 +243,9 @@ class Program
 3
 ```
 
-尽管 `ToString` 的样式不正确，但此示例演示了 `x.ToString()` 的三个调用没有任何装箱。
+尽管对 `ToString` 有副作用的样式是不正确的，但该示例演示了 `x.ToString()`的三个调用没有发生装箱。
 
-同样，在访问受约束的类型参数上的成员时，不会隐式进行装箱。 例如，假设接口 `ICounter` 包含可用于修改值的方法 `Increment`。 如果 `ICounter` 用作约束，则会调用第 1 @no__t 方法的实现，该方法引用了在上调用 `Increment` 的变量，而不是装箱副本。
+同样，在访问受约束的类型参数上的成员时，不会隐式进行装箱。 例如，假设接口 `ICounter` 包含可用于修改值的方法 `Increment`。 如果 `ICounter` 用作约束，则会调用 `Increment` 方法的实现，该方法将引用对其调用 `Increment` 的变量，而不是装箱副本。
 
 ```csharp
 using System;
@@ -285,7 +285,7 @@ class Program
 }
 ```
 
-对 @no__t 的第一次调用将修改变量 `x` 中的值。 这不等同于第二次调用 `Increment`，这会修改 @no__t 的装箱副本中的值。 因此，该程序的输出为：
+对 `Increment` 的第一次调用将修改变量 `x`中的值。 这不等同于对 `Increment`的第二次调用，后者修改 `x`的装箱副本中的值。 因此，该程序的输出为：
 ```console
 0
 1
@@ -296,13 +296,13 @@ class Program
 
 ### <a name="meaning-of-this"></a>含义
 
-在类的实例构造函数或实例函数成员内，`this` 归类为值。 因此，虽然 `this` 可以用于引用为其调用函数成员的实例，但不能在类的函数成员中对 @no__t 赋值。
+在类的实例构造函数或实例函数成员内，`this` 分类为值。 因此，虽然 `this` 可以用于引用为其调用函数成员的实例，但不能将分配给类的函数成员中 `this`。
 
-在结构的实例构造函数中，`this` 对应于结构类型的 `out` 参数，在结构的实例函数成员内，`this` 对应于结构类型的 @no__t 参数。 在这两种情况下，`this` 归类为变量，并且可以通过分配给 `this` 或将其作为 @no__t @no__t 参数传递来修改调用了函数成员的整个结构。
+在结构的实例构造函数中，`this` 对应于结构类型的 `out` 参数，在结构的实例函数成员内，`this` 对应于结构类型的 `ref` 参数。 在这两种情况下，`this` 归类为变量，并且可以通过分配给 `this` 或将其作为 `ref` 或 `out` 参数传递来修改调用了函数成员的整个结构。
 
 ### <a name="field-initializers"></a>字段初始值设定项
 
-如 "[默认值](structs.md#default-values)" 中所述，结构的默认值由将所有值类型字段设置为其默认值并将所有引用类型字段设置为 `null` 而得出的值。 出于此原因，结构不允许实例字段声明包含变量初始值设定项。 此限制仅适用于实例字段。 允许结构的静态字段包含变量初始值设定项。
+如 "[默认值](structs.md#default-values)" 中所述，结构的默认值由将所有值类型字段设置为其默认值，并将所有引用类型字段设置为 `null`而得出的值。 出于此原因，结构不允许实例字段声明包含变量初始值设定项。 此限制仅适用于实例字段。 允许结构的静态字段包含变量初始值设定项。
 
 示例
 ```csharp
@@ -334,11 +334,11 @@ struct Point
 Point p1 = new Point();
 Point p2 = new Point(0, 0);
 ```
-这两种方法均可创建一个 @no__t 0，其中 `x`，`y` 初始化为零。
+这两种方法都创建 `Point`，`x` 并 `y` 初始化为零。
 
-不允许结构实例构造函数包含形式 `base(...)` 形式的构造函数初始值设定项。
+不允许结构实例构造函数包含形式 `base(...)`的构造函数初始值设定项。
 
-如果结构实例构造函数未指定构造函数初始值设定项，则 @no__t 的变量与该结构类型的 @no__t 1 参数相对应，并且与 `out` 参数类似，`this` 必须明确赋值（[明确赋值](variables.md#definite-assignment)）放置在构造函数返回的每个位置。 如果结构实例构造函数指定构造函数初始值设定项，则 @no__t 的变量对应于该结构类型的 @no__t 1 参数，类似于 `ref` 参数，在进入构造函数体时，`this` 被视为已明确赋值. 请考虑下面的实例构造函数实现：
+如果结构实例构造函数未指定构造函数初始值设定项，则 `this` 变量对应于结构类型的 `out` 参数，类似于 `out` 参数，`this` 必须在构造函数返回的每个位置上明确赋值（[明确赋值](variables.md#definite-assignment)）。 如果结构实例构造函数指定构造函数初始值设定项，则 `this` 变量对应于该结构类型的 `ref` 参数，类似于 `ref` 参数，在进入构造函数主体时，`this` 被视为已明确赋值。 请考虑下面的实例构造函数实现：
 ```csharp
 struct Point
 {
@@ -359,7 +359,7 @@ struct Point
 }
 ```
 
-在构造的所有字段都已明确赋值之前，无法调用实例成员函数（包括属性 `X` 和 `Y`）的 set 访问器。 唯一的例外涉及自动实现的属性（[自动实现的属性](classes.md#automatically-implemented-properties)）。 明确赋值规则（[简单赋值表达式](variables.md#simple-assignment-expressions)）专门在该结构类型的实例构造函数中将分配给结构类型的自动属性：此类赋值被视为对隐藏自动属性的支持字段。 因此，可以使用以下内容：
+在构造的所有字段都已明确赋值之前，无法调用实例成员函数（包括属性的 set 访问器 `X` 和 `Y`）。 唯一的例外涉及自动实现的属性（[自动实现的属性](classes.md#automatically-implemented-properties)）。 明确赋值规则（[简单赋值表达式](variables.md#simple-assignment-expressions)）专门在该结构类型的实例构造函数中将分配给结构类型的自动属性：此类赋值被视为对自动属性的隐藏支持字段的明确赋值。 因此，可以使用以下内容：
 
 ```csharp
 struct Point
@@ -373,7 +373,7 @@ struct Point
     }
 ```
 
-### <a name="destructors"></a>析构函数
+### <a name="destructors"></a>析构函数。
 
 不允许结构声明析构函数。
 
@@ -388,11 +388,11 @@ struct Point
 
 ## <a name="struct-examples"></a>结构示例
 
-下面的两个示例演示如何使用 `struct` 类型创建可与预定义类型的语言类似的类型，但使用修改后的语义。
+下面演示了两种使用 `struct` 类型创建类型的示例，这些类型可以与语言的预定义类型相似，但使用修改后的语义。
 
 ### <a name="database-integer-type"></a>数据库整数类型
 
-下面的 `DBInt` 结构实现一个整数类型，该类型可以表示 @no__t 类型的完整值集，以及指示未知值的附加状态。 具有这些特征的类型通常用于数据库。
+下面的 `DBInt` 结构实现一个整数类型，该类型可以表示 `int` 类型的完整值集，以及指示未知值的附加状态。 具有这些特征的类型通常用于数据库。
 
 ```csharp
 using System;
@@ -510,7 +510,7 @@ public struct DBInt
 
 ### <a name="database-boolean-type"></a>数据库布尔类型
 
-下面的 `DBBool` 结构实现了三值逻辑类型。 此类型的可能值为 `DBBool.True`、`DBBool.False` 和 `DBBool.Null`，其中，@no__t 3 成员指示未知值。 这三值逻辑类型通常用于数据库。
+下面的 `DBBool` 结构实现了三值逻辑类型。 此类型的可能值为 `DBBool.True`、`DBBool.False`和 `DBBool.Null`，其中 `Null` 成员指示未知值。 这三值逻辑类型通常用于数据库。
 
 ```csharp
 using System;

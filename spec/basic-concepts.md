@@ -14,7 +14,7 @@ ms.locfileid: "71704008"
 
 应用程序域通过充当应用程序状态的容器来实现应用程序隔离。 应用程序域充当应用程序中定义的类型和它所使用的类库的容器和边界。 加载到一个应用程序域中的类型不同于加载到另一个应用程序域中的相同类型，并且不会在应用程序域之间直接共享对象的实例。 例如，每个应用程序域都有自己的静态变量副本用于这些类型，并且每个应用程序域最多运行一次类型的静态构造函数。 实现可自由提供特定于实现的策略，也可以创建和销毁应用程序域。
 
-当执行环境调用指定方法（称为应用程序的入口点）时，将发生***应用程序启动***。 此入口点方法始终命名为 `Main`，可以具有以下签名之一：
+当执行环境调用指定方法（称为应用程序的入口点）时，将发生***应用程序启动***。 此入口点方法始终 `Main`命名，可以具有以下签名之一：
 
 ```csharp
 static void Main() {...}
@@ -26,15 +26,15 @@ static int Main() {...}
 static int Main(string[] args) {...}
 ```
 
-如图所示，入口点可以选择返回 @no__t 0 值。 此返回值用于应用程序终止（[应用程序终止](basic-concepts.md#application-termination)）。
+如图所示，入口点可能会根据需要返回 `int` 值。 此返回值用于应用程序终止（[应用程序终止](basic-concepts.md#application-termination)）。
 
-入口点还可以有一个形参。 参数可以具有任何名称，但参数的类型必须为 `string[]`。 如果正式参数存在，则执行环境将创建并传递一个 @no__t 的参数，该参数包含在启动应用程序时指定的命令行参数。 @No__t 参数决不会为 null，但如果未指定命令行参数，则其长度可能为零。
+入口点还可以有一个形参。 参数可以具有任何名称，但参数的类型必须是 `string[]`。 如果正式参数存在，则执行环境将创建并传递一个 `string[]` 参数，该参数包含在启动应用程序时指定的命令行参数。 `string[]` 参数决不会为 null，但如果未指定命令行参数，则其长度可能为零。
 
-由于C#支持方法重载，因此类或结构可能包含某些方法的多个定义，前提是每个定义具有不同的签名。 但是，在一个程序中，任何类或结构都不能包含多个称为 @no__t 的方法，它的定义限定它用作应用程序入口点。 但允许 @no__t 的其他重载版本-0，但前提是它们具有多个参数，或者其唯一参数不是类型 `string[]`。
+由于C#支持方法重载，因此类或结构可能包含某些方法的多个定义，前提是每个定义具有不同的签名。 但是，在一个程序中，任何类或结构都不能包含多个称为 `Main` 的方法，这些方法的定义将其限定为作为应用程序入口点使用。 但允许 `Main` 的其他重载版本，但前提是它们具有多个参数，或者其唯一参数不是类型 `string[]`。
 
-应用程序可以由多个类或结构组成。 其中的多个类或结构可能包含一个名为 @no__t 的方法，该方法的定义将其限定为作为应用程序入口点使用。 在这种情况下，必须使用外部机制（例如命令行编译器选项）来选择其中一个 `Main` 方法作为入口点。
+应用程序可以由多个类或结构组成。 其中的多个类或结构可能包含一个称为 `Main` 方法，该方法的定义将其限定为作为应用程序入口点使用。 在这种情况下，必须使用外部机制（例如命令行编译器选项）来选择其中一个 `Main` 方法作为入口点。
 
-在C#中，每个方法都必须定义为类或结构的成员。 通常，方法的声明的可访问性（已[声明的可访问性](basic-concepts.md#declared-accessibility)）由其声明中指定的访问修饰符（[访问修饰符](classes.md#access-modifiers)）确定，并且类似于类型的声明的可访问性由在其声明中指定的访问修饰符。 为了使给定类型的给定方法可调用，该类型和成员都必须可访问。 但是，应用程序入口点是一种特殊情况。 具体而言，执行环境可以访问应用程序的入口点，无论其声明的可访问性以及其封闭类型声明的声明的可访问性。
+在C#中，每个方法都必须定义为类或结构的成员。 通常，方法的声明的可访问性（已[声明的可访问性](basic-concepts.md#declared-accessibility)）由其声明中指定的访问修饰符（[访问修饰符](classes.md#access-modifiers)）确定，并且类似于类型的声明的可访问性由其声明中指定的访问修饰符决定。 为了使给定类型的给定方法可调用，该类型和成员都必须可访问。 但是，应用程序入口点是一种特殊情况。 具体而言，执行环境可以访问应用程序的入口点，无论其声明的可访问性以及其封闭类型声明的声明的可访问性。
 
 应用程序入口点方法不能在泛型类声明中。
 
@@ -46,26 +46,26 @@ static int Main(string[] args) {...}
 
 如果应用程序的***入口点***方法的返回类型为 `int`，则返回的值将用作应用程序的***终止状态代码***。 此代码的目的是允许向执行环境进行成功或失败的通信。
 
-如果入口点方法的返回类型为 `void`，则到达右大括号（@no__t 为-1）以终止该方法，或执行没有表达式的 `return` 语句会导致终止状态代码 @no__t 为3。
+如果入口点方法的返回类型为 "`void`"，则达到用于终止该方法的右大括号（`}`），或执行没有表达式的 `return` 语句将导致终止状态代码 `0`。
 
 在应用程序终止之前，将调用其所有尚未进行垃圾回收的对象的析构函数，除非已取消此类清理（例如，通过调用库方法 `GC.SuppressFinalize`）。
 
 ## <a name="declarations"></a>声明
 
-C#程序中的声明定义程序的构成元素。 C#使用命名空间（[命名空间](namespaces.md)）对程序进行组织，其中可以包含类型声明和嵌套命名空间声明。 类型声明（[类型声明](namespaces.md#type-declarations)）用于定义类（[类](classes.md)）、结构（[结构](structs.md)）、接口（[接口](interfaces.md)）、枚举（[枚举](enums.md)）和委托（[委托](delegates.md)）。 类型声明中允许的成员种类取决于类型声明的形式。 例如，类声明可以包含常量（[常量](classes.md#constants)）、字段（[字段](classes.md#fields)）、方法（[方法](classes.md#methods)）、属性（[属性](classes.md#properties)）、事件（[事件](classes.md#events)）、索引器（[索引器](classes.md#indexers)）的声明，运算符（[运算符](classes.md#operators)）、实例构造函数（[实例构造](classes.md#instance-constructors)函数）、静态构造函数（[静态构造函数](classes.md#static-constructors)）、析构函数（[析构函数](classes.md#destructors)）和嵌套类型（[嵌套类型](classes.md#nested-types)）。
+C#程序中的声明定义程序的构成元素。 C#使用命名空间（[命名空间](namespaces.md)）对程序进行组织，其中可以包含类型声明和嵌套命名空间声明。 类型声明（[类型声明](namespaces.md#type-declarations)）用于定义类（[类](classes.md)）、结构（[结构](structs.md)）、接口（[接口](interfaces.md)）、枚举（[枚举](enums.md)）和委托（[委托](delegates.md)）。 类型声明中允许的成员种类取决于类型声明的形式。 例如，类声明可以包含常量（[常量](classes.md#constants)）、字段（[字段](classes.md#fields)）、方法（[方法](classes.md#methods)）、属性（[属性](classes.md#properties)）、事件（[事件](classes.md#events)）、索引器（[索引器](classes.md#indexers)）、运算符（[运算符](classes.md#operators)）、实例构造函数（[实例构造函数](classes.md#instance-constructors)）、静态构造函数（[静态构造函数](classes.md#static-constructors)）、析构函数（[析构函数](classes.md#destructors)）和嵌套类型（[嵌套类型](classes.md#nested-types)）的声明。
 
 声明定义声明***空间***中声明所属的名称。 除重载成员（[签名和重载](basic-concepts.md#signatures-and-overloading)）外，具有两个或多个将在声明空间中引入同名成员的声明是编译时错误。 声明空间不能包含具有相同名称的不同类型的成员。 例如，声明空间不能包含具有相同名称的字段和方法。
 
 有几种不同类型的声明空间，如下所述。
 
-*  在程序的所有源文件中，不带封闭*namespace_declaration*的*namespace_member_declaration*是单个合并声明空间的成员，称为***全局声明空间***。
-*  在程序的所有源文件中，在具有相同完全限定的命名空间名称的*namespace_declaration*中的*namespace_member_declaration*s 是单个组合声明空间的成员。
-*  每个类、结构或接口声明都创建新的声明空间。 通过*class_member_declaration*s、 *struct_member_declaration*s、 *interface_member_declaration*或*type_parameter*将名称引入到此声明空间。 除了重载实例构造函数声明和静态构造函数声明，类或结构不能包含与类或结构同名的成员声明。 类、结构或接口允许声明重载方法和索引器。 此外，类或结构允许声明重载实例构造函数和运算符。 例如，类、结构或接口可能包含多个具有相同名称的方法声明，前提是这些方法声明在其签名中不同（[签名和重载](basic-concepts.md#signatures-and-overloading)）。 请注意，基类不涉及类的声明空间，并且基接口不涉及接口的声明空间。 因此，允许派生类或接口声明与继承成员同名的成员。 这种成员被称为***隐藏***继承成员。
+*  在程序的所有源文件中，不包含封闭*namespace_declaration*的*namespace_member_declaration*是单个组合声明空间的成员，称为***全局声明空间***。
+*  在程序的所有源文件中，在具有相同完全限定的命名空间名称的*namespace_declaration*中*namespace_member_declaration*s 是单个组合声明空间的成员。
+*  每个类、结构或接口声明都创建新的声明空间。 名称通过*class_member_declaration*s、 *struct_member_declaration*s、 *interface_member_declaration*s 或*type_parameter*引入到此声明空间。 除了重载实例构造函数声明和静态构造函数声明，类或结构不能包含与类或结构同名的成员声明。 类、结构或接口允许声明重载方法和索引器。 此外，类或结构允许声明重载实例构造函数和运算符。 例如，类、结构或接口可能包含多个具有相同名称的方法声明，前提是这些方法声明在其签名中不同（[签名和重载](basic-concepts.md#signatures-and-overloading)）。 请注意，基类不涉及类的声明空间，并且基接口不涉及接口的声明空间。 因此，允许派生类或接口声明与继承成员同名的成员。 这种成员被称为***隐藏***继承成员。
 *  每个委托声明都将创建一个新的声明空间。 通过形参（*fixed_parameter*s 和*parameter_array*s）和*type_parameter*将名称引入到此声明空间。
 *  每个枚举声明都将创建一个新的声明空间。 通过*enum_member_declarations*将名称引入此声明空间。
 *  每个方法声明、索引器声明、运算符声明、实例构造函数声明和匿名函数都会创建一个名为***局部变量声明空间***的新声明空间。 通过形参（*fixed_parameter*s 和*parameter_array*s）和*type_parameter*将名称引入到此声明空间。 函数成员或匿名函数（如果有）的主体被视为嵌套在局部变量声明空间内。 局部变量声明空间和嵌套局部变量声明空间包含具有相同名称的元素是错误的。 因此，在嵌套的声明空间内，不能在封闭声明空间中声明与本地变量或常量同名的局部变量或常数。 可能有两个声明空间包含具有相同名称的元素，前提是两个声明空间都不包含另一个。
-*  每个*block*或*switch_block*以及*for*、 *foreach*和*using*语句均为局部变量和局部常量创建一个局部变量声明空间。 通过*local_variable_declaration*s 和*local_constant_declaration*将名称引入此声明空间。 请注意，在函数成员或匿名函数的主体中发生的块嵌套在这些函数为其参数声明的局部变量声明空间内。 因此，例如，具有本地变量和同名参数的方法是错误的。
-*  每个*block*或*switch_block*为标签创建一个单独的声明空间。 通过*labeled_statement*将名称引入此声明空间，并通过*goto_statement*引用名称。 块的***标签声明空间***包括任何嵌套块。 因此，在嵌套块中，不能声明与封闭块中的标签具有相同名称的标签。
+*  每个*块*或*switch_block* ，以及*for*、 *foreach*和*using*语句，都将为局部变量和本地常量创建局部变量声明空间。 名称通过*local_variable_declaration*s 和*local_constant_declaration*引入到此声明空间。 请注意，在函数成员或匿名函数的主体中发生的块嵌套在这些函数为其参数声明的局部变量声明空间内。 因此，例如，具有本地变量和同名参数的方法是错误的。
+*  每个*块*或*switch_block*都为标签创建一个单独的声明空间。 名称通过*labeled_statement*引入到此声明空间中，并且通过*goto_statement*引用这些名称。 块的***标签声明空间***包括任何嵌套块。 因此，在嵌套块中，不能声明与封闭块中的标签具有相同名称的标签。
 
 声明名称的文本顺序通常不重要。 特别是，文本顺序对于命名空间、常量、方法、属性、事件、索引器、运算符、实例构造函数、析构函数、静态构造函数和类型的声明和使用并不重要。 声明顺序在以下方面非常重要：
 
@@ -92,9 +92,9 @@ namespace Megacorp.Data
 }
 ```
 
-上面的两个命名空间声明为同一声明空间提供，在此示例中，声明两个具有完全限定名称的类 `Megacorp.Data.Customer` 和 `Megacorp.Data.Order`。 由于这两个声明涉及到相同的声明空间，因此，如果每个声明都包含具有相同名称的类的声明，则会导致编译时错误。
+上面的两个命名空间声明对同一声明空间构成，在本例中，用完全限定名称声明两个类 `Megacorp.Data.Customer` 和 `Megacorp.Data.Order`。 由于这两个声明涉及到相同的声明空间，因此，如果每个声明都包含具有相同名称的类的声明，则会导致编译时错误。
 
-如上所述，块的声明空间包括任何嵌套块。 因此，在下面的示例中，`F` 和 @no__t 1 方法会导致编译时错误，因为名称 `i` 是在外部块中声明的，不能在内部块中重新声明。 但是，@no__t 的 @no__t 方法有效，因为这两个 `i` 在单独的非嵌套块中声明。
+如上所述，块的声明空间包括任何嵌套块。 因此，在下面的示例中，`F` 和 `G` 方法导致编译时错误，因为名称 `i` 是在外部块中声明的，不能在内部块中重新声明。 但 `H` 和 `I` 方法是有效的，因为这两个 `i`在单独的非嵌套块中声明。
 
 ```csharp
 class A
@@ -131,7 +131,7 @@ class A
 }
 ```
 
-## <a name="members"></a>成员
+## <a name="members"></a>Members
 
 命名空间和类型具有***成员***。 实体的成员通常通过使用以实体引用开头的限定名称来提供，后跟一个 "`.`" 标记，后跟成员的名称。
 
@@ -147,23 +147,23 @@ class A
 
 ### <a name="struct-members"></a>结构成员
 
-结构的成员是在结构中声明的成员和从该结构的直接基类继承的成员 `System.ValueType` 和间接基类 @no__t 为-1。
+结构的成员是在结构中声明的成员和从该结构的直接基类继承的成员 `System.ValueType` 和间接基类 `object`。
 
 简单类型的成员直接与简单类型化名为的结构类型成员相对应：
 
-*  @No__t 的成员是 `System.SByte` 结构的成员。
-*  @No__t 的成员是 `System.Byte` 结构的成员。
-*  @No__t 的成员是 `System.Int16` 结构的成员。
-*  @No__t 的成员是 `System.UInt16` 结构的成员。
-*  @No__t 的成员是 `System.Int32` 结构的成员。
-*  @No__t 的成员是 `System.UInt32` 结构的成员。
-*  @No__t 的成员是 `System.Int64` 结构的成员。
-*  @No__t 的成员是 `System.UInt64` 结构的成员。
-*  @No__t 的成员是 `System.Char` 结构的成员。
-*  @No__t 的成员是 `System.Single` 结构的成员。
-*  @No__t 的成员是 `System.Double` 结构的成员。
-*  @No__t 的成员是 `System.Decimal` 结构的成员。
-*  @No__t 的成员是 `System.Boolean` 结构的成员。
+*  `sbyte` 的成员是 `System.SByte` 结构的成员。
+*  `byte` 的成员是 `System.Byte` 结构的成员。
+*  `short` 的成员是 `System.Int16` 结构的成员。
+*  `ushort` 的成员是 `System.UInt16` 结构的成员。
+*  `int` 的成员是 `System.Int32` 结构的成员。
+*  `uint` 的成员是 `System.UInt32` 结构的成员。
+*  `long` 的成员是 `System.Int64` 结构的成员。
+*  `ulong` 的成员是 `System.UInt64` 结构的成员。
+*  `char` 的成员是 `System.Char` 结构的成员。
+*  `float` 的成员是 `System.Single` 结构的成员。
+*  `double` 的成员是 `System.Double` 结构的成员。
+*  `decimal` 的成员是 `System.Decimal` 结构的成员。
+*  `bool` 的成员是 `System.Boolean` 结构的成员。
 
 ### <a name="enumeration-members"></a>枚举成员
 
@@ -175,10 +175,10 @@ class A
 
 类声明可以包含常量、字段、方法、属性、事件、索引器、运算符、实例构造函数、析构函数、静态构造函数和类型的声明。
 
-@No__t 和 @no__t 1 的成员直接对应于其别名的类类型的成员：
+`object` 和 `string` 的成员直接对应于其别名的类类型的成员：
 
-*  @No__t 的成员是 @no__t 类的成员。
-*  @No__t 的成员是 @no__t 类的成员。
+*  `object` 的成员是 `System.Object` 类的成员。
+*  `string` 的成员是 `System.String` 类的成员。
 
 ### <a name="interface-members"></a>接口成员
 
@@ -186,11 +186,11 @@ class A
 
 ### <a name="array-members"></a>数组成员
 
-数组成员是从类 `System.Array` 继承的成员。
+数组成员是继承自类 `System.Array`的成员。
 
 ### <a name="delegate-members"></a>委托成员
 
-委托的成员是从类 `System.Delegate` 继承的成员。
+委托的成员是继承自类 `System.Delegate`的成员。
 
 ## <a name="member-access"></a>成员访问
 
@@ -202,54 +202,54 @@ class A
 
 成员的***声明可访问性***可以是以下项之一：
 
-*  公共，通过在成员声明中包含 `public` 修饰符来选择。 @No__t-0 的直观含义为 "访问不受限制"。
-*  Protected：通过在成员声明中包含 `protected` 修饰符来选择。 @No__t-0 的直观含义为 "访问包含类或派生自包含类的类型"。
-*  内部，通过在成员声明中包含 `internal` 修饰符来选择。 @No__t-0 的直观含义为 "访问此程序受限"。
-*  受保护的内部（这是受保护的或内部的），通过在成员声明中包括 @no__t 0 和 @no__t 修饰符来选择。 @No__t-0 的直观含义为 "访问此程序或派生自包含类的类型"。
-*  Private，通过在成员声明中包含 `private` 修饰符来选择。 @No__t-0 的直观含义为 "访问包含类型"。
+*  Public：通过在成员声明中包含 `public` 修饰符来选择。 `public` 的直观含义为 "访问不受限制"。
+*  Protected：通过在成员声明中包含 `protected` 修饰符来选择。 `protected` 的直观含义为 "访问限制为包含类或派生自包含类的类型"。
+*  内部，通过在成员声明中包含 `internal` 修饰符来选择。 `internal` 的直观含义是 "仅限访问此程序"。
+*  受保护的内部（即受保护的或内部），通过在成员声明中包括 `protected` 和 `internal` 修饰符来选择。 `protected internal` 的直观含义为 "访问此程序或派生自包含类的类型"。
+*  Private，通过在成员声明中包含 `private` 修饰符来选择。 `private` 的直观含义为 "访问限制为包含类型"。
 
 根据成员声明发生的上下文，仅允许某些类型的声明的可访问性。 此外，当成员声明中不包含任何访问修饰符时，在其中进行声明的上下文会确定默认的声明的可访问性。
 
-*  命名空间隐式具有 @no__t 的可访问性。 命名空间声明中不允许使用访问修饰符。
-*  在编译单元或命名空间中声明的类型可以有 `public` 或 @no__t 1 声明的可访问性，并且默认为 `internal` 声明的可访问性。
-*  类成员可以具有五种声明的可访问性，并且默认为 `private` 声明的可访问性。 （请注意，声明为类成员的类型可以具有五种声明可访问性中的任何一种，而声明为命名空间成员的类型只能有 `public` 或 @no__t 1 声明的可访问性。）
-*  结构成员可以有 `public`、`internal` 或 @no__t 声明的可访问性和默认值 @no__t，因为结构是隐式密封的。 结构中引入的结构成员（即，不是由该结构继承）不能有 `protected` 或 @no__t 声明的可访问性。 （请注意，声明为结构成员的类型可以有 `public`、`internal` 或 @no__t 声明的可访问性，而声明为命名空间成员的类型只能具有 `public` 或 @no__t 的可访问性。）
-*  接口成员隐式具有 @no__t 的可访问性。 接口成员声明中不允许使用访问修饰符。
-*  枚举成员隐式具有 @no__t 的可访问性。 枚举成员声明中不允许使用访问修饰符。
+*  命名空间隐式具有 `public` 声明的可访问性。 命名空间声明中不允许使用访问修饰符。
+*  在编译单元或命名空间中声明的类型可以具有 `public` 或 `internal` 声明可访问性，并且默认为 `internal` 声明的可访问性。
+*  类成员可以具有五种声明的可访问性，并且默认为 `private` 声明的可访问性。 （请注意，声明为类成员的类型可以具有五种声明可访问性中的任何一种，而声明为命名空间成员的类型只能具有 `public` 或 `internal` 声明的可访问性。）
+*  结构成员可以有 `public`、`internal`或 `private` 声明的可访问性，并且默认为 `private` 声明的可访问性，因为结构是隐式密封的。 结构中引入的结构成员（即，不是由该结构继承）不能具有 `protected` 或 `protected internal` 声明可访问性。 （请注意，声明为结构成员的类型可以有 `public`、`internal`或 `private` 声明的可访问性，而声明为命名空间成员的类型只能具有 `public` 或 `internal` 声明的可访问性。）
+*  接口成员隐式具有 `public` 声明的可访问性。 接口成员声明中不允许使用访问修饰符。
+*  枚举成员隐式具有 `public` 声明的可访问性。 枚举成员声明中不允许使用访问修饰符。
 
 ### <a name="accessibility-domains"></a>辅助功能域
 
-成员的***可访问域***包含允许访问成员的程序文本（可能不连续）部分。 出于定义成员的可访问性域的目的，如果成员未在类型内声明，则称为***顶级***成员，如果在另一种类型中声明成员，则称***嵌套***成员。 此外，程序的***程序文本***定义为程序的所有源文件中包含的所有程序文本，类型的程序文本定义为该类型的*type_declaration*中包含的所有程序文本（包括、可能是嵌套在类型中的类型）。
+成员的***可访问域***包含允许访问成员的程序文本（可能不连续）部分。 出于定义成员的可访问性域的目的，如果成员未在类型内声明，则称为***顶级***成员，如果在另一种类型中声明成员，则称***嵌套***成员。 此外，程序的***程序文本***定义为程序的所有源文件中包含的所有程序文本，类型的程序文本定义为该类型的*type_declaration*中包含的所有程序文本（包括在类型中嵌套的类型）。
 
-预定义类型的可访问域（例如 `object`、`int` 或 `double`）不受限制。
+预定义类型的可访问域（例如 `object`、`int`或 `double`）不受限制。
 
-在程序 `P` 中声明的顶级未绑定类型 @no__t 的可访问域（[绑定类型和未绑定类型](types.md#bound-and-unbound-types)）的定义如下：
+在程序 `P` 中声明的顶级未绑定类型 `T` （[绑定和未绑定类型](types.md#bound-and-unbound-types)）的可访问域定义如下：
 
-*  如果 `T` 的声明的可访问性 @no__t 为-1，@no__t 的可访问域就是 @no__t 3 的程序文本和引用 `P` 的任何程序。
+*  如果 `public``T` 的声明的可访问性，`T` 的可访问域就是 `P` 的程序文本和引用 `P`的任何程序。
 *  如果 `T` 的已声明可访问性为 `internal`，则 `T` 的可访问域就是 `P` 的程序文本。
 
 从这些定义开始，顶级未绑定类型的可访问域始终至少是声明该类型的程序的程序文本。
 
-构造类型 `T<A1, ..., An>` 的可访问性域是未绑定的泛型类型的可访问域的交集 `T` 和类型参数 `A1, ..., An` 的可访问性域的交集。
+构造类型 `T<A1, ..., An>` 的可访问域是未绑定的泛型类型的可访问域的交集 `T` 和 `A1, ..., An`类型参数的可访问域。
 
-在程序 `P` 中声明的类型 `T` 中声明的嵌套成员 `M` 的可访问域定义如下（请注意，@no__t 本身可能是一个类型）：
+嵌套成员 `M` 的可访问域在程序 `P` 中 `T` 声明的类型中进行了定义，如下所示（请注意，`M` 自身可能是一个类型）：
 
 *  如果 `M` 的已声明可访问性为 `public`，则 `M` 的可访问域就是 `T` 的可访问域。
-*  如果 `M` 的声明的可访问性 @no__t 为-1，则允许 `D` 作为从 @no__t 到 @no__t 之外声明的任何类型的程序 @no__t 文本的联合，该程序文本与 @No__t 的可访问域是 @no__t 的可访问域与 `D` 的交集。
-*  如果 `M` 的声明的可访问性 @no__t 为-1，则允许 `D` 作为 @no__t 3 的程序文本和从 @no__t 派生的任何类型的程序文本的联合。 @No__t 的可访问域是 @no__t 的可访问域与 `D` 的交集。
+*  如果 `protected internal``M` 的声明的可访问性，则允许 `D` 是 `P` 的程序文本和从 `T`派生的任何类型的程序文本的并集（在 `P`之外声明）。 `M` 的可访问域是 `T` 的可访问域与 `D`的交集。
+*  如果 `protected``M` 的声明的可访问性，则允许 `D` 是 `T` 的程序文本和从 `T`派生的任何类型的程序文本的联合。 `M` 的可访问域是 `T` 的可访问域与 `D`的交集。
 *  如果 `M` 的已声明可访问性为 `internal`，则 `M` 的可访问域就是 `T` 的可访问域与 `P` 的程序文本之间的交集。
 *  如果 `M` 的已声明可访问性为 `private`，则 `M` 的可访问域就是 `T` 的程序文本。
 
 从这些定义开始，嵌套成员的可访问域始终至少是声明该成员的类型的程序文本。 此外，它还会将成员的可访问域与声明该成员的类型的可访问性域完全相同。
 
-直观地说，当访问一个类型或成员 `M` 时，将评估以下步骤以确保允许访问：
+直观地说，当访问某个类型或成员 `M` 时，将评估以下步骤以确保允许访问：
 
 *  首先，如果在类型（而不是编译单元或命名空间）中声明 `M`，则当该类型不可访问时，将发生编译时错误。
-*  如果 `M` @no__t 为-1，则允许访问。
-*  否则，如果 `M` @no__t 为-1，则允许访问，如果它出现在声明了 `M` 的程序中，或出现在派生自类的类 @no__t 中，并且该类是通过派生类类型进行的（[受保护实例成员的访问权限](basic-concepts.md#protected-access-for-instance-members)）。
-*  否则，如果 `M` @no__t 为-1，则允许访问，如果它出现在声明了 `M` 的类中，或者出现在派生自 @no__t 类的类中，而该类是通过派生类类型（[受保护实例成员的访问权限](basic-concepts.md#protected-access-for-instance-members)）。
-*  否则，如果 `M` @no__t 为-1，则允许访问，如果在声明 `M` 的程序中发生。
-*  否则，如果 `M` @no__t 为-1，则允许访问，如果在声明 `M` 的类型内发生。
+*  然后，如果 `public``M`，则允许访问。
+*  否则，如果 `protected internal``M`，则允许访问，如果它发生在声明了 `M` 的程序中，或发生在派生自类的类 `M` 中，而该类是通过派生类类型（[对实例成员的受保护的访问](basic-concepts.md#protected-access-for-instance-members)）进行的。
+*  否则，如果 `protected``M`，则允许访问，前提是它在声明了 `M` 的类中发生，或发生在派生 `M` 自类的类中，而该类是通过派生类类型（[对实例成员的受保护的访问](basic-concepts.md#protected-access-for-instance-members)）进行的。
+*  否则，如果 `internal``M`，则允许访问，如果在声明 `M` 的程序内发生了访问。
+*  否则，如果 `private``M`，则允许访问，如果在声明 `M` 的类型内发生了访问。
 *  否则，将无法访问该类型或成员，并发生编译时错误。
 
 示例中
@@ -284,15 +284,15 @@ internal class B
 ```
 类和成员具有以下可访问域：
 
-*  @No__t 的可访问性域（0）和 `A.X` 无限制。
-*  @No__t 的可访问域，`B`，`B.X`，`B.Y`，`B.C`，`B.C.X`，`B.C.Y` 是包含程序的程序文本。
-*  @No__t 的可访问域是 @no__t 的程序文本。
-*  @No__t 的可访问性域（0）和 `B.D` 是 `B` 的程序文本，包括 `B.C` 和 @no__t 的程序文本。
-*  @No__t 的可访问域是 @no__t 的程序文本。
-*  @No__t 的可访问性域（0）和 `B.D.Y` 是 `B` 的程序文本，包括 `B.C` 和 @no__t 的程序文本。
-*  @No__t 的可访问域是 @no__t 的程序文本。
+*  `A` 和 `A.X` 的可访问域是不受限制的。
+*  `A.Y`、`B`、`B.X`、`B.Y`、`B.C`、`B.C.X`和 `B.C.Y` 的可访问域是包含程序的程序文本。
+*  `A.Z` 的可访问域是 `A`的程序文本。
+*  `B.Z` 和 `B.D` 的可访问域是 `B`的程序文本，包括 `B.C` 和 `B.D`的程序文本。
+*  `B.C.Z` 的可访问域是 `B.C`的程序文本。
+*  `B.D.X` 和 `B.D.Y` 的可访问域是 `B`的程序文本，包括 `B.C` 和 `B.D`的程序文本。
+*  `B.D.Z` 的可访问域是 `B.D`的程序文本。
 
-如示例所示，成员的可访问域绝不会超出包含类型的可访问域。 例如，即使所有 @no__t 0 的成员都具有公开声明的可访问性，但所有 `A.X` 都包含受包含类型约束的可访问域。
+如示例所示，成员的可访问域绝不会超出包含类型的可访问域。 例如，即使所有 `X` 成员都具有公共声明的可访问性，但所有 `A.X` 都具有受包含类型约束的可访问域。
 
 如[成员](basic-concepts.md#members)中所述，基类的所有成员（实例构造函数、析构函数和静态构造函数除外）都是由派生类型继承的。 这包括甚至是基类的私有成员。 但是，私有成员的可访问域只包含声明该成员的类型的程序文本。 示例中
 ```csharp
@@ -312,17 +312,17 @@ class B: A
     }
 }
 ```
-`B` 类从 `A` 类继承私有成员 @no__t。 由于此成员是私有的，因此只能在 `A` 的*class_body*内访问。 因此，对 @no__t 0 的访问成功于 `A.F` 方法中，但在 `B.F` 方法中失败。
+`B` 类继承 `A` 类中的私有成员 `x`。 由于此成员是私有的，因此只能在 `A`的*class_body*内访问。 因此，对 `b.x` 的访问成功在 `A.F` 方法中，但在 `B.F` 方法中失败。
 
 ### <a name="protected-access-for-instance-members"></a>实例成员的受保护访问
 
-如果在声明 @no__t 0 实例成员的类的程序文本的外部访问该成员，并且在声明该成员的程序的程序文本的外部访问 @no__t 1 实例成员，则必须在类中进行访问派生自其声明类的声明。 此外，需要通过派生类类型的实例或从其构造的类类型进行访问。 此限制可防止一个派生类访问其他派生类的受保护成员，即使这些成员是从同一个基类继承时也是如此。
+当 `protected` 实例成员在声明它的类的程序文本之外访问时，以及当 `protected internal` 实例成员在声明它的程序的程序文本之外访问时，必须在从其声明的类派生的类声明中进行访问。 此外，需要通过派生类类型的实例或从其构造的类类型进行访问。 此限制可防止一个派生类访问其他派生类的受保护成员，即使这些成员是从同一个基类继承时也是如此。
 
-让 @no__t 是一个基类，该基类声明受保护的实例成员 `M`，并让 `D` 是派生自 @no__t 的类。 在 `D` 的*class_body*中，对 @no__t 的访问可以采用以下形式之一：
+让 `B` 成为 `M`声明受保护实例成员的基类，并让 `D` 成为派生自 `B`的类。 在 `D`的*class_body*中，对 `M` 的访问可以采用以下形式之一：
 
-*  格式 @no__t 的非限定的*type_name*或*primary_expression* 。
-*  如果 `E` 的类型为 `T` 或从 `T` 派生的类，则为形式 `E.M` 的*primary_expression* ，其中 `T` 是类类型 `D`，或是从 @no__t 构造的类类型
-*  形式 `base.M` 的*primary_expression* 。
+*  `M`格式的非限定的*type_name*或*primary_expression* 。
+*  格式为 `E.M`的*primary_expression* ，前提是 `E` 的类型为 `T` 或派生自 `T`的类，其中 `T` 是类类型 `D`，或者是从构造的类类型 `D`
+*  `base.M`形式的*primary_expression* 。
 
 除这些形式的访问权限外，派生类还可以访问*constructor_initializer*中的基类的受保护实例构造函数（[构造函数初始值设定项](classes.md#constructor-initializers)）。
 
@@ -346,7 +346,7 @@ public class B: A
     }
 }
 ```
-在 `A` 中，可以通过 @no__t 2 和 `B` 的实例访问 @no__t 1，因为在这两种情况下，都可以通过 @no__t 的实例进行访问，或从 @no__t 5 派生的类进行访问。 但是，在 `B` 中，无法通过 `A` 的实例访问 @no__t，因为 `A` 不从 @no__t 派生。
+在 `A`中，可以通过 `A` 和 `B`的实例访问 `x`，因为在这两种情况下，都可以通过 `A` 实例或从 `A`派生的类进行访问。 但是，在 `B`中，无法通过 `A`的实例访问 `x`，因为 `A` 不从 `B`派生。
 
 示例中
 ```csharp
@@ -367,11 +367,11 @@ class D<T>: C<T>
     }
 }
 ```
-允许对 @no__t 的三个赋值，因为它们都是通过从泛型类型构造的类类型的实例进行的。
+允许 `x` 三个赋值，因为它们都是通过从泛型类型构造的类类型的实例进行的。
 
 ### <a name="accessibility-constraints"></a>辅助功能约束
 
-语言中的C#几个构造要求类型必须至少具有与成员或其他类型***一样的可访问性***。 如果 `T` 的可访问域是 `M` 的可访问域的超集，则将类型 `T` 称为至少可作为成员或类型进行访问 `M`。 换言之，如果 @no__t 可访问的所有 @no__t 上下文中都可访问-2，则 `T` 至少可作为 `M` 可访问。
+语言中的C#几个构造要求类型必须至少具有与成员或其他类型***一样的可访问性***。 如果 `T` 的可访问域是 `M`的可访问域的超集，则 `M` 类型 `T` 称为 "成员" 或 "类型" 的可访问性。 换句话说，如果在可访问 `M` 的所有上下文中都可以访问 `T`，则 `T` 至少可作为 `M` 访问。
 
 存在以下可访问性约束：
 
@@ -393,7 +393,7 @@ class A {...}
 
 public class B: A {...}
 ```
-`B` 类会导致编译时错误，因为 `A` 至少不能作为 `B` 的访问。
+`B` 类会导致编译时错误，因为 `A` 至少与 `B`一样可访问。
 
 同样，在示例中
 ```csharp
@@ -408,14 +408,14 @@ public class B
     public A H() {...}
 }
 ```
-`B` 中的 `H` 方法导致编译时错误，因为 `A` 的返回类型并不至少与方法相同。
+`B` 中的 `H` 方法会导致编译时错误，因为 `A` 的返回类型并不至少与方法相同。
 
 ## <a name="signatures-and-overloading"></a>签名和重载
 
 方法、实例构造函数、索引器和运算符按其***签名***特征：
 
-*  方法的签名由方法的名称、类型参数的数目以及其每个形参的类型和种类（值、引用或输出）组成，按从左到右的顺序排列。 出于这些目的，形参的类型中出现的方法的任何类型形参均由其名称标识，但其在方法的类型实参列表中的序号位置。 具体而言，方法的签名不包括返回类型、可为最右侧参数指定的 `params` 修饰符和可选的类型参数约束。
-*  实例构造函数的签名由其每个形参的类型和类型（值、引用或输出）组成，按从左到右的顺序排列。 实例构造函数的签名具体不包括可以为最右侧参数指定的 `params` 修饰符。
+*  方法的签名由方法的名称、类型参数的数目以及其每个形参的类型和种类（值、引用或输出）组成，按从左到右的顺序排列。 出于这些目的，形参的类型中出现的方法的任何类型形参均由其名称标识，但其在方法的类型实参列表中的序号位置。 具体而言，方法的签名不包括返回类型、可以为最右侧参数指定的 `params` 修饰符，也不包括可选的类型参数约束。
+*  实例构造函数的签名由其每个形参的类型和类型（值、引用或输出）组成，按从左到右的顺序排列。 实例构造函数的签名专门不包含可以为最右侧参数指定的 `params` 修饰符。
 *  索引器的签名由其每个形参的类型组成，按从左到右的顺序排列。 索引器的签名具体不包括元素类型，也不包括可以为最右侧参数指定的 `params` 修饰符。
 *  运算符的签名由运算符的名称和它的每个形参的类型组成，按从左到右的顺序排列。 运算符的签名具体不包括结果类型。
 
@@ -426,9 +426,9 @@ public class B
 *  索引器的重载允许类、结构或接口声明多个索引器，前提是这些索引器的签名在该类、结构或接口中是唯一的。
 *  运算符的重载允许类或结构声明多个具有相同名称的运算符，前提是它们的签名在该类或结构中是唯一的。
 
-尽管 @no__t 0 和 @no__t 1 参数修饰符被视为签名的一部分，但在单个类型中声明的成员不能仅由 `ref` 和 `out` 中的签名有所不同。 如果两个成员在同一类型中声明，但如果两个 @no__t 方法中的所有参数都已更改为 `ref` 修饰符，则会发生编译时错误。 对于签名匹配的其他目的（例如，隐藏或重写），`ref`，`out` 将被视为签名的一部分，并且彼此之间不匹配。 （这一限制是为了C#使程序可以轻松地翻译为在公共语言基础结构（CLI）上运行，而不提供一种方法来定义仅在 `ref` 和 `out` 中存在差异的方法。）
+尽管 `out` 和 `ref` 参数修饰符被视为签名的一部分，但在单个类型中声明的成员不能仅通过 `ref` 和 `out`在签名中有所不同。 如果在同一类型中声明两个成员时，如果两个 `out` 方法中的所有参数都已更改为 `ref` 修饰符，则会发生编译时错误。 对于签名匹配的其他目的（例如，隐藏或重写），`ref` 和 `out` 被视为签名的一部分，并且彼此之间不匹配。 （这一限制是为了C#使程序可以轻松地翻译为在公共语言基础结构（CLI）上运行，而这并不提供一种方法来定义仅在 `ref` 和 `out`上不同的方法。）
 
-对于签名，类型 `object` 和 `dynamic` 被视为相同。 因此，在单个类型中声明的成员可以不区分签名，而只是 `object` 和 `dynamic`。
+对于签名，将 `object` 和 `dynamic` 类型视为相同。 因此，在一种类型中声明的成员可以不区分签名，只是 `object` 和 `dynamic`。
 
 下面的示例演示一组重载方法声明及其签名。
 ```csharp
@@ -454,35 +454,35 @@ interface ITest
 }
 ```
 
-请注意，任何 @no__t 0 和 @no__t 参数修饰符（[方法参数](classes.md#method-parameters)）都是签名的一部分。 因此，@no__t 0 和 @no__t 为唯一的签名。 但是，不能在同一接口内声明 `F(ref int)` 和 `F(out int)`，因为它们的签名仅因 `ref` 和 @no__t 而有所不同。 另请注意，返回类型和 `params` 修饰符不是签名的一部分，因此不可能仅基于返回类型或在包含或排除 @no__t 修饰符时重载。 同样，在上面标识的方法的声明 `F(int)` 和 @no__t 1 会导致编译时错误。
+请注意，任何 `ref` 和 `out` 参数修饰符（[方法参数](classes.md#method-parameters)）都是签名的一部分。 因此，`F(int)` 和 `F(ref int)` 是唯一的签名。 但是，不能在同一接口内声明 `F(ref int)` 和 `F(out int)`，因为它们的签名只是 `ref` 和 `out`的不同之处。 另请注意，返回类型和 `params` 修饰符不是签名的一部分，因此不可能仅基于返回类型或包含或排除 `params` 修饰符而重载。 同样，上面标识的方法的声明 `F(int)` 和 `F(params string[])` 会导致编译时错误。
 
 ## <a name="scopes"></a>范围
 
-名称的***作用域***是程序文本的区域，在该区域中，可以引用名称声明的实体，而无需限定名称。 可以***嵌套***作用域，内部作用域可以从外部作用域中重新声明名称的含义（但这并不能删除嵌套块中的[声明](basic-concepts.md#declarations)施加的限制，不能使用与封闭块中的本地变量相同的名称）。 然后，在内部范围所涵盖的程序文本区域中***隐藏***外部范围的名称，并且只能通过限定名称来访问外部名称。
+名称的***作用域***是程序文本的区域，在该区域中，可以引用名称声明的实体，而无需限定名称。 可以***嵌套***作用域，内部作用域可以重新声明外部作用域中的名称的含义（但这并不能删除嵌套块内的[声明](basic-concepts.md#declarations)施加的限制，不能声明与封闭块中的局部变量同名的局部变量）。 然后，在内部范围所涵盖的程序文本区域中***隐藏***外部范围的名称，并且只能通过限定名称来访问外部名称。
 
-*  *Namespace_member_declaration* （[命名空间成员](namespaces.md#namespace-members)）声明的命名空间成员的作用域不包含任何封闭*namespace_declaration* ，是整个程序文本。
-*  *Namespace_declaration*中*namespace_member_declaration*声明的命名空间成员的作用域，其完全限定名称为 `N` 是每个*namespace_declaration*的*namespace_body* ，其完全限定名称为限定名 `N` 或以 `N` 开始，后跟一个句点。
-*  由*extern_alias_directive*定义的名称的作用域超出其立即包含编译单元或命名空间正文的*using_directive*s、 *global_attributes*和*namespace_member_declaration*。 *Extern_alias_directive*不会将任何新成员分配给基础声明空间。 换句话说， *extern_alias_directive*是不可传递的，而是仅影响其出现在其中的编译单元或命名空间正文。
-*  *Using_directive* （[使用指令](namespaces.md#using-directives)）定义或导入的名称的作用域扩展到*compilation_unit*或*namespace_body*的*namespace_member_declaration*，其中*using_directive*发生。 *Using_directive*可以使特定*compilation_unit*或*namespace_body*中的零个或多个命名空间、类型或成员名称可用，但不会将任何新成员分配给基础声明空间。 换句话说， *using_directive*是不可传递的，而只会影响发生它的*compilation_unit*或*namespace_body* 。
-*  由*class_declaration*上的*type_parameter_list*声明的类型参数的作用域（[类声明](classes.md#class-declarations)）是该的*class_base*、 *type_parameter_constraints_clause*和*class_body* 。 *class_declaration*。
-*  由*struct_declaration*上的*type_parameter_list*声明的类型参数的作用域（[结构声明](structs.md#struct-declarations)）是的*struct_interfaces*、 *type_parameter_constraints_clause*和*struct_body*该*struct_declaration*。
-*  由*interface_declaration*上的*type_parameter_list*声明的类型参数的作用域（[接口声明](interfaces.md#interface-declarations)）为*interface_base*、 *type_parameter_constraints_clause*和*interface_body*的*interface_declaration*。
-*  由*delegate_declaration*上的*type_parameter_list*声明的类型参数的作用域（[委托声明](delegates.md#delegate-declarations)）为*return_type*、 *formal_parameter_list*和*type_parameter_constraints_clause*的*delegate_declaration*。
+*  由不包含任何封闭*namespace_declaration*的*namespace_member_declaration* （[命名空间成员](namespaces.md#namespace-members)）声明的命名空间成员的作用域是整个程序文本。
+*  由完全限定名称 `N` 的*namespace_declaration*中*namespace_member_declaration*声明的命名空间成员的范围是每个*namespace_declaration*的*namespace_body* ，其完全限定名称是 `N` 或以 `N`开头，后跟一个句点。
+*  *Extern_alias_directive*定义的名称的作用域超出了其立即包含编译单元或命名空间正文的*using_directive*s、 *global_attributes*和*namespace_member_declaration*。 *Extern_alias_directive*不会将任何新成员分配给基础声明空间。 换句话说， *extern_alias_directive*是不可传递的，而是只影响它发生的编译单元或命名空间体。
+*  *Using_directive* （[使用指令](namespaces.md#using-directives)）定义或导入的名称的作用域扩展到发生*using_directive*的*compilation_unit*或*namespace_body*的*namespace_member_declaration*。 *Using_directive*可以使零个或多个命名空间、类型或成员名称在特定*compilation_unit*或*namespace_body*中可用，但不会将任何新成员分配给基础声明空间。 换句话说， *using_directive*是不可传递的，而只会影响其发生的*compilation_unit*或*namespace_body* 。
+*  *Class_declaration* （[类声明](classes.md#class-declarations)）上的*type_parameter_list*声明的类型参数的作用域是该*class_body*的*class_base*、 *type_parameter_constraints_clause*和*class_declaration* 。
+*  *Struct_declaration* （[结构声明](structs.md#struct-declarations)）上的*type_parameter_list*声明的类型参数的作用域是该*struct_body*的*struct_interfaces*、 *type_parameter_constraints_clause*和*struct_declaration* 。
+*  *Interface_declaration* （[接口声明](interfaces.md#interface-declarations)）上的*type_parameter_list*声明的类型参数的作用域是该*interface_body*的*interface_base*、 *type_parameter_constraints_clause*和*interface_declaration* 。
+*  由*delegate_declaration* （[委托声明](delegates.md#delegate-declarations)）上的*type_parameter_list*声明的类型参数的作用域是该*type_parameter_constraints_clause*的*return_type*、 *formal_parameter_list*和*delegate_declaration*。
 *  *Class_member_declaration* （[类体](classes.md#class-body)）声明的成员的作用域是在其中进行声明的*class_body* 。 此外，类成员的作用域扩展到包含在该成员的可访问域（[可访问](basic-concepts.md#accessibility-domains)域）中的派生类的*class_body* 。
 *  *Struct_member_declaration* （[结构成员](structs.md#struct-members)）声明的成员的作用域是在其中进行声明的*struct_body* 。
-*  *Enum_member_declaration* （[enum 成员](enums.md#enum-members)）声明的成员的作用域是在其中进行声明的*enum_body* 。
+*  *Enum_member_declaration* （[枚举成员](enums.md#enum-members)）声明的成员的作用域是在其中进行声明的*enum_body* 。
 *  在*method_declaration* （[方法](classes.md#methods)）中声明的参数的作用域是该*method_declaration*的*method_body* 。
-*  在*indexer_declaration* （[索引器](classes.md#indexers)）中声明的参数的作用域是该*indexer_declaration*的*accessor_declarations* 。
+*  *Indexer_declaration* （[索引器](classes.md#indexers)）中声明的参数的作用域是该*indexer_declaration*的*accessor_declarations* 。
 *  在*operator_declaration* （[运算符](classes.md#operators)）中声明的参数的作用域是该*operator_declaration*的*块*。
 *  在*constructor_declaration* （[实例构造函数](classes.md#instance-constructors)）中声明的参数的作用域是该*constructor_declaration*的*constructor_initializer*和*块*。
 *  在*lambda_expression* （[匿名函数表达式](expressions.md#anonymous-function-expressions)）中声明的参数的作用域是该*lambda_expression*的*anonymous_function_body*
 *  在*anonymous_method_expression* （[匿名函数表达式](expressions.md#anonymous-function-expressions)）中声明的参数的作用域是该*anonymous_method_expression*的*块*。
-*  在*labeled_statement* （[标记的语句](statements.md#labeled-statements)）中声明的标签的作用域是在其中进行声明的*块*。
+*  在*labeled_statement* （[标记语句](statements.md#labeled-statements)）中声明的标签的作用域是在其中进行声明的*块*。
 *  在*local_variable_declaration* （[局部变量声明](statements.md#local-variable-declarations)）中声明的局部变量的作用域是在其中进行声明的块。
-*  在 `switch` 语句（[switch 语句](statements.md#the-switch-statement)）的*switch_block*中声明的局部变量的范围为*switch_block*。
-*  在 `for` 语句（[for 语句](statements.md#the-for-statement)）的*for_initializer*中声明的局部变量的作用域是*for_initializer*、 *for_condition*、 *for_iterator*和包含的*语句*。@no__t 7 语句。
-*  在*local_constant_declaration*中声明的局部常量的作用域（[局部常量声明](statements.md#local-constant-declarations)）是在其中进行声明的块。 在其*constant_declarator*之前的文本位置引用本地常量是编译时错误。
-*  声明为*foreach_statement*、 *using_statement*、 *lock_statement*或*query_expression*的一部分的变量的作用域由给定构造的扩展确定。
+*  在 `switch` 语句的*switch_block*中声明的局部变量的作用域（[switch 语句](statements.md#the-switch-statement)）为*switch_block*。
+*  在 `for` 语句的*for_initializer*中声明的局部变量的作用域（[for 语句](statements.md#the-for-statement)）是*for_initializer*、 *for_condition*、 *for_iterator*和 `for` 语句包含的*语句*。
+*  在*local_constant_declaration*中声明的局部常量的作用域（[局部常量声明](statements.md#local-constant-declarations)）是在其中进行声明的块。 在*constant_declarator*之前的文本位置引用本地常量是编译时错误。
+*  声明为*foreach_statement*、 *using_statement*、 *lock_statement*或*query_expression*一部分的变量的作用域由给定构造的扩展确定。
 
 在命名空间、类、结构或枚举成员的作用域内，可以引用成员声明之前的文本位置中的成员。 例如
 ```csharp
@@ -495,9 +495,9 @@ class A
     int i = 0;
 }
 ```
-此处，在声明之前，`F` 引用 @no__t。
+此处，在声明之前，`F` 引用 `i` 是有效的。
 
-在局部变量的作用域内，在本地变量的*local_variable_declarator*之前的文本位置引用本地变量是编译时错误。 例如
+在局部变量的作用域内，在本地变量*local_variable_declarator*之前的文本位置引用本地变量是编译时错误。 例如
 ```csharp
 class A
 {
@@ -519,7 +519,7 @@ class A
 }
 ```
 
-在上面的 `F` 方法中，第一次分配给 @no__t 的第1项并未引用在外部作用域中声明的字段。 相反，它是指局部变量，它会导致编译时错误，因为它在此变量的声明之前。 在 `G` 方法中，在 `j` 的声明的初始值设定项中使用 @no__t 是有效的，因为使用不在*local_variable_declarator*之前。 在 `H` 方法中，后续*local_variable_declarator*正确引用在同一*local_variable_declaration*中的早期*local_variable_declarator*中声明的局部变量。
+在上面的 `F` 方法中，第一次分配到 `i` 并不引用在外部作用域中声明的字段。 相反，它是指局部变量，它会导致编译时错误，因为它在此变量的声明之前。 在 `G` 方法中，在 `j` 的声明的初始值设定项中使用 `j` 是有效的，因为在*local_variable_declarator*之前不会使用。 在 `H` 方法中，后续*local_variable_declarator*正确引用在同一*local_variable_declaration*中的早期*local_variable_declarator*中声明的局部变量。
 
 局部变量的作用域规则旨在确保表达式上下文中使用的名称的含义在块中始终相同。 如果本地变量的作用域只是从其声明扩展到块的末尾，则第一个赋值将分配给实例变量，第二个赋值将分配给局部变量，这可能会导致编译时错误（如果以后要重新排列块的语句）。
 
@@ -542,7 +542,7 @@ class Test
     }
 }
 ```
-名称 `A` 用于在表达式上下文中引用局部变量 `A` 和在类型上下文中以引用类 `A`。
+名称 `A` 用于在表达式上下文中引用局部变量 `A`，在类型上下文中用于引用类 `A`。
 
 ### <a name="name-hiding"></a>名称隐藏
 
@@ -569,7 +569,7 @@ class A
     }
 }
 ```
-在 `F` 方法中，实例变量 `i` 由局部变量 `i` 隐藏，但在 `G` 方法中，`i` 仍引用实例变量。
+在 `F` 方法中，实例变量 `i` 由局部变量 `i`隐藏，但在 `G` 方法中，`i` 仍引用实例变量。
 
 当内部范围中的名称隐藏外部范围内的名称时，它将隐藏该名称的所有重载匹配项。 示例中
 ```csharp
@@ -590,7 +590,7 @@ class Outer
     }
 }
 ```
-调用 `F(1)` 会调用 `Inner` 中声明的 @no__t，因为内部声明隐藏了 @no__t 的所有外部匹配项。 由于同样的原因，调用 `F("Hello")` 会导致编译时错误。
+调用 `F(1)` 调用在 `Inner` 中声明的 `F`，因为 `F` 的所有外部匹配项都将被内部声明隐藏。 出于同一原因，调用 `F("Hello")` 会导致编译时错误。
 
 #### <a name="hiding-through-inheritance"></a>通过继承隐藏
 
@@ -614,9 +614,9 @@ class Derived: Base
     public void F() {}        // Warning, hiding an inherited name
 }
 ```
-`Derived` 中 @no__t 的声明会导致报告警告。 隐藏继承名称特别不是错误，因为这会阻止基类的单独演化。 例如，上述情况可能已涉及，因为更高版本的 `Base` 引入了类的早期版本中不存在的 @no__t 1 方法。 如果上述情况是错误的，则对单独的版本控制类库中的基类进行的任何更改都可能导致派生类无效。
+`Derived` 中 `F` 的声明会导致报告警告。 隐藏继承名称特别不是错误，因为这会阻止基类的单独演化。 例如，由于 `Base` 的更高版本引入了在早期版本的类中不存在的 `F` 方法，因此可能会出现上述情况。 如果上述情况是错误的，则对单独的版本控制类库中的基类进行的任何更改都可能导致派生类无效。
 
-通过使用 `new` 修饰符，可以消除通过隐藏继承名称导致的警告：
+隐藏继承名称导致的警告可以通过使用 `new` 修饰符来消除：
 ```csharp
 class Base
 {
@@ -629,7 +629,7 @@ class Derived: Base
 }
 ```
 
-@No__t-0 修饰符指示 `Derived` 中的 @no__t 为 "new"，它确实用于隐藏继承的成员。
+`new` 修饰符指示 `Derived` 中的 `F` 为 "new"，并且实际上用于隐藏继承的成员。
 
 新成员的声明仅在新成员的范围内隐藏继承的成员。
 
@@ -650,7 +650,7 @@ class MoreDerived: Derived
 }
 ```
 
-在上面的示例中，`Derived` 中 `F` 的声明隐藏了从 `Base` 继承的 `F`，但由于 @no__t 5 中的新 @no__t 有私有访问权限，因此它的作用域不会扩展到 `MoreDerived`。 因此，`MoreDerived.G` 中的调用 `F()` 有效，将调用 `Base.F`。
+在上面的示例中，`Derived` 中的 `F` 的声明隐藏了继承自 `Base`的 `F`，但由于 `F` 中的新 `Derived` 具有私有访问权限，因此它的作用域不会扩展到 `MoreDerived`。 因此，`MoreDerived.G` 中 `F()` 调用有效，并将调用 `Base.F`。
 
 ## <a name="namespace-and-type-names"></a>命名空间和类型名称
 
@@ -672,57 +672,57 @@ namespace_or_type_name
     ;
 ```
 
-*Namespace_name*是引用命名空间的*namespace_or_type_name* 。 按照下面所述的解决方法， *namespace_name*的*namespace_or_type_name*必须引用命名空间，否则将发生编译时错误。 *Namespace_name*中不能存在任何类型参数（[类型参数](types.md#type-arguments)）（类型只能有类型参数）。
+*Namespace_name*是引用命名空间的*namespace_or_type_name* 。 按照下面所述的解决方法， *namespace_name*的*namespace_or_type_name*必须引用命名空间，否则将发生编译时错误。 *Namespace_name*中不能存在类型参数（[类型参数](types.md#type-arguments)）（只有类型可以具有类型参数）。
 
 *Type_name*是引用类型的*namespace_or_type_name* 。 按照下面所述的解决方法， *type_name*的*namespace_or_type_name*必须引用类型，否则将发生编译时错误。
 
-如果*namespace_or_type_name*是一个限定别名成员，则其含义如[命名空间别名限定符](namespaces.md#namespace-alias-qualifiers)中所述。 否则， *namespace_or_type_name*具有四种形式之一：
+如果*namespace_or_type_name*是符合条件的成员，则其含义如[命名空间别名限定符](namespaces.md#namespace-alias-qualifiers)中所述。 否则， *namespace_or_type_name*具有以下四种形式之一：
 
 *  `I`
 *  `I<A1, ..., Ak>`
 *  `N.I`
 *  `N.I<A1, ..., Ak>`
 
-其中 `I` 是单个标识符，`N` 为*namespace_or_type_name* ，@no__t 为可选的*type_argument_list*。 如果未指定*type_argument_list* ，请考虑 `k` 为零。
+其中 `I` 是单个标识符，`N` 为*namespace_or_type_name* ，`<A1, ..., Ak>` 为可选的*type_argument_list*。 当未指定*type_argument_list*时，请考虑 `k` 为零。
 
 确定*namespace_or_type_name*的含义，如下所示：
 
-*   如果*namespace_or_type_name*的格式 @no__t 为-1 或格式为 `I<A1, ..., Ak>`：
-    * 如果 @no__t 为零且*namespace_or_type_name*显示在泛型方法声明（[方法](classes.md#methods)）中，并且如果声明包含名称为 @ no__t 的类型参数（[类型参数](classes.md#type-parameters)），则*namespace_or_type_名称*是指该类型参数。
-    * 否则，如果*namespace_or_type_name*出现在类型声明中，则对于每个实例类型 @ no__t （[实例类型](classes.md#the-instance-type)），从该类型声明的实例类型开始，并继续使用每个实例的实例类型。封闭类或结构声明（如果有）：
-        * 如果 @no__t 为零，而 @no__t 的声明包含名为 @ no__t 的 type 参数，则*namespace_or_type_name*将引用该类型参数。
-        * 否则，如果*namespace_or_type_name*出现在类型声明的主体中，`T` 或它的任何基类型包含名为 @ no__t-2 和 `K` @ no__t-4type 参数的嵌套可访问类型，则*namespace_or_type_name*是指用给定类型参数构造的类型。 如果有多个这样的类型，则选择在派生程度较大的类型中声明的类型。 请注意，在确定的含义时，将忽略非类型成员（常数、字段、方法、属性、索引器、运算符、实例构造函数、析构函数和静态构造函数）和具有不同数量的类型参数的类型成员。*namespace_or_type_name*。
-    * 如果前面的步骤不成功，则对于每个命名空间 @ no__t，从*namespace_or_type_name*发生的命名空间开始，继续每个封闭命名空间（如果有），并以全局命名空间结束，以下在查找实体之前计算步骤：
-        * 如果 @no__t 为零且 @no__t 为 @ no__t 中的命名空间的名称，则：
-            * 如果发生*namespace_or_type_name*的位置由 `N` 的命名空间声明括起来，并且命名空间声明包含将名称 @ no 关联的*extern_alias_directive*或*using_alias_directive*__t-4，具有命名空间或类型，则*namespace_or_type_name*不明确，并发生编译时错误。
-            * 否则， *namespace_or_type_name*引用 `N` 中名为 `I` 的命名空间。
-        * 否则，如果 `N` 包含名为 @ no__t 的可访问类型和 `K` @ no__t-3type 参数，则：
-            * 如果 @no__t 为零，且*namespace_or_type_name*的位置由 `N` 的命名空间声明括起来，并且命名空间声明包含*extern_alias_directive*或*using_alias_directive* ，则将名称 @ no__t 与命名空间或类型相关联，然后*namespace_or_type_name*是不明确的，并发生编译时错误。
-            * 否则， *namespace_or_type_name*将引用用给定类型参数构造的类型。
-        * 否则，如果*namespace_or_type_name*发生的位置由 `N` 的命名空间声明括起来，则为; 否则为。
-            * 如果 @no__t 为零，命名空间声明包含*extern_alias_directive*或*using_alias_directive* ，它将名称 @ no__t 与导入的命名空间或类型相关联，则*namespace_or_type_name*引用命名空间或类型。
-            * 否则，如果由命名空间声明中的*using_namespace_directive*s 和*using_alias_directive*s 导入的命名空间和类型声明包含一个名称为 @ no__t 的可访问类型和 `K` @ no__t-4type参数，则*namespace_or_type_name*引用以给定类型参数构造的类型。
-            * 否则，如果由命名空间声明的*using_namespace_directive*s 和*using_alias_directive*s 导入的命名空间和类型声明包含多个名称为 @ no__t 和 `K` @ no__t-4type 的可访问类型参数，则*namespace_or_type_name*是不明确的，并发生错误。
-    * 否则， *namespace_or_type_name*是未定义的，并发生编译时错误。
-*  否则， *namespace_or_type_name*的格式 @no__t 为-1 或格式为 `N.I<A1, ..., Ak>`。 @no__t 首先解析为*namespace_or_type_name*。 如果 @no__t 的解析失败，则会发生编译时错误。 否则，将按如下方式解析 `N.I` 或 `N.I<A1, ..., Ak>`：
-    * 如果 @no__t 为零，`N` 表示命名空间，`N` 包含名称 @no__t 为3的嵌套命名空间，则*namespace_or_type_name*引用该嵌套命名空间。
-    * 否则，如果 `N` 引用命名空间，并且 @no__t 包含名称为 @ no__t 的可访问类型和 `K` @ 4type 参数，则*namespace_or_type_name*引用使用给定类型参数构造的类型。
-    * 否则，如果 `N` 引用（可能构造的）类或结构类型，`N` 或它的任何一个基类包含名称为 @ no__t 的嵌套可访问性类型和 @no__t @ 4type 参数，则*namespace_or_type_name*引用用给定的类型参数构造的类型。 如果有多个这样的类型，则选择在派生程度较大的类型中声明的类型。 请注意，如果将 `N.I` 的含义确定为解析 @no__t 的基类规范，则 `N` 的直接基类被视为对象（[基类](classes.md#base-classes)）。
-    * 否则，@no__t 为无效的*namespace_or_type_name*，并发生编译时错误。
+*   如果*namespace_or_type_name*格式为 `I` 或 `I<A1, ..., Ak>`格式：
+    * 如果 `K` 为零且*namespace_or_type_name*出现在泛型方法声明（[方法](classes.md#methods)）中，并且如果该声明包含名称为 `I`的类型参数（[类型参数](classes.md#type-parameters)），则*namespace_or_type_name*将引用该类型参数。
+    * 否则，如果*namespace_or_type_name*出现在类型声明内，则对于每个实例类型 `T` （[实例类型](classes.md#the-instance-type)），以该类型声明的实例类型开头，并继续使用每个封闭类或结构声明的实例类型（如果有）：
+        * 如果 `K` 为零，且 `T` 的声明包含名称为 `I`的类型参数，则*namespace_or_type_name*将引用该类型参数。
+        * 否则，如果*namespace_or_type_name*出现在类型声明的主体中，并且 `T` 或其任何基类型包含名称 `I` 和 `K` 类型参数的嵌套可访问类型，则*namespace_or_type_name*引用使用给定类型参数构造的类型。 如果有多个这样的类型，则选择在派生程度较大的类型中声明的类型。 请注意，在确定*namespace_or_type_name*的含义时，将忽略非类型成员（常数、字段、方法、属性、索引器、运算符、实例构造函数、析构函数和静态构造函数）和具有不同数目的类型参数的类型成员。
+    * 如果前面的步骤不成功，则对于每个命名空间 `N`，从发生*namespace_or_type_name*的命名空间开始，继续每个封闭命名空间（如果有），并以全局命名空间结束，将计算以下步骤，直到找到实体：
+        * 如果 `K` 为零且 `I` 是 `N`中的命名空间的名称，则：
+            * 如果*namespace_or_type_name*发生的位置由 `N` 的命名空间声明括起来，并且命名空间声明包含将名称 `I` 与命名空间或类型相关联的*extern_alias_directive*或*using_alias_directive* ，则*namespace_or_type_name*为不明确，并发生编译时错误。
+            * 否则， *namespace_or_type_name*引用 `N`中名为 `I` 的命名空间。
+        * 否则，如果 `N` 包含名称 `I` 且 `K` 类型参数的可访问类型，则：
+            * 如果 `K` 为零，且*namespace_or_type_name*的位置由 `N` 的命名空间声明括起来，并且命名空间声明包含将名称 using_alias_directive 与命名空间或类型相关联的*extern_alias_directive*或 * `I`* ，则*namespace_or_type_name*是不明确的，并发生编译时错误。
+            * 否则， *namespace_or_type_name*引用用给定类型参数构造的类型。
+        * 否则，如果*namespace_or_type_name*发生的位置由 `N`的命名空间声明括起来：
+            * 如果 `K` 为零，且命名空间声明包含将名称 `I` 与导入的命名空间或类型相关联的*extern_alias_directive*或*using_alias_directive* ，则*namespace_or_type_name*引用该命名空间或类型。
+            * 否则，如果*using_namespace_directive*s 和*using_alias_directive*s 的命名空间和类型声明都包含一个名称 `I` 并 `K` 类型参数的可访问类型，则*namespace_or_type_name*引用使用给定类型参数构造的类型。
+            * 否则，如果*using_namespace_directive*s 和命名空间声明的*using_alias_directive*s 中导入的命名空间和类型声明包含多个具有名称 `I` 并 `K` 类型参数的可访问类型，则*namespace_or_type_name*为不明确，并发生错误。
+    * 否则， *namespace_or_type_name*是未定义的，并且发生编译时错误。
+*  否则， *namespace_or_type_name*的格式为 `N.I` 或 `N.I<A1, ..., Ak>`形式。 `N` 首先解析为*namespace_or_type_name*。 如果 `N` 的解析不成功，则会发生编译时错误。 否则，按如下方式解析 `N.I` 或 `N.I<A1, ..., Ak>`：
+    * 如果 `K` 为零且 `N` 引用命名空间，并且 `N` 包含名称 `I`的嵌套命名空间，则*namespace_or_type_name*引用该嵌套命名空间。
+    * 否则，如果 `N` 引用命名空间，并且 `N` 包含名称 `I` 和 `K` 类型参数的可访问类型，则*namespace_or_type_name*引用使用给定类型参数构造的类型。
+    * 否则，如果 `N` 引用一个（可能构造的）类或结构类型，并且 `N` 或它的任何一个基类包含名称 `I` 和 `K` 类型参数的嵌套可访问类型，则*namespace_or_type_name*引用使用给定类型参数构造的类型。 如果有多个这样的类型，则选择在派生程度较大的类型中声明的类型。 请注意，如果将 `N.I` 的含义确定为解析 `N` 的基类规范的一部分，则 `N` 的直接基类被视为 object （[基类](classes.md#base-classes)）。
+    * 否则，`N.I` 是无效*namespace_or_type_name*，并发生编译时错误。
 
-仅当使用*namespace_or_type_name*时，才能引用静态类（[静态类](classes.md#static-classes)）
+只允许*namespace_or_type_name*引用静态类（[静态类](classes.md#static-classes)）
 
-*  *Namespace_or_type_name*是 `T.I` 形式的*namespace_or_type_name*中的 `T`，或
-*  *Namespace_or_type_name*是*typeof_expression* （[参数列表](expressions.md#argument-lists)1）中格式为 `typeof(T)` 的 @no__t。
+*  *Namespace_or_type_name*是窗体 `T.I`*namespace_or_type_name*的 `T`，或
+*  *Namespace_or_type_name*是窗体 `typeof(T)`的*typeof_expression* （[参数列表](expressions.md#argument-lists)1）中的 `T`。
 
 ### <a name="fully-qualified-names"></a>完全限定的名称
 
-每个命名空间和类型都有一个***完全限定的名称***，该名称唯一地标识命名空间或类型。 按如下方式确定命名空间或类型 `N` 的完全限定名：
+每个命名空间和类型都有一个***完全限定的名称***，该名称唯一地标识命名空间或类型。 命名空间或类型 `N` 的完全限定名的确定方式如下：
 
-*  如果 `N` 是全局命名空间的成员，则其完全限定名称为 `N`。
+*  如果 `N` 是全局命名空间的成员，则会 `N`其完全限定名称。
 *  否则，其完全限定名称为 `S.N`，其中 `S` 是声明 `N` 的命名空间或类型的完全限定名称。
 
-换句话说，@no__t 的完全限定名是从全局命名空间开始 @no__t 的标识符的完整层次结构路径。 由于命名空间或类型的每个成员都必须具有唯一的名称，因此命名空间或类型的完全限定名称始终是唯一的。
+换句话说，`N` 的完全限定名是从全局命名空间开始 `N`的标识符的完整层次结构路径。 由于命名空间或类型的每个成员都必须具有唯一的名称，因此命名空间或类型的完全限定名称始终是唯一的。
 
 下面的示例显示了几个命名空间和类型声明及其关联的完全限定名称。
 ```csharp
@@ -761,7 +761,7 @@ C#采用自动内存管理，使开发人员无手动分配和释放由对象占
 
 与其他假设存在垃圾回收器的语言一样， C#设计使垃圾回收器可以实现各种内存管理策略。 例如， C#不要求运行析构函数，或在对象符合条件时收集对象，或者在任何特定的线程上以任何特定的顺序运行析构函数。
 
-可以通过类上的静态方法控制垃圾回收器的行为，使其在一定程度上控制 `System.GC`。 此类可用于请求进行集合、运行（或不运行）等操作。
+可以通过类 `System.GC`上的静态方法控制垃圾回收器的行为。 此类可用于请求进行集合、运行（或不运行）等操作。
 
 由于垃圾回收器允许广泛的纬度来决定何时收集对象和运行析构函数，因此一致的实现可能产生与下面的代码所示不同的输出。 程序
 ```csharp
@@ -797,7 +797,7 @@ class Test
     }
 }
 ```
-创建类 @no__t 的实例，`B` 的实例。 如果为变量 `b` 赋值 `null`，则这些对象将可以进行垃圾回收，因为在此之后，任何用户编写的代码都无法访问它们。 输出可以是
+创建类 `A` 实例和类 `B`的实例。 如果为变量 `b` 分配了值 `null`，则这些对象将可以进行垃圾回收，因为在此之后，任何用户编写的代码就不能访问它们。 输出可以是
 
 ```console
 Destruct instance of A
@@ -859,7 +859,7 @@ class Test
 }
 ```
 
-在上述程序中，如果垃圾回收器选择在 `B` 的析构函数之前运行 `A` 的析构函数，则该程序的输出可能是：
+在上述程序中，如果垃圾回收器选择在 `B`的析构函数之前运行 `A` 的析构函数，则该程序的输出可能是：
 ```console
 Destruct instance of A
 Destruct instance of B
@@ -867,11 +867,11 @@ A.F
 RefA is not null
 ```
 
-请注意，尽管 @no__t 的实例未被使用，并且运行了 `A` 的析构函数，但仍有可能从另一个析构函数调用 `A` （在本例中为 `F`）的方法。 另外，请注意，运行析构函数可能会导致对象再次可从主线程序使用。 在这种情况下，运行 @no__t 0 的析构函数会导致先前未使用的 @no__t 实例变为可从实时引用 `Test.RefA`。 调用 `WaitForPendingFinalizers` 后，`B` 的实例符合集合条件，但 @no__t 的实例不是，因为引用 @no__t 为3。
+请注意，尽管 `A` 的实例未被使用，并且 `A`的析构函数已运行，但仍有可能从另一个析构函数调用 `A` 的方法（在本例中为 `F`）。 另外，请注意，运行析构函数可能会导致对象再次可从主线程序使用。 在这种情况下，运行 `B`的析构函数会导致先前未使用的 `A` 实例成为可从实时引用 `Test.RefA`访问的实例。 调用 `WaitForPendingFinalizers`后，`B` 的实例可用于集合，但 `A` 的实例不是，因为引用 `Test.RefA`。
 
 为了避免混淆和意外行为，通常情况下，析构函数只对存储在其自身字段中的数据执行清理，而不对引用的对象或静态字段执行任何操作。
 
-使用析构函数的替代方法是让类实现 `System.IDisposable` 接口。 这允许对象的客户端确定何时释放对象的资源，这通常是通过在 `using` 语句（[using 语句](statements.md#the-using-statement)）中以资源的形式访问对象的。
+使用析构函数的替代方法是让类实现 `System.IDisposable` 接口。 这允许对象的客户端确定何时释放对象的资源，通常是通过在 `using` 语句（[using 语句](statements.md#the-using-statement)）中将对象作为资源来访问。
 
 ## <a name="execution-order"></a>执行顺序
 

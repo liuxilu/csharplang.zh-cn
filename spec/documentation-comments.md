@@ -14,7 +14,7 @@ C#为程序员提供一种机制，以使用包含 XML 文本的特殊注释语�
 
 ## <a name="introduction"></a>介绍
 
-具有特殊形式的注释可用于指示工具从这些注释生成 XML，并将其置于之前。 此类注释是以三个斜杠（`///`）开头或以斜杠和两个星号（`/**`）开头的分隔注释。 它们必须紧跟在用户定义的类型（如类、委托或接口）或它们所批注的成员（如字段、事件、属性或方法）之前。 特性部分（[特性规范](attributes.md#attribute-specification)）被视为声明的一部分，因此文档注释必须位于应用到类型或成员的特性之前。
+具有特殊形式的注释可用于指示工具从这些注释生成 XML，并将其置于之前。 此类注释是以三个斜杠（`///`）开头的单行注释，或以斜杠和双星（`/**`）开头的分隔注释。 它们必须紧跟在用户定义的类型（如类、委托或接口）或它们所批注的成员（如字段、事件、属性或方法）之前。 特性部分（[特性规范](attributes.md#attribute-specification)）被视为声明的一部分，因此文档注释必须位于应用到类型或成员的特性之前。
 
 __语法__
 
@@ -28,7 +28,7 @@ delimited_doc_comment
     ;
 ```
 
-在*single_line_doc_comment*中，如果在与当前*single_line_doc_comment*相邻的每个*single_line_doc_comment*上 @no__t 的第2个字符后面有一个*空格*字符，则该*空格*不在 XML 输出中包含字符。
+在*single_line_doc_comment*中，如果在当前*single_line_doc_comment*附近的每个*single_line_doc_comment*上的 `///` 字符后面有一个*空格*字符，则该*空白*字符将不包含在 XML 输出中。
 
 在分隔的文档注释中，如果第二行中的第一个非空白字符为星号并且具有相同的可选空白字符模式，并且在分隔的文档注释中每一行的开头重复星号字符，然后，XML 输出中不包括重复模式的字符。 此模式可能包含后面和星号字符后面的空白字符。
 
@@ -45,14 +45,14 @@ public class Point
 }
 ```
 
-文档注释中的文本必须根据 XML （ https://www.w3.org/TR/REC-xml) 。 如果 XML 格式不正确，则会生成警告，并且文档文件将包含一条注释，指出遇到了错误。
+文档注释中的文本必须根据 XML 规则（ https://www.w3.org/TR/REC-xml)。 如果 XML 格式不正确，则会生成警告，并且文档文件将包含一条注释，指出遇到了错误。
 
 尽管开发人员可以自由地创建自己的一组标记，但建议的[标记](documentation-comments.md#recommended-tags)中定义了一个建议的集。 部分建议标记具有特殊含义：
 
-*  `<param>`标记用于描述参数。 如果使用此类标记，文档生成器必须验证指定的参数是否存在以及文档注释中是否描述了所有参数。 如果此类验证失败，文档生成器会发出警告。
-*  `cref` 属性可以附加到任何标记，以提供对代码元素的引用。 文档生成器必须验证此代码元素是否存在。 如果验证失败，文档生成器会发出警告。 查找`cref`特性中描述的名称时，文档生成器必须根据源代码中出现的语句来`using`区分命名空间可见性。 对于泛型代码元素，不能使用常规泛型语法（即 "`List<T>`"），因为它会生成无效的 XML。 可以使用大括号代替方括号（即 "`List{T}`"），也可以使用 XML 转义语法（即 "`List&lt;T&gt;`"）。
-*  `<summary>`标记用于文档查看器，用于显示有关类型或成员的其他信息。
-*  `<include>`标记包含外部 XML 文件中的信息。
+*  `<param>` 标记用于描述参数。 如果使用此类标记，文档生成器必须验证指定的参数是否存在以及文档注释中是否描述了所有参数。 如果此类验证失败，文档生成器会发出警告。
+*  `cref` 属性可以附加到任何标记，以提供对代码元素的引用。 文档生成器必须验证此代码元素是否存在。 如果验证失败，文档生成器会发出警告。 查找 `cref` 特性中所述的名称时，文档生成器必须根据源代码中显示的 `using` 语句来区分命名空间可见性。 对于泛型代码元素，不能使用常规泛型语法（即 "`List<T>`"），因为它产生了无效的 XML。 可以使用大括号代替方括号（即 "`List{T}`"），也可以使用 XML 转义语法（即 "`List&lt;T&gt;`"）。
+*  `<summary>` 标记旨在供文档查看器用来显示有关某个类型或成员的其他信息。
+*  `<include>` 标记包含外部 XML 文件中的信息。
 
 请注意，文档文件不提供有关类型和成员（例如，它不包含任何类型信息）的完整信息。 若要获取有关某个类型或成员的此类信息，文档文件必须与实际类型或成员的反射一起使用。
 
@@ -61,7 +61,7 @@ public class Point
 文档生成器必须接受并处理根据 XML 规则有效的任何标记。 以下标记提供用户文档中的常用功能。 （当然，其他标记是可能的。）
 
 
-| __符__          | __节__                                            | __目的__                                            |
+| __符__          | __Section__                                            | __目的__                                            |
 |------------------|--------------------------------------------------------|--------------------------------------------------------|
 | `<c>`            | [`<c>`](documentation-comments.md#c)                   | 设置类似代码的字体中的文本                           | 
 | `<code>`         | [`<code>`](documentation-comments.md#code)             | 设置一个或多个源代码或程序输出行 |
@@ -84,7 +84,7 @@ public class Point
 
 ### `<c>`
 
-此标记提供一种机制，用于指示说明中的文本片段应设置为特殊字体，如用于代码块的。 对于实际代码行，请使用`<code>` （[`<code>`](documentation-comments.md#code)）。
+此标记提供一种机制，用于指示说明中的文本片段应设置为特殊字体，如用于代码块的。 对于实际代码行，请使用 `<code>` （[`<code>`](documentation-comments.md#code)）。
 
 __语法__
 
@@ -106,7 +106,7 @@ public class Point
 
 ### `<code>`
 
-此标记用于设置一个或多个源代码或程序输出行，采用某种特殊字体。 对于叙述性的小型代码片段， `<c>`请[`<c>`](documentation-comments.md#c)使用（）。
+此标记用于设置一个或多个源代码或程序输出行，采用某种特殊字体。 对于简单的代码片段，请使用 `<c>` （[`<c>`](documentation-comments.md#c)）。
 
 __语法__
 
@@ -136,7 +136,7 @@ public void Translate(int xor, int yor) {
 
 ### `<example>`
 
-此标记允许在注释内使用示例代码来指定如何使用方法或其他库成员。 通常，这也会涉及到标记`<code>` （[`<code>`](documentation-comments.md#code)）的使用。
+此标记允许在注释内使用示例代码来指定如何使用方法或其他库成员。 通常情况下，这也会涉及使用标记 `<code>` （[`<code>`](documentation-comments.md#code)）。
 
 __语法__
 
@@ -146,7 +146,7 @@ __语法__
 
 __示例：__
 
-有关`<code>`示例[`<code>`](documentation-comments.md#code)，请参见（）。
+有关示例，请参阅 `<code>` （[`<code>`](documentation-comments.md#code)）。
 
 ### `<exception>`
 
@@ -158,10 +158,10 @@ __语法__
 <exception cref="member">description</exception>
 ```
 
-where
+其中
 
-* `member`成员的名称。 文档生成器检查给定成员是否存在，并转换`member`为文档文件中的规范元素名称。
-* `description`描述引发异常的情况。
+* `member` 是成员的名称。 文档生成器检查给定成员是否存在，并将 `member` 转换为文档文件中的规范元素名称。
+* `description` 是引发异常的环境的说明。
 
 __示例：__
 
@@ -182,7 +182,7 @@ public class DataBaseOperations
 
 ### `<include>`
 
-此标记允许包含源代码文件外部的 XML 文档中的信息。 外部文件必须是格式正确的 XML 文档，并将 XPath 表达式应用于该文档以指定要包含的文档的 XML。 然后，将标记替换为外部文档中所选的 XML。 `<include>`
+此标记允许包含源代码文件外部的 XML 文档中的信息。 外部文件必须是格式正确的 XML 文档，并将 XPath 表达式应用于该文档以指定要包含的文档的 XML。 然后，将 `<include>` 标记替换为外部文档中所选的 XML。
 
 __语法__
 
@@ -190,10 +190,10 @@ __语法__
 <include file="filename" path="xpath" />
 ```
 
-where
+其中
 
-* `filename`外部 XML 文件的文件名。 文件名是相对于包含标记的文件进行解释的。
-* `xpath`选择外部 XML 文件中的某些 XML 的 XPath 表达式。
+* `filename` 是外部 XML 文件的文件名。 文件名是相对于包含标记的文件进行解释的。
+* `xpath` 是用于选择外部 XML 文件中的一些 XML 的 XPath 表达式。
 
 __示例：__
 
@@ -233,9 +233,9 @@ public class IntList { ... }
 
 ### `<list>`
 
-此标记用于创建列表或项的表。 它可能包含`<listheader>`用于定义表或定义列表的标题行的块。 （定义表时，只需提供标题`term`中的条目。）
+此标记用于创建列表或项的表。 它可能包含一个 `<listheader>` 块来定义表或定义列表的标题行。 （定义表时，只需提供标题中 `term` 的条目。）
 
-列表中的每一项均使用`<item>`块来指定。 创建定义列表时，必须同时`term`指定`description`和。 但是，对于表、项目符号列表或编号列表，只`description`需指定。
+列表中的每一项都指定了一个 `<item>` 块。 创建定义列表时，必须同时指定 `term` 和 `description`。 但是，对于表、项目符号列表或编号列表，只需指定 `description`。
 
 __语法__
 
@@ -257,10 +257,10 @@ __语法__
 </list>
 ```
 
-where
+其中
 
-* `term`要定义的术语，其定义在中`description`。
-* `description`为项目符号列表或编号列表中的项，或者为的定义`term`。
+* `term` 是要定义的术语，其定义在 `description`中。
+* `description` 是项目符号列表或编号列表中的项，或是 `term`的定义。
 
 __示例：__
 
@@ -285,7 +285,7 @@ public class MyClass
 
 ### `<para>`
 
-此标记在其他标记内使用， `<summary>`如（[`<remarks>`](documentation-comments.md#remarks)）或`<returns>` （[`<returns>`](documentation-comments.md#returns)），并允许将结构添加到文本中。
+此标记在其他标记内使用，如 `<summary>` （[`<remarks>`](documentation-comments.md#remarks)）或 `<returns>` （[`<returns>`](documentation-comments.md#returns)），并允许将结构添加到文本中。
 
 __语法__
 
@@ -293,7 +293,7 @@ __语法__
 <para>content</para>
 ```
 
-其中`content` ，为段落的文本。
+其中 `content` 是段落的文本。
 
 __示例：__
 
@@ -317,10 +317,10 @@ __语法__
 <param name="name">description</param>
 ```
 
-where
+其中
 
-* `name`参数的名称。
-* `description`参数的说明。
+* `name` 是参数的名称。
+* `description` 是参数的描述。
 
 __示例：__
 
@@ -345,7 +345,7 @@ __语法__
 <paramref name="name"/>
 ```
 
-其中`name`是参数的名称。
+其中 `name` 是参数的名称。
 
 __示例：__
 
@@ -371,10 +371,10 @@ __语法__
 <permission cref="member">description</permission>
 ```
 
-where
+其中
 
-* `member`成员的名称。 文档生成器检查给定的代码元素是否存在，并将*成员*转换为文档文件中的规范元素名称。
-* `description`是对成员的访问权限的说明。
+* `member` 是成员的名称。 文档生成器检查给定的代码元素是否存在，并将*成员*转换为文档文件中的规范元素名称。
+* `description` 是对成员的访问权限的说明。
 
 __示例：__
 
@@ -389,7 +389,7 @@ public static void Test() {
 
 ### `<remarks>`
 
-此标记用于指定有关类型的额外信息。 （使用`<summary>` （[`<summary>`](documentation-comments.md#summary)）描述类型本身和类型成员。）
+此标记用于指定有关类型的额外信息。 （使用 `<summary>` （[`<summary>`](documentation-comments.md#summary)）描述类型本身和类型成员。）
 
 __语法__
 
@@ -397,7 +397,7 @@ __语法__
 <remarks>description</remarks>
 ```
 
-其中`description`是注释的文本。
+其中 `description` 是注释的文本。
 
 __示例：__
 
@@ -421,7 +421,7 @@ __语法__
 <returns>description</returns>
 ```
 
-其中`description`是返回值的说明。
+其中 `description` 是返回值的说明。
 
 __示例：__
 
@@ -436,7 +436,7 @@ public override string ToString() {
 
 ### `<see>`
 
-此标记允许在文本中指定链接。 使用`<seealso>` [（`<seealso>`](documentation-comments.md#seealso)）指示要在 "另请参见" 部分中显示的文本。
+此标记允许在文本中指定链接。 使用 `<seealso>` （[`<seealso>`](documentation-comments.md#seealso)）指示要在 "另请参见" 部分中显示的文本。
 
 __语法__
 
@@ -444,7 +444,7 @@ __语法__
 <see cref="member"/>
 ```
 
-其中`member`是成员的名称。 文档生成器检查给定的代码元素是否存在，并在生成的文档文件中将*成员*更改为元素名称。
+其中 `member` 是成员的名称。 文档生成器检查给定的代码元素是否存在，并在生成的文档文件中将*成员*更改为元素名称。
 
 __示例：__
 
@@ -469,7 +469,7 @@ public void Translate(int xor, int yor) {
 
 ### `<seealso>`
 
-此标记允许为 "另请参阅" 部分生成一个条目。 使用`<see>` [（`<see>`](documentation-comments.md#see)）可指定文本中的链接。
+此标记允许为 "另请参阅" 部分生成一个条目。 使用 `<see>` （[`<see>`](documentation-comments.md#see)）来指定文本中的链接。
 
 __语法__
 
@@ -477,7 +477,7 @@ __语法__
 <seealso cref="member"/>
 ```
 
-其中`member`是成员的名称。 文档生成器检查给定的代码元素是否存在，并在生成的文档文件中将*成员*更改为元素名称。
+其中 `member` 是成员的名称。 文档生成器检查给定的代码元素是否存在，并在生成的文档文件中将*成员*更改为元素名称。
 
 __示例：__
 
@@ -493,7 +493,7 @@ public override bool Equals(object o) {
 
 ### `<summary>`
 
-此标记可用于描述类型或类型的成员。 使用`<remarks>` [（`<remarks>`](documentation-comments.md#remarks)）描述类型本身。
+此标记可用于描述类型或类型的成员。 使用 `<remarks>` （[`<remarks>`](documentation-comments.md#remarks)）来描述类型本身。
 
 __语法__
 
@@ -501,7 +501,7 @@ __语法__
 <summary>description</summary>
 ```
 
-其中`description` ，是类型或成员的汇总。
+其中 `description` 是类型或成员的汇总。
 
 __示例：__
 
@@ -521,7 +521,7 @@ __语法__
 <value>property description</value>
 ```
 
-其中`property description`是属性的说明。
+其中 `property description` 是属性的说明。
 
 __示例：__
 
@@ -544,7 +544,7 @@ __语法__
 <typeparam name="name">description</typeparam>
 ```
 
-`name` 其中`description` ，是类型参数的名称，是其说明。
+其中 `name` 是类型参数的名称，`description` 为其说明。
 
 __示例：__
 
@@ -566,7 +566,7 @@ __语法__
 <typeparamref name="name"/>
 ```
 
-其中`name` ，为类型参数的名称。
+其中 `name` 是类型参数的名称。
 
 __示例：__
 
@@ -592,9 +592,9 @@ public List<T> FetchData<T>(string query) {
 
 *  字符串的第一部分通过一个字符后跟一个冒号来标识所记录的成员的种类。 定义以下类型的成员：
 
-   | 字符 | __说明__                                             |
+   | 字符 | __描述__                                             |
    |---------------|-------------------------------------------------------------|
-   | E             | Event                                                       |
+   | E             | 事件                                                       |
    | F             | 字段                                                       |
    | M             | 方法（包括构造函数、析构函数和运算符） |
    | N             | 命名空间                                                   |
@@ -602,16 +602,16 @@ public List<T> FetchData<T>(string query) {
    | T             | 类型（如类、委托、枚举、接口和结构） |
    | !             | 错误字符串;其余字符串提供有关错误的信息。 例如，文档生成器为无法解析的链接生成错误信息。 |
 
-*  字符串的第二部分是元素的完全限定名，从命名空间的根开始。 元素的名称、其封闭类型和命名空间用句点分隔。 如果项本身的名称包含句点，则这些名称将替换为`#(U+0023)`个字符。 （假定没有元素在其名称中包含此字符。）
+*  字符串的第二部分是元素的完全限定名，从命名空间的根开始。 元素的名称、其封闭类型和命名空间用句点分隔。 如果项本身的名称包含句点，则这些名称将替换为 `#(U+0023)` 字符。 （假定没有元素在其名称中包含此字符。）
 *  对于包含参数的方法和属性，将在参数列表的后面加上括号。 对于没有参数的那些参数，将省略括号。 确保自变量之间用逗号分隔。 每个自变量的编码都与 CLI 签名相同，如下所示：
    *  参数由其文档名称表示，其文档名称基于其完全限定名称，如下所示进行修改：
-      * 表示泛型类型的参数包含一个追加`` ` ``的（反撇号）字符，后跟类型参数的数目
-      * 具有`out` `@`或`ref`修饰符的参数具有以下其类型名称。 通过值传递的或通过`params`的参数没有特殊的表示法。
-      * 作为数组的参数的表示形式`[lowerbound:size, ... , lowerbound:size]`为，其中逗号的数目小于1，并且每个维度的下限和大小（如果已知）以十进制表示。 如果未指定下限或大小，则省略它。 如果省略特定维度的下限和大小， `:`则也将省略。 交错数组由每个级别`[]`一个表示。
-      * 具有 void 以外的指针类型的参数使用`*`后面的类型名称表示。 Void 指针使用类型名称`System.Void`表示。
-      * 引用类型上定义的泛型类型参数的参数使用`` ` `` （反撇号）字符进行编码，后跟类型参数的从零开始的索引。
-      * 使用在方法中定义的泛型类型参数的参数使用双反撇号``` `` ``` ，而不`` ` ``是用于类型的。
-      * 引用构造的泛型类型的参数使用泛型类型`{`进行编码，后面跟有一个逗号分隔的类型参数列表， `}`后跟。
+      * 表示泛型类型的参数将追加 `` ` `` （反撇号）字符后跟类型参数的数目
+      * 具有 `out` 或 `ref` 修饰符的参数在其类型名称后面具有 `@`。 通过值或通过 `params` 传递的参数没有特殊表示法。
+      * 作为数组的参数表示为 `[lowerbound:size, ... , lowerbound:size]`，其中逗号的数目小于1，并且每个维度的下限和大小（如果已知）以十进制表示。 如果未指定下限或大小，则省略它。 如果省略特定维度的下限和大小，则也会省略 `:`。 交错数组由每个级别一个 `[]` 表示。
+      * 具有 void 以外的指针类型的参数使用在类型名称后面的 `*` 表示。 Void 指针使用 `System.Void`的类型名称表示。
+      * 引用类型上定义的泛型类型参数的参数使用 `` ` `` （反撇号）字符进行编码，后跟类型参数的从零开始的索引。
+      * 使用在方法中定义的泛型类型参数的参数使用双反撇号 ``` `` ``` 而不是用于类型的 `` ` ``。
+      * 引用构造的泛型类型的参数使用泛型类型进行编码，后跟 `{`，后跟以逗号分隔的类型参数列表，后跟 `}`。
 
 ### <a name="id-string-examples"></a>ID 字符串示例
 
@@ -796,7 +796,7 @@ public List<T> FetchData<T>(string query) {
    "P:Acme.Widget.Item(System.String,System.Int32)"
    ```
 
-*  事件.
+*  事件。
 
    ```csharp
    namespace Acme
@@ -824,7 +824,7 @@ public List<T> FetchData<T>(string query) {
    "M:Acme.Widget.op_UnaryPlus(Acme.Widget)"
    ```
 
-   所使用的一元运算符函数名称的完整集合如下所示`op_UnaryPlus`： `op_UnaryNegation`、 `op_LogicalNot` `op_True`、 `op_OnesComplement`、 `op_Increment`、 `op_Decrement`、、和`op_False`。
+   使用的一元运算符函数名称的完整集合如下所示： `op_UnaryPlus`、`op_UnaryNegation`、`op_LogicalNot`、`op_OnesComplement`、`op_Increment`、`op_Decrement`、`op_True`和 `op_False`。
 
 *  二元运算符。
 
@@ -840,7 +840,7 @@ public List<T> FetchData<T>(string query) {
    "M:Acme.Widget.op_Addition(Acme.Widget,Acme.Widget)"
    ```
 
-   所使用的二元运算符函数名称的完整集合如下所示`op_Addition`： `op_Subtraction`、 `op_Multiply` `op_BitwiseOr`、 `op_Division`、 `op_Modulus`、 `op_BitwiseAnd` `op_ExclusiveOr` `op_LeftShift` `op_RightShift`、、、、、、`op_Equality`、 、、`op_LessThan`、和`op_GreaterThan`。 `op_LessThanOrEqual` `op_Inequality` `op_GreaterThanOrEqual`
+   使用的二元运算符函数名称的完整集如下： `op_Addition`、`op_Subtraction`、`op_Multiply`、`op_Division`、`op_Modulus`、`op_BitwiseAnd`、`op_BitwiseOr`、`op_ExclusiveOr`、`op_LeftShift`、`op_RightShift`、`op_Equality`、`op_Inequality`、`op_LessThan`、`op_LessThanOrEqual`、`op_GreaterThan`和 `op_GreaterThanOrEqual`。
 
 *  转换运算符的尾随 "`~`" 后跟返回类型。
 
@@ -862,7 +862,7 @@ public List<T> FetchData<T>(string query) {
 
 ### <a name="c-source-code"></a>C#源代码
 
-下面的示例演示了`Point`类的源代码：
+下面的示例演示 `Point` 类的源代码：
 
 ```csharp
 namespace Graphics
@@ -1013,7 +1013,7 @@ public class Point
 
 ### <a name="resulting-xml"></a>生成的 XML
 
-下面是在给定类`Point`的源代码时由一个文档生成器生成的输出，如下所示：
+下面是在给定类 `Point`的源代码时，由一个文档生成器生成的输出，如下所示：
 
 ```xml
 <?xml version="1.0"?>
