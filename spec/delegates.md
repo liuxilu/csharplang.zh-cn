@@ -6,7 +6,7 @@ ms.contentlocale: zh-CN
 ms.lasthandoff: 10/01/2019
 ms.locfileid: "71704097"
 ---
-# <a name="delegates"></a>委派
+# <a name="delegates"></a>委托
 
 委托可实现其他语言（例如C++，Pascal 和 Modula）使用函数指针进行寻址的方案。 但C++与函数指针不同，委托是完全面向对象的，不同C++于指向成员函数的指针，委托封装对象实例和方法。
 
