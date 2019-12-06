@@ -1,14 +1,14 @@
 ---
-ms.openlocfilehash: d082393a00496b948ad4e3ff9e135d94e89d2448
-ms.sourcegitcommit: 1a46441156b13db6c845f4bbb886284387d73023
+ms.openlocfilehash: 4d6d28a3127bc701867afe157aa5496377a06f69
+ms.sourcegitcommit: 63d276488c9770a565fd787020783ffc1d2af9d6
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/13/2019
-ms.locfileid: "67047034"
+ms.lasthandoff: 12/05/2019
+ms.locfileid: "74867999"
 ---
 # <a name="conversions"></a>转换
 
-一个***转换***使表达式能够被视为是指特定类型。 转换可能会导致要被视为具有不同类型的给定类型的表达式或它可能会导致没有要获得一种类型的类型的表达式。 转换可以是***隐式***或***显式***，这将确定是否需要显式强制转换。 例如，从类型转换`int`键入`long`是隐式的因此表达式的类型`int`隐式视为类型`long`。 从类型相反转换`long`键入`int`，是显式的因此显式强制转换为所需。
+***转换***允许将表达式视为特定类型。 转换可能会导致将给定类型的表达式视为具有不同的类型，也可能导致不具有类型的表达式获得类型。 转换可以是***隐式***的或***显式***的，这确定是否需要显式强制转换。 例如，从类型 `int` 到类型 `long` 的转换是隐式的，因此类型 `int` 的表达式可隐式视为类型 `long`。 从类型 `long` 到类型 `int`，相反的转换是显式的，因此需要显式强制转换。
 
 ```csharp
 int a = 123;
@@ -16,137 +16,138 @@ long b = a;         // implicit conversion from int to long
 int c = (int) b;    // explicit conversion from long to int
 ```
 
-某些转换是由语言定义的。 程序也可以定义其自己的转换 ([用户定义的转换](conversions.md#user-defined-conversions))。
+某些转换是由语言定义的。 程序还可以定义自己的转换（[用户定义的转换](conversions.md#user-defined-conversions)）。
 
 ## <a name="implicit-conversions"></a>隐式转换
 
-以下转换被归类为隐式转换：
+以下转换归类为隐式转换：
 
 *  标识转换
 *  隐式数值转换
-*  枚举隐式转换。
-*  可以为 null 的隐式转换
+*  隐式枚举转换
+*  隐式内插字符串转换
+*  隐式可为 null 转换
 *  Null 文本转换
 *  隐式引用转换
 *  装箱转换
 *  隐式动态转换
-*  常量表达式隐式转换
+*  隐式常量表达式转换
 *  用户定义的隐式转换
 *  匿名函数转换
 *  方法组转换
 
-隐式转换可能在很多情况下，其中包括函数成员调用 ([进行编译时检查的动态重载决策](expressions.md#compile-time-checking-of-dynamic-overload-resolution))，强制转换表达式 ([强制转换表达式](expressions.md#cast-expressions))，和分配 ([赋值运算符](expressions.md#assignment-operators))。
+隐式转换可能会在多种情况下发生，包括函数成员调用（[动态重载决策的编译时检查](expressions.md#compile-time-checking-of-dynamic-overload-resolution)）、强制转换表达式（[强制](expressions.md#cast-expressions)转换表达式）和赋值（[赋值运算符](expressions.md#assignment-operators)）。
 
-预定义隐式转换始终成功并永远不会导致引发异常。 正确设计的用户定义的隐式转换应表现出这些特征也。
+预定义的隐式转换始终会成功，并且永远不会引发异常。 正确设计的用户定义隐式转换也应显示这些特征。
 
-用于转换，类型`object`和`dynamic`被视为等效。
+出于转换目的，`object` 和 `dynamic` 类型被视为等效类型。
 
-但是，动态转换 ([隐式动态转换](conversions.md#implicit-dynamic-conversions)并[显式动态转换](conversions.md#explicit-dynamic-conversions)) 仅适用于类型的表达式`dynamic`([动态类型](types.md#the-dynamic-type)).
+但是，动态转换（[隐式动态转换](conversions.md#implicit-dynamic-conversions)和[显式动态转换](conversions.md#explicit-dynamic-conversions)）仅适用于 `dynamic` 类型（[动态类型](types.md#the-dynamic-type)）的表达式。
 
 ### <a name="identity-conversion"></a>标识转换
 
-标识转换将从任何类型转换为同一类型。 这样可以认为已具有所需的类型的实体可以转换为该类型已存在此转换。
+标识转换从任何类型转换为同一类型。 此转换存在，因此，已具有所需类型的实体可被视为可转换为该类型。
 
-*  因为`object`和`dynamic`被视为的等效标识转换之间`object`并`dynamic`，并替换的所有匹配项时都是相同的构造类型之间`dynamic`与`object`.
+*  因为 `object` 和 `dynamic` 被视为等效的，所以在 `object` 和 `dynamic`之间存在标识转换，并且在用 `dynamic` 替换所有匹配项时，构造类型之间是相同的。
 
 ### <a name="implicit-numeric-conversions"></a>隐式数值转换
 
 隐式数值转换为：
 
-*  从`sbyte`到`short`， `int`， `long`， `float`， `double`，或`decimal`。
-*  从`byte`到`short`， `ushort`， `int`， `uint`， `long`， `ulong`， `float`， `double`，或`decimal`。
-*  从`short`到`int`， `long`， `float`， `double`，或`decimal`。
-*  从`ushort`到`int`， `uint`， `long`， `ulong`， `float`， `double`，或`decimal`。
-*  从`int`到`long`， `float`， `double`，或`decimal`。
-*  从`uint`到`long`， `ulong`， `float`， `double`，或`decimal`。
-*  从`long`到`float`， `double`，或`decimal`。
-*  从`ulong`到`float`， `double`，或`decimal`。
-*  从`char`到`ushort`， `int`， `uint`， `long`， `ulong`， `float`， `double`，或`decimal`。
-*  从`float`到`double`。
+*  从 `sbyte` 到 `short`、`int`、`long`、`float`、`double`或 `decimal`。
+*  从 `byte` 到 `short`、`ushort`、`int`、`uint`、`long`、`ulong`、`float`、`double`或 `decimal`。
+*  从 `short` 到 `int`、`long`、`float`、`double`或 `decimal`。
+*  从 `ushort` 到 `int`、`uint`、`long`、`ulong`、`float`、`double`或 `decimal`。
+*  从 `int` 到 `long`、`float`、`double`或 `decimal`。
+*  从 `uint` 到 `long`、`ulong`、`float`、`double`或 `decimal`。
+*  从 `long` 到 `float`、`double`或 `decimal`。
+*  从 `ulong` 到 `float`、`double`或 `decimal`。
+*  从 `char` 到 `ushort`、`int`、`uint`、`long`、`ulong`、`float`、`double`或 `decimal`。
+*  从 `float` 到 `double`。
 
-从转换`int`， `uint`， `long`，或`ulong`到`float`来回`long`或`ulong`到`double`可能会导致丢失精度，但将永远不会导致丢失量值。 其他隐式数值转换永远不会丢失任何信息。
+从 `int`、`uint`、`long`或 `ulong` 到 `float` 以及从 `long` 或 `ulong` 到 `double` 的转换可能会导致精度损失，但永远不会导致数量级损失。 其他隐式数值转换不会丢失任何信息。
 
-不存在隐式转换到`char`类型，因此其他整数类型的值没有自动转换为`char`类型。
+不存在到 `char` 类型的隐式转换，因此其他整型类型的值不会自动转换为 `char` 类型。
 
-### <a name="implicit-enumeration-conversions"></a>枚举隐式转换
+### <a name="implicit-enumeration-conversions"></a>隐式枚举转换
 
-隐式枚举转换允许*decimal_integer_literal* `0`可转换为任何*enum_type*和任何*nullable_type*其基础类型是*enum_type*。 在后一种情况中，转换计算通过将转换为基础*enum_type*包装结果和 ([为 Null 的类型](types.md#nullable-types))。
+隐式枚举转换允许*decimal_integer_literal* `0` 转换为任何*enum_type* ，以及基础类型为*enum_type*的任何*nullable_type* 。 在后一种情况下，转换将通过转换为基础*enum_type*并包装结果（[可以为 null 的类型](types.md#nullable-types)）来进行计算。
 
-### <a name="implicit-interpolated-string-conversions"></a>隐式的内插的字符串转换
+### <a name="implicit-interpolated-string-conversions"></a>隐式内插字符串转换
 
-隐式的内插字符串转换允许*interpolated_string_expression* ([内插字符串](expressions.md#interpolated-strings)) 转换为`System.IFormattable`或`System.FormattableString`（它可实现`System.IFormattable`).
+隐式内插字符串转换允许*interpolated_string_expression* （内[插的字符串](expressions.md#interpolated-strings)）转换为 `System.IFormattable` 或 `System.FormattableString` （实现 `System.IFormattable`）。
 
-应用此转换时不的内插字符串组成的字符串值。 改为实例`System.FormattableString`创建，为进一步中所述[内插字符串](expressions.md#interpolated-strings)。
+应用此转换时，字符串值不是由内插字符串组成的。 相反，将创建一个 `System.FormattableString` 实例，如内[插字符串](expressions.md#interpolated-strings)中所述。
 
-### <a name="implicit-nullable-conversions"></a>可以为 null 的隐式转换
+### <a name="implicit-nullable-conversions"></a>隐式可为 null 转换
 
-此外可以为这些类型的 null 的形式使用不可为 null 的值类型运行的预定义隐式转换。 为每个预定义隐式标识和不可以为 null 的值类型转换的数值转换`S`为非 null 的值类型`T`，存在以下隐式可以为 null 的转换：
+对不可以为 null 的值类型进行操作的预定义隐式转换也可用于这些类型的可以为 null 的形式。 对于从不可为 null 的值类型转换为不可以为 null 的值类型的每个预定义隐式标识和数值转换 `S` `T`，以下隐式可为 null 的转换：
 
-*  隐式转换`S?`到`T?`。
-*  隐式转换`S`到`T?`。
+*  从 `S?` 到 `T?`的隐式转换。
+*  从 `S` 到 `T?`的隐式转换。
 
-可以为 null 的隐式转换的计算基于一种从基础转换`S`到`T`继续，如下所示：
+基于从 `S` 到 `T` 的基础转换计算隐式可为 null 的转换，如下所示：
 
-*  如果可以为 null 的转换是从`S?`到`T?`:
-    * 如果源值为 null (`HasValue`属性为 false)，结果是类型的 null 值`T?`。
-    * 否则，则转换计算过程为从`S?`到`S`后, 跟从基础转换`S`到`T`后, 跟一个包装 ([为 Null 的类型](types.md#nullable-types)) 从`T`到`T?`。
+*  如果可为 null 的转换来自 `S?` 到 `T?`：
+    * 如果源值为 null （`HasValue` 属性为 false），则结果为类型 `T?`的 null 值。
+    * 否则，转换将作为从 `S?` 到 `S`的解包进行计算，后跟从 `S` 到 `T`的底层转换，后跟从 `T` 到 `T?`的包装（[可为 null 的类型](types.md#nullable-types)）。
 
-*  如果可以为 null 的转换是从`S`到`T?`，转换计算为从基础转换`S`到`T`跟从一个包装`T`到`T?`。
+*  如果将可为 null 的转换来自 `S` 到 `T?`，则会将转换计算为从 `S` 到 `T` 后跟从 `T` 到 `T?`的基础转换。
 
 ### <a name="null-literal-conversions"></a>Null 文本转换
 
-隐式转换`null`文字转换为 null 的类型。 这种转换产生 null 值 ([为 Null 的类型](types.md#nullable-types)) 的给定为 null 的类型。
+存在从 `null` 文本到任何可以为 null 的类型的隐式转换。 此转换生成给定可以为 null 的类型的 null 值（[可为](types.md#nullable-types)null 的类型）。
 
 ### <a name="implicit-reference-conversions"></a>隐式引用转换
 
 隐式引用转换为：
 
-*  从任何*reference_type*到`object`和`dynamic`。
-*  从任何*class_type* `S`任何*class_type* `T`提供`S`派生自`T`。
-*  从任何*class_type* `S`任何*interface_type* `T`提供`S`实现`T`。
-*  从任何*interface_type* `S`任何*interface_type* `T`提供`S`派生自`T`。
-*  从*array_type* `S`具有元素类型`SE`到*array_type* `T`具有元素类型`TE`，提供以下所有项都为 true:
-    * `S` 和`T`的区别只在于元素类型。 换而言之，`S`和`T`具有相同的维数。
-    * 这两`SE`并`TE`都*reference_type*s。
-    * 从存在的隐式引用转换`SE`到`TE`。
-*  从任何*array_type*到`System.Array`和其实现的接口。
-*  从一维数组类型`S[]`到`System.Collections.Generic.IList<T>`及其基接口，提供从的隐式标识或引用转换`S`到`T`。
-*  从任何*delegate_type*到`System.Delegate`和其实现的接口。
-*  从任何 null 字面值*reference_type*。
-*  从任何*reference_type*到*reference_type* `T`如果它具有隐式标识或引用转换为*reference_type* `T0`和`T0`标识转换为`T`。
-*  从任何*reference_type*到接口或委托类型`T`是否为接口或委托类型的隐式标识或引用转换`T0`和`T0`可变化转换 ([变化转换](interfaces.md#variance-conversion)) 到`T`。
-*  涉及已知为引用类型的类型参数的隐式转换。 请参阅[涉及类型参数的隐式转换](conversions.md#implicit-conversions-involving-type-parameters)有关涉及类型参数的隐式转换的详细信息。
+*  从任何*reference_type*到 `object` 和 `dynamic`。
+*  从任何*class_type* `S` 到任何*class_type* `T`，提供的 `S` 派生自 `T`。
+*  从任何*class_type* `S` 到任何*interface_type* `T`，提供 `S` 实现 `T`。
+*  从任何*interface_type* `S` 到任何*interface_type* `T`，提供的 `S` 派生自 `T`。
+*  在元素类型为的*array_type* `S` 中 `SE` 到元素类型 `T` 的*array_type* `TE`，前提是满足以下所有条件：
+    * `S` 和 `T` 仅在元素类型上存在差异。 换句话说，`S` 和 `T` 具有相同的维数。
+    * `SE` 和 `TE` *reference_type*。
+    * 存在从 `SE` 到 `TE`的隐式引用转换。
+*  从任何*array_type*到 `System.Array` 及其实现的接口。
+*  从一维数组类型 `S[]` 到 `System.Collections.Generic.IList<T>` 及其基接口，前提是存在从 `S` 到 `T`的隐式标识或引用转换。
+*  从任何*delegate_type*到 `System.Delegate` 及其实现的接口。
+*  从 null 文本到任何*reference_type*。
+*  从任何*reference_type*到*reference_type* `T` 如果它具有隐式标识或到*reference_type* `T0` 的引用转换，并且 `T0` 的标识转换为 `T`。
+*  从任何*reference_type*到接口或委托类型 `T` 如果它具有隐式标识或到接口或委托类型的引用转换 `T0` 并且 `T0` 可转换为 `T`的变体（[差异转换](interfaces.md#variance-conversion)）。
+*  涉及称为引用类型的类型参数的隐式转换。 有关涉及类型参数的隐式转换的更多详细信息，请参阅[涉及类型参数的隐式转换](conversions.md#implicit-conversions-involving-type-parameters)。
 
-隐式引用转换指那些之间*reference_type*s 可以保证始终成功，并因此需要在运行时没有检查。
+隐式引用转换是*reference_type*之间的转换，这些转换可证明始终成功，因此不需要在运行时进行检查。
 
-引用转换，隐式或显式的永远不会更改要转换的对象的引用标识。 换而言之，而是引用转换可能会更改引用的类型，它永远不会更改的类型或所引用对象的值。
+引用转换、隐式或显式转换决不会更改正在转换的对象的引用标识。 换言之，虽然引用转换可以更改引用的类型，但它不会更改引用的对象的类型或值。
 
 ### <a name="boxing-conversions"></a>装箱转换
 
-装箱转换允许*value_type*隐式转换为引用类型。 从任何已存在的装箱转换*non_nullable_value_type*到`object`并`dynamic`到`System.ValueType`和任何*interface_type*由实现*non_nullable_value_type*。 此外*enum_type*可以转换为类型`System.Enum`。
+装箱转换允许*value_type*隐式转换为引用类型。 存在从任何*non_nullable_value_type*到 `object` 和 `dynamic`的装箱转换，以 `System.ValueType` 和*interface_type*实现的任何*non_nullable_value_type* 。 此外，可以将*enum_type*转换为类型 `System.Enum`。
 
-存在从装箱转换*nullable_type*为引用类型，当且仅当装箱转换存在从基础*non_nullable_value_type*为引用类型。
+如果且仅当存在从基础*non_nullable_value_type*到引用类型的装箱转换，则从*nullable_type*到引用类型的装箱转换。
 
-值类型都具有为接口类型的装箱转换`I`是否为接口类型的装箱转换`I0`并`I0`标识转换为`I`。
+如果某个值类型具有到接口类型的装箱转换，则该值类型具有到该接口类型的装箱转换 `I` `I0` 并且 `I0` 具有到 `I`的标识转换。
 
-值类型都具有为接口类型的装箱转换`I`是否为接口或委托类型的装箱转换`I0`并`I0`可变化转换 ([变化转换](interfaces.md#variance-conversion)) 到`I`.
+如果某个值类型具有到接口类型的装箱转换或委托类型的装箱转换，则该值类型会将其装箱转换 `I` `I0` 并 `I0` 区分方差（[变化转换](interfaces.md#variance-conversion)） `I`。
 
-装箱的值*non_nullable_value_type*分配给对象实例和复制组成*value_type*到该实例的值。 结构可以被封装到类型`System.ValueType`，因为它是所有的结构的基类 ([继承](structs.md#inheritance))。
+将*non_nullable_value_type*的值装箱包括分配对象实例并将*value_type*值复制到该实例中。 结构可以装箱到类型 `System.ValueType`，因为这是所有结构（[继承](structs.md#inheritance)）的基类。
 
-装箱的值*nullable_type*继续，如下所示：
+将*nullable_type*的值装箱将继续执行以下操作：
 
-*  如果源值为 null (`HasValue`属性为 false)，结果为 null 引用的目标类型。
-*  否则，结果是一个装箱的引用`T`解包和装箱源值生成的。
+*  如果源值为 null （`HasValue` 属性为 false），则结果为目标类型的空引用。
+*  否则，结果是对通过解包和装箱源值生成的装箱 `T` 的引用。
 
-装箱转换中进行了描述进一步[装箱转换](types.md#boxing-conversions)。
+[装箱转换中进一步](types.md#boxing-conversions)介绍了装箱转换。
 
 ### <a name="implicit-dynamic-conversions"></a>隐式动态转换
 
-存在从类型的表达式的隐式的动态转换`dynamic`为任何类型`T`。 动态绑定转换 ([动态绑定](expressions.md#dynamic-binding))，这意味着，会在运行时从运行时类型的表达式与要求的隐式转换`T`。 如果不找到任何转换，则引发运行时异常。
+存在从类型 `dynamic` 到任何类型 `T`的表达式的隐式动态转换。 转换是动态绑定的（[动态绑定](expressions.md#dynamic-binding)），这意味着将在运行时从表达式的运行时类型中查找隐式转换，以便 `T`。 如果未找到任何转换，则会引发运行时异常。
 
-请注意此隐式转换看似违反开头中的建议[隐式转换](conversions.md#implicit-conversions)的隐式转换时应永远不会导致异常。 但是它不是转换本身，但*查找*会导致异常的转换。 运行时异常的风险是固有的动态绑定的用法。 如果不想转换的动态绑定，该表达式可以首先转换为`object`，然后到所需的类型。
+请注意，此隐式转换似乎违反了隐式转换开始时的[建议，隐](conversions.md#implicit-conversions)式转换应永远不会引发异常。 但它不是转换本身，而是*查找*导致异常的转换。 运行时异常的风险在使用动态绑定时是固有的。 如果不需要转换的动态绑定，则可以先将表达式转换为 `object`，然后转换为所需的类型。
 
-下面的示例说明了动态的隐式转换：
+下面的示例阐释了隐式动态转换：
 
 ```csharp
 object o  = "object"
@@ -157,39 +158,39 @@ string s2 = d; // Compiles and succeeds at run-time
 int i     = d; // Compiles but fails at run-time -- no conversion exists
 ```
 
-对分配`s2`和`i`同时采用隐式动态转换，直到运行时中挂起的操作的绑定。 在运行时，隐式转换将从运行时类型的寻求`d`  --  `string` -为目标类型。 为发现转换`string`而不适用于`int`。
+`s2` 和 `i` 的分配都采用隐式动态转换，在这种情况下，将在运行时暂停操作的绑定。 在运行时，隐式转换是从 `d` -- `string`--到目标类型的运行时类型中查找的。 找到 `string` 但不能 `int`的转换。
 
-### <a name="implicit-constant-expression-conversions"></a>常量表达式隐式转换
+### <a name="implicit-constant-expression-conversions"></a>隐式常量表达式转换
 
-隐式的常量表达式转换允许以下转换：
+隐式常数表达式转换允许以下转换：
 
-*  一个*constant_expression* ([常量表达式](expressions.md#constant-expressions)) 的类型`int`可转换为类型`sbyte`， `byte`， `short`， `ushort`， `uint`，或`ulong`，提供的值*constant_expression*目标类型的范围内。
-*  一个*constant_expression*类型的`long`可转换为类型`ulong`，提供的值*constant_expression*不是负数。
+*  如果 *`short`* 的值在目标类型的范围内，则可以将 `int` 类型的*constant_expression* （[常数表达式](expressions.md#constant-expressions)）转换为类型 `sbyte`、`byte`、`ushort`、`uint`、`ulong`或 constant_expression。
+*  `long` 类型的*constant_expression*可转换为类型 `ulong`，前提是*constant_expression*的值不是负数。
 
 ### <a name="implicit-conversions-involving-type-parameters"></a>涉及类型参数的隐式转换
 
-以下隐式转换为给定的类型参数存在`T`:
+`T`的给定类型参数存在以下隐式转换：
 
-*  从`T`向其有效的基类`C`，从`T`到的任何基类`C`，并从`T`实现任何接口到`C`。 在运行时，如果`T`是值类型，则转换将执行作为装箱转换。 否则，转换将执行作为隐式引用转换或标识转换。
-*  从`T`为接口类型`I`中`T`的有效接口集并从`T`到的任何基接口`I`。 在运行时，如果`T`是值类型，则转换将执行作为装箱转换。 否则，转换将执行作为隐式引用转换或标识转换。
-*  从`T`给类型形参`U`提供`T`取决于`U`([类型参数约束](classes.md#type-parameter-constraints))。 在运行时，如果`U`为值类型，则`T`和`U`一定具有相同的类型并不执行任何转换。 否则为如果`T`是值类型，则转换将执行作为装箱转换。 否则，转换将执行作为隐式引用转换或标识转换。
-*  从为 null 字面值`T`提供`T`已知为引用类型。
-*  从`T`为引用类型`I`是否为引用类型的隐式转换`S0`并`S0`标识转换为`S`。 转换将在运行时执行方式与转换为相同`S0`。
-*  从`T`为接口类型`I`是否为接口或委托类型的隐式转换`I0`并`I0`可变化转换为`I`([变化转换](interfaces.md#variance-conversion)). 在运行时，如果`T`是值类型，则转换将执行作为装箱转换。 否则，转换将执行作为隐式引用转换或标识转换。
+*  从 `T` 到其有效的基类 `C`，从 `T` 到 `C`的任何基类，从 `T` 到 `C`实现的任何接口。 在运行时，如果 `T` 是值类型，则转换将作为装箱转换执行。 否则，转换将作为隐式引用转换或标识转换执行。
+*  从 `T` 到接口类型 `I` 在 `T`的有效接口集中，并从 `T` 到 `I`的任何基接口。 在运行时，如果 `T` 是值类型，则转换将作为装箱转换执行。 否则，转换将作为隐式引用转换或标识转换执行。
+*  从 `T` 到类型形参 `U`，提供 `T` 取决于 `U` （[类型形参约束](classes.md#type-parameter-constraints)）。 在运行时，如果 `U` 是值类型，则 `T` 和 `U` 都必须是相同的类型，并且不执行任何转换。 否则，如果 `T` 是值类型，则转换将作为装箱转换执行。 否则，转换将作为隐式引用转换或标识转换执行。
+*  从 null 文本到 `T`，前提是已知 `T` 为引用类型。
+*  从 `T` 到引用类型 `I` 如果它具有到引用类型的隐式转换 `S0` 并且 `S0` 具有到 `S`的标识转换。 在运行时，转换的执行方式与转换到 `S0`的方式相同。
+*  从 `T` 到接口类型 `I` 如果它具有到接口或委托类型的隐式转换 `I0` 并且 `I0` 可以转换为 `I` （[差异转换](interfaces.md#variance-conversion)）。 在运行时，如果 `T` 是值类型，则转换将作为装箱转换执行。 否则，转换将作为隐式引用转换或标识转换执行。
 
-如果`T`已知为引用类型 ([类型参数约束](classes.md#type-parameter-constraints))，则上面的转换归类为隐式引用转换 ([隐式引用转换](conversions.md#implicit-reference-conversions))。 如果`T`是已知不是引用类型，则上面的转换归类为装箱转换 ([装箱转换](conversions.md#boxing-conversions))。
+如果已知 `T` 是引用类型（[类型参数约束](classes.md#type-parameter-constraints)），则上述转换全都归类为隐式引用转换（[隐式引用转换](conversions.md#implicit-reference-conversions)）。 如果 `T` 不知道是引用类型，则上述转换归类为装箱转换（[装箱转换](conversions.md#boxing-conversions)）。
 
 ### <a name="user-defined-implicit-conversions"></a>用户定义的隐式转换
 
-用户定义的隐式转换包含的可选的标准隐式转换后, 跟的一个用户定义的隐式转换运算符后, 跟另一个可选的标准隐式转换的执行。 用于评估用户定义的隐式转换的确切规则所述[处理的用户定义的隐式转换](conversions.md#processing-of-user-defined-implicit-conversions)。
+用户定义的隐式转换包括一个可选的标准隐式转换，然后执行用户定义的隐式转换运算符，然后执行另一个可选的标准隐式转换。 用于评估用户定义的隐式转换的确切规则在[处理用户定义的隐式转换](conversions.md#processing-of-user-defined-implicit-conversions)中进行了介绍。
 
 ### <a name="anonymous-function-conversions-and-method-group-conversions"></a>匿名函数转换和方法组转换
 
-匿名函数和方法组不具有类型自身，但可能会隐式转换为委托类型或表达式树类型。 中更详细地描述了匿名函数转换[匿名函数转换](conversions.md#anonymous-function-conversions)中的和方法组转换[方法组转换](conversions.md#method-group-conversions)。
+匿名函数和方法组本身没有类型，但可能会隐式转换为委托类型或表达式树类型。 [匿名函数转换和](conversions.md#anonymous-function-conversions)[方法组转换](conversions.md#method-group-conversions)中的方法组转换更详细地介绍了匿名函数转换。
 
 ## <a name="explicit-conversions"></a>显式转换
 
-以下转换被归类为显式转换：
+以下转换归类为显式转换：
 
 *  所有隐式转换。
 *  显式数值转换。
@@ -198,136 +199,136 @@ int i     = d; // Compiles but fails at run-time -- no conversion exists
 *  显式引用转换。
 *  显式接口转换。
 *  取消装箱转换。
-*  动态的显式转换
+*  显式动态转换
 *  用户定义的显式转换。
 
-显式转换可以出现在强制转换表达式 ([强制转换表达式](expressions.md#cast-expressions))。
+显式转换可以出现在强制转换表达式中（[强制转换表达式](expressions.md#cast-expressions)）。
 
-显式转换该集包含所有隐式转换。 这意味着允许多余的强制转换表达式。
+显式转换集包括所有隐式转换。 这意味着允许冗余强制转换表达式。
 
-不是隐式转换的显式转换为跨类型采用显式明显不同的域不能保证始终成功的转换、 转换已知有可能丢失信息和转换表示法。
+不是隐式转换的显式转换是转换，无法证明始终成功，已知的转换可能会丢失信息，并且跨类型域的转换非常不同于显式图解.
 
 ### <a name="explicit-numeric-conversions"></a>显式数值转换
 
-显式数值转换是从转换*numeric_type*到另一个*numeric_type*为其隐式数值转换 ([隐式数值转换](conversions.md#implicit-numeric-conversions))尚不存在：
+显式数值转换是指从*numeric_type*到另一个*numeric_type*的转换，隐式数值转换（[隐式数值转换](conversions.md#implicit-numeric-conversions)）尚不存在：
 
-*  从`sbyte`到`byte`， `ushort`， `uint`， `ulong`，或`char`。
-*  从`byte`到`sbyte`和`char`。
-*  从`short`到`sbyte`， `byte`， `ushort`， `uint`， `ulong`，或`char`。
-*  从`ushort`到`sbyte`， `byte`， `short`，或`char`。
-*  从`int`到`sbyte`， `byte`， `short`， `ushort`， `uint`， `ulong`，或`char`。
-*  从`uint`到`sbyte`， `byte`， `short`， `ushort`， `int`，或`char`。
-*  从`long`到`sbyte`， `byte`， `short`， `ushort`， `int`， `uint`， `ulong`，或`char`。
-*  从`ulong`到`sbyte`， `byte`， `short`， `ushort`， `int`， `uint`， `long`，或`char`。
-*  从`char`到`sbyte`， `byte`，或`short`。
-*  从`float`到`sbyte`， `byte`， `short`， `ushort`， `int`， `uint`， `long`， `ulong`， `char`，或`decimal`。
-*  从`double`到`sbyte`， `byte`， `short`， `ushort`， `int`， `uint`， `long`， `ulong`， `char`， `float`，或`decimal`。
-*  从`decimal`到`sbyte`， `byte`， `short`， `ushort`， `int`， `uint`， `long`， `ulong`， `char`， `float`，或`double`。
+*  从 `sbyte` 到 `byte`、`ushort`、`uint`、`ulong`或 `char`。
+*  从 `byte` 到 `sbyte` 和 `char`。
+*  从 `short` 到 `sbyte`、`byte`、`ushort`、`uint`、`ulong`或 `char`。
+*  从 `ushort` 到 `sbyte`、`byte`、`short`或 `char`。
+*  从 `int` 到 `sbyte`、`byte`、`short`、`ushort`、`uint`、`ulong`或 `char`。
+*  从 `uint` 到 `sbyte`、`byte`、`short`、`ushort`、`int`或 `char`。
+*  从 `long` 到 `sbyte`、`byte`、`short`、`ushort`、`int`、`uint`、`ulong`或 `char`。
+*  从 `ulong` 到 `sbyte`、`byte`、`short`、`ushort`、`int`、`uint`、`long`或 `char`。
+*  从 `char` 到 `sbyte`、`byte`或 `short`。
+*  从 `float` 到 `sbyte`、`byte`、`short`、`ushort`、`int`、`uint`、`long`、`ulong`、`char`或 `decimal`。
+*  从 `double` 到 `sbyte`、`byte`、`short`、`ushort`、`int`、`uint`、`long`、`ulong`、`char`、`float`或 `decimal`。
+*  从 `decimal` 到 `sbyte`、`byte`、`short`、`ushort`、`int`、`uint`、`long`、`ulong`、`char`、`float`或 `double`。
 
-因为显式转换包括所有隐式和显式数值转换，并总是能够从任何转换*numeric_type*到任何其他*numeric_type*使用强制转换表达式 （[强制转换表达式](expressions.md#cast-expressions))。
+由于显式转换包括所有隐式和显式数字转换，因此始终可以使用强制转换表达式（[强制](expressions.md#cast-expressions)转换表达式）将任何*numeric_type*转换为任何其他*numeric_type* 。
 
-显式数值转换可能会丢失信息，或可能会导致引发异常。 显式数值转换进行处理，如下所示：
+显式数值转换可能会丢失信息，或可能导致引发异常。 显式数值转换的处理方式如下：
 
-*  对于从一种整型类型转换为另一种整型类型，在处理取决于溢出检查上下文 ([checked 和 unchecked 运算符](expressions.md#the-checked-and-unchecked-operators)) 都位于其将转换的位置：
-    * 在中`checked`上下文中，转换成功，如果源操作数的值是目标类型的范围内，但会引发`System.OverflowException`如果源操作数的值超出目标类型的范围。
-    * 在`unchecked`上下文中，转换始终成功，并继续，如下所示。
+*  对于从整型转换为另一整型类型的转换，处理过程取决于发生转换的溢出检查上下文（[检查和未检查的运算符](expressions.md#the-checked-and-unchecked-operators)）：
+    * 在 `checked` 上下文中，如果源操作数的值在目标类型的范围内，则转换成功; 但如果源操作数的值超出了目标类型的范围，则会引发 `System.OverflowException`。
+    * 在 `unchecked` 上下文中，转换始终会成功，并按如下所示继续。
         * 如果源类型大于目标类型，则通过放弃其“额外”最高有效位来截断源值。 结果会被视为目标类型的值。
         * 如果源类型小于目标类型，则源值是符号扩展或零扩展，以使其与目标类型的大小相同。 如果源类型带符号，则是符号扩展；如果源类型是无符号的，则是零扩展。 结果会被视为目标类型的值。
         * 如果源类型与目标类型的大小相同，则源值将被视为目标类型的值。
-*  对于从`decimal`为整型类型，源值向零舍入为最接近的整数值，并且此整数值将成为转换的结果。 如果生成的整数值超出目标类型的范围`System.OverflowException`引发。
-*  对于从`float`或`double`为整型类型，在处理取决于溢出检查上下文 ([checked 和 unchecked 运算符](expressions.md#the-checked-and-unchecked-operators)) 都位于其将转换的位置：
-    * 在`checked`上下文中，转换将继续，如下所示：
-        * 如果操作数的值为 NaN 或无穷大，`System.OverflowException`引发。
-        * 否则，源操作数是向零到最接近的整数值舍入。 如果此整数值处于目标类型的范围内的此值是转换的结果。
+*  对于从 `decimal` 到整数类型的转换，将源值向零舍入到最接近的整数值，并且此整数值将成为转换的结果。 如果生成的整数值超出了目标类型的范围，则会引发 `System.OverflowException`。
+*  对于从 `float` 或 `double` 到整数类型的转换，处理取决于发生转换的溢出检查上下文（[检查和未检查的运算符](expressions.md#the-checked-and-unchecked-operators)）：
+    * 在 `checked` 上下文中，转换过程如下所示：
+        * 如果操作数的值为 NaN 或无穷大，则会引发 `System.OverflowException`。
+        * 否则，源操作数向零舍入到最接近的整数值。 如果此整数值在目标类型的范围内，则此值为转换的结果。
         * 否则，将会引发 `System.OverflowException`。
-    * 在`unchecked`上下文中，转换始终成功，并继续，如下所示。
-        * 如果操作数的值为 NaN 或无限的转换的结果是目标类型的未指定的值。
-        * 否则，源操作数是向零到最接近的整数值舍入。 如果此整数值处于目标类型的范围内的此值是转换的结果。
-        * 否则，转换的结果是目标类型的未指定的值。
-*  对于从`double`到`float`，则`double`值舍入为最接近`float`值。 如果`double`值因过小而无法表示为`float`，结果将成为正零或负零。 如果`double`该值太大而无法表示为`float`，其结果成为正无穷或负无穷大。 如果`double`值为 NaN，则结果也为 NaN。
-*  对于从`float`或`double`到`decimal`，源值转换为`decimal`表示形式和舍入为最接近的数字 28 位小数后根据需要 ([十进制类型](types.md#the-decimal-type)). 如果源值就太小，无法表示为`decimal`，结果则为零。 如果源值为 NaN、 无穷大或太大而无法表示为`decimal`、`System.OverflowException`引发。
-*  对于从`decimal`到`float`或`double`，则`decimal`值舍入为最接近`double`或`float`值。 此转换可能会丢失精度，尽管它从不会导致引发异常。
+    * 在 `unchecked` 上下文中，转换始终会成功，并按如下所示继续。
+        * 如果操作数的值为 NaN 或无穷大，则转换的结果是目标类型的未指定值。
+        * 否则，源操作数向零舍入到最接近的整数值。 如果此整数值在目标类型的范围内，则此值为转换的结果。
+        * 否则，转换的结果是目标类型的未指定值。
+*  对于从 `double` 到 `float`的转换，`double` 值舍入为最接近的 `float` 值。 如果 `double` 值太小而无法表示为 `float`，则结果将变为零或负零。 如果 `double` 值太大而无法表示为 `float`，则结果将变为正无穷或负无穷。 如果 `double` 值为 NaN，则结果也为 NaN。
+*  对于从 `float` 或 `double` 到 `decimal`的转换，将源值转换为 `decimal` 表示形式，并在需要时舍入到第28位小数后最接近的数（[decimal 类型](types.md#the-decimal-type)）。 如果源值太小而无法表示为 `decimal`，则结果将变为零。 如果源值为 NaN、无限大或太大而无法表示为 `decimal`，则会引发 `System.OverflowException`。
+*  对于从 `decimal` 到 `float` 或 `double`的转换，`decimal` 值舍入为最接近的 `double` 或 `float` 值。 虽然这种转换可能会丢失精度，但它永远不会引发异常。
 
 ### <a name="explicit-enumeration-conversions"></a>显式枚举转换
 
 显式枚举转换为：
 
-*  从`sbyte`， `byte`， `short`， `ushort`， `int`， `uint`， `long`， `ulong`， `char`， `float`， `double`，或`decimal`到任何*enum_type*。
-*  从任何*enum_type*到`sbyte`， `byte`， `short`， `ushort`， `int`， `uint`， `long`， `ulong`， `char`， `float`， `double`，或`decimal`。
+*  从 `sbyte`、`byte`、`short`、`ushort`、`int`、`uint`、`long`、`ulong`、`char`、`float`、`double`或 `decimal` 到任何*enum_type*。
+*  从任何*enum_type*到 `sbyte`、`byte`、`short`、`ushort`、`int`、`uint`、`long`、`ulong`、`char`、`float`、`double`或 `decimal`。
 *  从任何*enum_type*到任何其他*enum_type*。
 
-两个类型之间的显式枚举转换处理方法是将任何参与*enum_type*的基础类型为*enum_type*，，然后再执行隐式或显式在结果类型之间的数值转换。 例如，给定*enum_type* `E`使用和的基础类型`int`，从转换`E`到`byte`作为显式数值转换处理 ([Explicit数值转换](conversions.md#explicit-numeric-conversions)) 从`int`到`byte`，并从转换`byte`到`E`被处理为隐式数值转换 ([隐式数值转换](conversions.md#implicit-numeric-conversions))从`byte`到`int`。
+处理两种类型之间的显式枚举转换的方式是将任何参与的*enum_type*视为*enum_type*的基础类型，然后在生成的类型之间执行隐式或显式数字转换。 例如，给定*enum_type* `E`，以及基础类型 `int`，则 `E` 从 `byte` 到 `int` 的显式数字转换（从 `byte`到[`byte` 的显式](conversions.md#explicit-numeric-conversions)数字转换处理），并将从 `E` 到 `byte` 的转换处理为从 `int`到的隐式数值转换（[隐式数值](conversions.md#implicit-numeric-conversions)转换）。
 
-### <a name="explicit-nullable-conversions"></a>可以为 null 的显式转换
+### <a name="explicit-nullable-conversions"></a>显式可为 null 的转换
 
-***可以为 null 的显式转换***允许预定义的操作不可以为 null 的值类型也可用于这些类型的可以为 null 的窗体的显式转换。 为每个预定义的显式转换将从非 null 的值类型转换`S`为非 null 的值类型`T`([标识转换](conversions.md#identity-conversion)，[隐式数值转换](conversions.md#implicit-numeric-conversions)，[隐式枚举转换](conversions.md#implicit-enumeration-conversions)，[显式数值转换](conversions.md#explicit-numeric-conversions)，并且[显式枚举转换](conversions.md#explicit-enumeration-conversions))，以下可以为 null 的转换存在：
+***显式可以为 null 的转换***允许对不可以为 null 的值类型进行操作的预定义显式转换也可用于这些类型的可以为 null 的形式。 对于从不可为 null 的值类型转换为不可以为 null 的值类型的每个预定义的显式转换 `S` `T` （[标识转换](conversions.md#identity-conversion)、[隐式数值转换](conversions.md#implicit-numeric-conversions)、[隐式枚举转换](conversions.md#implicit-enumeration-conversions)、[显式数字转换](conversions.md#explicit-numeric-conversions)和[显式枚举转换](conversions.md#explicit-enumeration-conversions)），可以为 null 的转换如下：
 
-*  从的显式转换`S?`到`T?`。
-*  从的显式转换`S`到`T?`。
-*  从的显式转换`S?`到`T`。
+*  从 `S?` 到 `T?`的显式转换。
+*  从 `S` 到 `T?`的显式转换。
+*  从 `S?` 到 `T`的显式转换。
 
-可以为 null 的转换的计算基于一种从基础转换`S`到`T`继续，如下所示：
+基于从 `S` 到 `T` 的基础转换计算可以为 null 的转换，如下所示：
 
-*  如果可以为 null 的转换是从`S?`到`T?`:
-    * 如果源值为 null (`HasValue`属性为 false)，结果是类型的 null 值`T?`。
-    * 否则，则转换计算过程为从`S?`到`S`后, 跟从基础转换`S`到`T`后, 跟从包装`T`到`T?`。
-*  如果可以为 null 的转换是从`S`到`T?`，转换计算为从基础转换`S`到`T`跟从一个包装`T`到`T?`。
-*  如果可以为 null 的转换是从`S?`到`T`，则转换过程为从计算`S?`到`S`跟从基础转换`S`到`T`。
+*  如果可为 null 的转换来自 `S?` 到 `T?`：
+    * 如果源值为 null （`HasValue` 属性为 false），则结果为类型 `T?`的 null 值。
+    * 否则，转换将作为从 `S?` 到 `S`的解包进行计算，后跟从 `S` 到 `T`的底层转换，然后是从 `T` 到 `T?`的包装。
+*  如果将可为 null 的转换来自 `S` 到 `T?`，则会将转换计算为从 `S` 到 `T` 后跟从 `T` 到 `T?`的基础转换。
+*  如果将可为 null 的转换来自 `S?` 到 `T`，则会将转换计算为从 `S?` 到 `S` 的解包，后跟从 `S` 到 `T`的基础转换。
 
-请注意，尝试打开可以为 null 值将引发异常，是否值为`null`。
+请注意，如果值为 `null`，则尝试解包的值会引发异常。
 
 ### <a name="explicit-reference-conversions"></a>显式引用转换
 
 显式引用转换为：
 
-*  从`object`并`dynamic`到任何其他*reference_type*。
-*  从任何*class_type* `S`任何*class_type* `T`提供`S`是基类的`T`。
-*  从任何*class_type* `S`任何*interface_type* `T`提供`S`未密封的并提供`S`不实现`T`。
-*  从任何*interface_type* `S`任何*class_type* `T`提供`T`未密封的或未提供`T`实现`S`。
-*  从任何*interface_type* `S`任何*interface_type* `T`提供`S`不派生自`T`。
-*  从*array_type* `S`具有元素类型`SE`到*array_type* `T`具有元素类型`TE`，提供以下所有项都为 true:
-    * `S` 和`T`的区别只在于元素类型。 换而言之，`S`和`T`具有相同的维数。
-    * 这两`SE`并`TE`都*reference_type*s。
-    * 存在从的显式引用转换`SE`到`TE`。
-*  从`System.Array`和它对任何实现的接口*array_type*。
-*  从一维数组类型`S[]`到`System.Collections.Generic.IList<T>`并提供没有显式引用转换从其基接口`S`到`T`。
-*  从`System.Collections.Generic.IList<S>`到一维数组类型及其基接口`T[]`，前提是没有从的显式标识或引用转换`S`到`T`。
-*  从`System.Delegate`和它对任何实现的接口*delegate_type*。
-*  从引用类型的引用类型`T`是否为引用类型的显式引用转换`T0`并`T0`标识转换`T`。
-*  从接口或委托类型的引用类型`T`是否为接口或委托类型的显式引用转换`T0`并将`T0`可变化转换到`T`或`T`是变化转换到`T0`([变化转换](interfaces.md#variance-conversion))。
-*  从`D<S1...Sn>`到`D<T1...Tn>`其中`D<X1...Xn>`是泛型委托类型，`D<S1...Sn>`不符合或相同`D<T1...Tn>`，并为每个类型参数`Xi`的`D`以下包含：
-    * 如果`Xi`不变，然后`Si`等同于`Ti`。
-    * 如果`Xi`是协变，则隐式或显式标识或引用转换从`Si`到`Ti`。
-    * 如果`Xi`然后为逆变`Si`和`Ti`为相同或同时引用类型。
-*  涉及已知为引用类型的类型参数的显式转换。 有关涉及类型参数的显式转换的更多详细信息，请参阅[涉及类型参数的显式转换](conversions.md#explicit-conversions-involving-type-parameters)。
+*  从 `object` 和 `dynamic` 到任何其他*reference_type*。
+*  从任何*class_type* `S` 到任何*class_type* `T`，提供的 `S` 是 `T`的基类。
+*  从任何*class_type* `S` 到任何*interface_type* `T`，提供的 `S` 不是密封的，`S` 未实现 `T`。
+*  从任何*interface_type* `S` 到任何*class_type* `T`，提供的 `T` 未密封或未提供 `T` 实现 `S`。
+*  从任何*interface_type* `S` 到任何*interface_type* `T`，提供的 `S` 不是从 `T`派生的。
+*  在元素类型为的*array_type* `S` 中 `SE` 到元素类型 `T` 的*array_type* `TE`，前提是满足以下所有条件：
+    * `S` 和 `T` 仅在元素类型上存在差异。 换句话说，`S` 和 `T` 具有相同的维数。
+    * `SE` 和 `TE` *reference_type*。
+    * 存在从 `SE` 到 `TE`的显式引用转换。
+*  从 `System.Array` 及其实现的接口到任何*array_type*。
+*  从一维数组类型 `S[]` 到 `System.Collections.Generic.IList<T>` 及其基接口，前提是存在从 `S` 到 `T`的显式引用转换。
+*  从 `System.Collections.Generic.IList<S>` 及其基接口到一维数组类型 `T[]`，前提是有显式标识或从 `S` 到 `T`的引用转换。
+*  从 `System.Delegate` 及其实现的接口到任何*delegate_type*。
+*  从引用类型到引用类型 `T` 如果它具有到引用类型的显式引用转换 `T0` 并且 `T0` 具有 `T`的标识转换。
+*  从引用类型到接口或委托类型 `T` 如果它具有到接口或委托类型的显式引用转换 `T0` 并且 `T0` 可以转换为 `T` 或 `T` 变体转换为 `T0` （[变体转换](interfaces.md#variance-conversion)）。
+*  从 `D<S1...Sn>` 到 `D<T1...Tn>`，其中 `D<X1...Xn>` 是一个泛型委托类型，`D<S1...Sn>` 与 `D<T1...Tn>`不兼容或等同于 `Xi`，而对于每个类型参数 `D`，则以下保留：
+    * 如果 `Xi` 固定，则 `Si` 与 `Ti`相同。
+    * 如果 `Xi` 是协变的，则存在从 `Si` 到 `Ti`的隐式或显式标识或引用转换。
+    * 如果 `Xi` 为逆变，则 `Si` 和 `Ti` 均为相同或同时为这两个引用类型。
+*  涉及称为引用类型的类型参数的显式转换。 有关涉及类型参数的显式转换的详细信息，请参阅[涉及类型参数的显式转换](conversions.md#explicit-conversions-involving-type-parameters)。
 
-显式引用转换指那些需要运行时检查，以确保它们正确无误的引用类型之间。
+显式引用转换是需要运行时检查以确保它们正确的引用类型之间的转换。
 
-对于在运行时成功的显式引用转换，源操作数的值必须`null`，或者源操作数所引用的对象的实际类型必须是可通过隐式引用转换为目标类型的类型转换 ([隐式引用转换](conversions.md#implicit-reference-conversions)) 或装箱转换 ([装箱转换](conversions.md#boxing-conversions))。 如果显式引用转换失败，`System.InvalidCastException`引发。
+若要在运行时成功进行显式引用转换，源操作数的值必须为 `null`，或源操作数引用的对象的实际类型必须是可通过隐式引用转换（[隐式引用](conversions.md#implicit-reference-conversions)转换）或装箱转换（[装箱](conversions.md#boxing-conversions)转换）转换为目标类型的类型。 如果显式引用转换失败，则会引发 `System.InvalidCastException`。
 
-引用转换，隐式或显式的永远不会更改要转换的对象的引用标识。 换而言之，而是引用转换可能会更改引用的类型，它永远不会更改的类型或所引用对象的值。
+引用转换、隐式或显式转换决不会更改正在转换的对象的引用标识。 换言之，虽然引用转换可以更改引用的类型，但它不会更改引用的对象的类型或值。
 
 ### <a name="unboxing-conversions"></a>取消装箱转换
 
-取消装箱转换允许显式转换为引用类型*value_type*。 取消装箱转换存在从类型`object`，`dynamic`并`System.ValueType`任何*non_nullable_value_type*，并从任何*interface_type*任何*non_nullable_value_type* ，它实现*interface_type*。 此外键入`System.Enum`可以是任何未装箱*enum_type*。
+取消装箱转换允许将引用类型显式转换为*value_type*。 从类型 `object`、`dynamic` 和 `System.ValueType` 到任何*non_nullable_value_type*，以及从任何*interface_type*到实现*non_nullable_value_type*的任意*interface_type*的取消装箱转换。 此外，可以将 `System.Enum` 类型取消装箱到任何*enum_type*。
 
-取消装箱转换从引用类型到存在*nullable_type*如果取消装箱转换从引用类型存在于基础*non_nullable_value_type*的*nullable_type*。
+如果从引用类型到*nullable_type*的基础*non_nullable_value_type*的取消装箱转换存在，则取消装箱转换将从引用类型转换为*nullable_type* 。
 
-值类型`S`已从接口类型的取消装箱转换`I`它是否有从接口类型的取消装箱转换`I0`并`I0`标识转换为`I`。
+值类型 `S` 具有从接口类型的取消装箱转换 `I` 如果它具有从接口类型的取消装箱转换 `I0` 并且 `I0` 具有到 `I`的标识转换。
 
-值类型`S`已从接口类型的取消装箱转换`I`如果有从接口或委托类型的取消装箱转换`I0`并将`I0`可变化转换到`I`或`I`可变化转换到`I0`([变化转换](interfaces.md#variance-conversion))。
+值类型 `S` 具有从接口类型的取消装箱转换 `I` 如果该类型具有从接口或委托类型的取消装箱转换 `I0` 并且 `I0` 可以转换为 `I` 或 `I` 可转换为 `I0` （[变体转换](interfaces.md#variance-conversion)）。
 
-取消装箱操作组成的对象实例的装箱的值的第一个检查给定*value_type*，然后复制实例以外的值。 取消装箱对的 null 引用*nullable_type*生成的 null 值*nullable_type*。 结构可以是从类型未装箱`System.ValueType`，因为它是所有的结构的基类 ([继承](structs.md#inheritance))。
+取消装箱操作包括：首先检查对象实例是否是给定*value_type*的装箱值，然后将值复制到该实例之外。 取消装箱对*nullable_type*的空引用将生成*nullable_type*的 null 值。 结构可以从类型 `System.ValueType`取消装箱，因为这是所有结构（[继承](structs.md#inheritance)）的基类。
 
-取消装箱转换都是中作了进一步介绍[取消装箱转换](types.md#unboxing-conversions)。
+取消装箱转换中进一步介绍[了取消装箱](types.md#unboxing-conversions)转换。
 
-### <a name="explicit-dynamic-conversions"></a>动态的显式转换
+### <a name="explicit-dynamic-conversions"></a>显式动态转换
 
-类型的表达式中存在一个显式的动态转换`dynamic`为任何类型`T`。 动态绑定转换 ([动态绑定](expressions.md#dynamic-binding))，这意味着，会在运行时从运行时类型的表达式与要求的显式转换`T`。 如果不找到任何转换，则引发运行时异常。
+存在从 `dynamic` 类型的表达式到任何类型 `T`的显式动态转换。 转换是动态绑定的（[动态绑定](expressions.md#dynamic-binding)），这意味着将在运行时从表达式的运行时类型中查找显式转换，以便 `T`。 如果未找到任何转换，则会引发运行时异常。
 
-如果不想转换的动态绑定，该表达式可以首先转换为`object`，然后到所需的类型。
+如果不需要转换的动态绑定，则可以先将表达式转换为 `object`，然后转换为所需的类型。
 
-假设以下类的定义：
+假定定义了下面的类：
 ```csharp
 class C
 {
@@ -342,7 +343,7 @@ class C
 }
 ```
 
-下面的示例说明了动态的显式转换：
+下面的示例阐释了显式动态转换：
 ```csharp
 object o  = "1";
 dynamic d = "2";
@@ -351,20 +352,20 @@ var c1 = (C)o; // Compiles, but explicit reference conversion fails
 var c2 = (C)d; // Compiles and user defined conversion succeeds
 ```
 
-最佳的转换`o`到`C`找到在编译时为显式引用转换。 因为在运行时失败`"1"`实际上不是`C`。 转换`d`到`C`但是，为显式的动态转换，挂起到运行时，其中的用户定义的运行时类型转换`d`  --  `string` -为`C`找到，则将会成功。
+在编译时可以找到 `o` 到 `C` 的最佳转换，以便成为显式引用转换。 这会在运行时失败，因为 `"1"` 事实上并不是 `C`。 `d` 转换为 `C` 但是，作为显式动态转换，会将其挂起到运行时，其中，用户从 `d` -- `string` 到 `C` 的运行时类型进行了定义的转换，并成功了。
 
 ### <a name="explicit-conversions-involving-type-parameters"></a>涉及类型参数的显式转换
 
-以下的显式转换为给定的类型参数存在`T`:
+`T`的给定类型参数存在以下显式转换：
 
-*  从有效基类`C`的`T`到`T`并从任何基类`C`到`T`。 在运行时，如果`T`是值类型，则转换将执行作为取消装箱转换。 否则，转换将执行作为显式引用转换或标识转换。
-*  从任何接口类型到`T`。 在运行时，如果`T`是值类型，则转换将执行作为取消装箱转换。 否则，转换将执行作为显式引用转换或标识转换。
-*  从`T`到任何*interface_type* `I`尚没有隐式转换提供`T`到`I`。 在运行时，如果`T`是值类型，则转换将执行作为显式引用转换后跟装箱转换。 否则，转换将执行作为显式引用转换或标识转换。
-*  从类型参数`U`到`T`提供`T`取决于`U`([类型参数约束](classes.md#type-parameter-constraints))。 在运行时，如果`U`为值类型，则`T`和`U`一定具有相同的类型并不执行任何转换。 否则为如果`T`是值类型，则转换将执行作为取消装箱转换。 否则，转换将执行作为显式引用转换或标识转换。
+*  从有效的基类 `C` 的 `T` 到 `T` 和从 `C` 的任何基类到 `T`。 在运行时，如果 `T` 是值类型，则转换将作为取消装箱转换执行。 否则，转换将作为显式引用转换或标识转换执行。
+*  从任何接口类型到 `T`。 在运行时，如果 `T` 是值类型，则转换将作为取消装箱转换执行。 否则，转换将作为显式引用转换或标识转换执行。
+*  从 `T` 到任何*interface_type* `I` 如果尚未从 `T` 到 `I`的隐式转换。 在运行时，如果 `T` 是值类型，则转换将作为装箱转换执行，后跟显式引用转换。 否则，转换将作为显式引用转换或标识转换执行。
+*  从类型参数 `U` 到 `T`，提供 `T` 依赖于 `U` （[类型参数约束](classes.md#type-parameter-constraints)）。 在运行时，如果 `U` 是值类型，则 `T` 和 `U` 都必须是相同的类型，并且不执行任何转换。 否则，如果 `T` 是值类型，则转换将作为取消装箱转换执行。 否则，转换将作为显式引用转换或标识转换执行。
 
-如果`T`是已知为引用类型，则上面的转换所有归类为显式引用转换 ([显式引用转换](conversions.md#explicit-reference-conversions))。 如果`T`是已知不是引用类型，则上面的转换将归类为取消装箱转换 ([取消装箱转换](conversions.md#unboxing-conversions))。
+如果已知 `T` 是引用类型，则上述转换全都归类为显式引用转换（[显式引用转换](conversions.md#explicit-reference-conversions)）。 如果 `T` 不知道是引用类型，则上述转换归类为取消装箱转换（[取消装箱转换](conversions.md#unboxing-conversions)）。
 
-上述规则不允许为非接口类型，直接从受约束的类型参数显式转换可能会令人惊讶。 此规则的原因是防止产生混乱并请清除此类转换的语义。 例如，请考虑以下声明：
+以上规则不允许从不受约束的类型形参直接转换为非接口类型，这可能会令人吃惊。 此规则的原因是为了防止混淆并使此类转换的语义清晰。 例如，请考虑以下声明：
 ```csharp
 class X<T>
 {
@@ -374,7 +375,7 @@ class X<T>
 }
 ```
 
-如果直接显式转换`t`到`int`允许，极有可能认为该`X<int>.F(7)`将返回 `7L`。 但是，不这样做，因为已知类型将是在绑定时数字时，将仅考虑标准数值转换。 为了使语义清晰、 上面的示例中必须改为编写：
+如果允许 `t` 到 `int` 的直接显式转换，则很可能会认为 `X<int>.F(7)` 会返回 `7L`。 但是，它不会这样，因为仅当已知类型在绑定时是数字时才考虑标准数字转换。 为了使语义清晰明了，必须改为编写以上示例：
 ```csharp
 class X<T>
 {
@@ -384,155 +385,155 @@ class X<T>
 }
 ```
 
-此代码现在可以正常编译但正在执行`X<int>.F(7)`将然后引发一个异常在运行时，由于一个装箱`int`不能直接转换`long`。
+此代码现在将进行编译，但执行 `X<int>.F(7)` 稍后会在运行时引发异常，因为无法直接将装箱 `int` 转换为 `long`。
 
 ### <a name="user-defined-explicit-conversions"></a>用户定义的显式转换
 
-用户定义的显式转换包含的可选的标准显式转换后, 跟的一个用户定义的隐式或显式转换运算符后, 跟另一个可选的标准显式转换的执行。 用于评估用户定义的显式转换的确切规则所述[处理的用户定义的显式转换](conversions.md#processing-of-user-defined-explicit-conversions)。
+用户定义的显式转换包含一个可选的标准显式转换，然后执行用户定义的隐式或显式转换运算符，然后执行另一个可选的标准显式转换。 用于评估用户定义的显式转换的确切规则在[处理用户定义的显式转换](conversions.md#processing-of-user-defined-explicit-conversions)中进行了介绍。
 
 ## <a name="standard-conversions"></a>标准转换
 
-标准转换将这些预定义的转换可能出现的用户定义的转换的一部分。
+标准转换是那些预定义的转换，这些转换可作为用户定义的转换的一部分出现。
 
 ### <a name="standard-implicit-conversions"></a>标准隐式转换
 
-以下隐式转换被归类为标准的隐式转换：
+以下隐式转换归类为标准隐式转换：
 
-*  标识转换 ([标识转换](conversions.md#identity-conversion))
-*  隐式数值转换 ([隐式数值转换](conversions.md#implicit-numeric-conversions))
-*  可以为 null 的隐式转换 ([可以为 null 的隐式转换](conversions.md#implicit-nullable-conversions))
-*  隐式引用转换 ([隐式引用转换](conversions.md#implicit-reference-conversions))
-*  装箱转换 ([装箱转换](conversions.md#boxing-conversions))
-*  常量表达式隐式转换 ([隐式动态转换](conversions.md#implicit-dynamic-conversions))
-*  隐式转换涉及类型参数 ([涉及类型参数的隐式转换](conversions.md#implicit-conversions-involving-type-parameters))
+*  标识转换（[标识转换](conversions.md#identity-conversion)）
+*  隐式数值转换（[隐式数值转换](conversions.md#implicit-numeric-conversions)）
+*  隐式可为 null 转换（[隐式可为 null 转换](conversions.md#implicit-nullable-conversions)）
+*  隐式引用转换（[隐式引用转换](conversions.md#implicit-reference-conversions)）
+*  装箱转换（[装箱转换](conversions.md#boxing-conversions)）
+*  隐式常量表达式转换（[隐式动态转换](conversions.md#implicit-dynamic-conversions)）
+*  涉及类型参数的隐式转换（[涉及类型参数的隐式转换](conversions.md#implicit-conversions-involving-type-parameters)）
 
-标准的隐式转换专门排除用户定义的隐式转换。
+标准隐式转换专门排除用户定义的隐式转换。
 
-### <a name="standard-explicit-conversions"></a>标准的显式转换
+### <a name="standard-explicit-conversions"></a>标准显式转换
 
-标准的显式转换包括所有标准的隐式转换以及子网的相反标准隐式转换为其存在显式转换。 换而言之，如果标准隐式转换存在从类型`A`为某种`B`，然后从类型存在标准的显式转换`A`键入`B`和从类型`B`键入`A`。
+标准显式转换均为标准隐式转换，以及与之相反的标准隐式转换的显式转换的子集。 换言之，如果存在从类型 `A` 到类型 `B`的标准隐式转换，则从类型 `A` 到类型 `B`，并从类型 `B` 到类型 `A`，都存在标准的显式转换。
 
 ## <a name="user-defined-conversions"></a>用户定义的转换
 
-C# 允许将预定义的隐式和显式转换，以通过扩充***用户定义的转换***。 用户定义的转换引入的声明转换运算符 ([转换运算符](classes.md#conversion-operators)) 中类和结构类型。
+C#允许使用***用户定义的转换***来扩充预定义的隐式和显式转换。 用户定义的转换通过在类和结构类型中声明转换运算符（[转换运算符](classes.md#conversion-operators)）引入。
 
-### <a name="permitted-user-defined-conversions"></a>允许用户定义的转换
+### <a name="permitted-user-defined-conversions"></a>允许的用户定义的转换
 
-C# 允许仅特定用户定义的转换声明。 具体而言，不能重新定义已存在的隐式或显式转换。
+C#仅允许声明某些用户定义的转换。 特别是，不能重新定义已存在的隐式或显式转换。
 
-给定的源类型`S`和目标类型`T`，如果`S`或`T`是可以为 null 的类型，让`S0`并`T0`指其基础类型，否则`S0`和`T0`是等于`S`和`T`分别。 类或结构允许以声明的源类型转换`S`为目标类型`T`只有在满足以下所有时：
+对于给定的源类型 `S` 和目标类型 `T`，如果 `S` 或 `T` 是可以为 null 的类型，则允许 `S0` 和 `T0` 引用它们的基础类型，否则 `S0` 和 `T0` 分别等于 `S` 和 `T`。 仅当满足以下所有条件时，才允许类或结构声明从源类型 `S` 转换为目标类型 `T`：
 
-*  `S0` 和`T0`是不同的类型。
-*  要么`S0`或`T0`是在运算符声明发生的类或结构类型。
-*  既不`S0`也不`T0`是*interface_type*。
-*  除用户定义的转换，转换不存在从`S`到`T`或从`T`到`S`。
+*  `S0` 和 `T0` 属于不同类型。
+*  `S0` 或 `T0` 是发生运算符声明的类或结构类型。
+*  `S0` 和 `T0` 都不是*interface_type*的。
+*  如果不包括用户定义的转换，则从 `S` 到 `T` 或从 `T` 到 `S`的转换不存在。
 
-应用到用户定义的转换的限制的讨论中进一步[转换运算符](classes.md#conversion-operators)。
+适用于用户定义的转换的限制将在[转换运算符](classes.md#conversion-operators)中进一步讨论。
 
 ### <a name="lifted-conversion-operators"></a>提升的转换运算符
 
-提供将从非 null 的值类型转换的用户定义的转换运算符`S`给不可以为 null 的值类型`T`、 一个***提升转换运算符***存在从将`S?`到`T?`. 此提升的转换运算符执行从`S?`到`S`从用户定义的转换后跟`S`到`T`跟从一个包装`T`到`T?`，只不过 null值`S?`直接与 null 值转换为`T?`。
+给定一个用户定义的转换运算符，该运算符将不可以为 null 的值类型 `S` 转换为不可以为 null 的值类型 `T`，存在从 `S?` 转换为 `T?`的***提升转换运算符***。 此提升转换运算符执行从 `S?` 解包到 `S`，然后执行从 `S` 到 `T` 的用户定义的转换，后跟从 `T` 到 `T?`的包装，只不过 null 值 `S?` 直接转换为 null 值 `T?`。
 
-提升的转换运算符具有相同隐式或显式作为其基础的用户定义的转换运算符的分类。 术语"用户定义的转换"适用于对这两者的使用用户定义和提升转换运算符。
+提升的转换运算符与其基础用户定义转换运算符具有相同的隐式或显式分类。 "用户定义的转换" 一词适用于用户定义的转换运算符和提升的转换运算符。
 
-### <a name="evaluation-of-user-defined-conversions"></a>用户定义的转换的评估
+### <a name="evaluation-of-user-defined-conversions"></a>计算用户定义的转换
 
-用户定义的转换将值转换其名为的类型从***源类型***，到另一种类型，称为***目标类型***。 有关查找的用户定义的转换的评估中心***最具体***特定的源和目标类型的用户定义的转换运算符。 此决定分为几个步骤：
+用户定义的转换将值从其类型（称为***源类型***）转换为另一种类型，称为***目标类型***。 计算用户定义的转换中心，查找特定源和目标类型的***最特定***用户定义转换运算符。 此确定分为几个步骤：
 
-*  查找类和结构将被视为用户定义的转换运算符的集。 此集包含的源类型和及其基类和目标类型和及其基类 （与仅类和结构可以声明用户定义的运算符，并且非类类型不具有没有基类的隐式假设）。 此步骤中，如果源或目标类型是出于*nullable_type*，其基础类型改为使用。
-*  从该集中的类型确定的用户和提升转换运算符都适用。 转换运算符适用，它必须能够执行的标准转换 ([标准转换](conversions.md#standard-conversions)) 从源类型到操作数的运算符和它的类型必须是可以执行的标准转换从为目标类型的运算符的结果类型。
-*  从适用的用户定义运算符，确定哪一个运算符明确最具体的组。 概括地说，最具体的运算符是的运算符的操作数类型是"最靠近"的源类型，并且结果类型为"最靠近"目标类型。 用户定义的转换运算符是首选，通过提升的转换运算符。 以下各节中定义的建立最具体的用户定义的转换运算符的确切规则。
+*  查找要将用户定义的转换运算符视为其中的一组类和结构。 此集由源类型及其基类和目标类型及其基类组成（隐式假设只有类和结构可以声明用户定义的运算符，而非类类型没有基类）。 对于此步骤，如果源类型或目标类型为*nullable_type*，则改为使用它们的基础类型。
+*  从该类型集中确定哪些用户定义的转换运算符适用。 要使转换运算符适用，必须可以执行标准转换（[标准](conversions.md#standard-conversions)转换），使其从源类型转换为运算符的操作数类型，并且必须能够执行从运算符的结果类型到目标类型的标准转换。
+*  从一组适用的用户定义的运算符，确定哪个运算符明确是最具体的。 一般来说，最特定的运算符是操作数类型与源类型 "最接近" 的运算符，其结果类型与目标类型 "最近"。 用户定义的转换运算符优先于提升转换运算符。 以下部分定义了用于建立最具体的用户定义转换运算符的确切规则。
 
-一旦确定最特定的用户定义的转换运算符，实际执行用户定义的转换涉及到最多三个步骤：
+确定了最特定的用户定义转换运算符后，用户定义的转换的实际执行操作包括多达三个步骤：
 
-*  首先，如果需要，请执行从源类型到用户定义的或提升转换运算符的操作数类型的标准转换。
-*  接下来，调用用户定义或提升转换运算符来执行此转换。
-*  最后，如果需要，请执行用户定义的或提升转换运算符的结果类型中的标准转换为目标类型。
+*  首先，如果需要，执行从源类型到用户定义或提升的转换运算符的操作数类型的标准转换。
+*  接下来，调用用户定义或提升的转换运算符来执行转换。
+*  最后，如果需要，执行从用户定义转换运算符的结果类型到目标类型的标准转换。
 
-计算的用户定义转换永远不会涉及多个用户定义或提升转换运算符。 换而言之，从类型转换`S`键入`T`永远不会首先执行中的用户定义的转换`S`到`X`，然后执行用户定义的转换，从`X`到`T`。
+用户定义的转换的计算从不涉及多个用户定义的转换运算符或提升的转换运算符。 换句话说，从类型 `S` 到类型 `T` 的转换永远不会首先执行从 `S` 到 `X` 的用户定义的转换，然后执行从 `X` 到 `T`的用户定义的转换。
 
-以下各节给出的用户定义的隐式或显式转换的确切定义。 定义可使用以下术语：
+以下各节提供了用户定义的隐式或显式转换的确切计算定义。 定义使用以下术语：
 
-*  如果标准隐式转换 ([标准隐式转换](conversions.md#standard-implicit-conversions)) 存在从类型`A`为某种`B`，和如果既没有`A`也不`B`是*interface_type*s，然后`A`称为***包含*** `B`，并且`B`可以说负责***包含*** `A`。
-*  ***最大的类型***中的一组类型是一个包含在集中的所有其他类型的类型。 如果没有一个类型包含所有其他类型，然后集都有没有最大的类型。 更直观地讲，最大的类型是在集中的"最大"类型，每个其他类型可以隐式转换成一种类型。
-*  ***最包含类型***在一组类型是在集中的所有其他类型包含一个类型。 如果没有一个类型被包含所有其他类型，一组具有最不包含类型。 更直观地讲，包含程度最大的类型是在集中的"最小"类型，可以隐式转换为其他类型的每一种类型。
+*  如果从类型 `A` 到类型 `B`存在标准隐式转换（[标准隐](conversions.md#standard-implicit-conversions)式转换），并且 `A` 和 `B` 都不*interface_type*，则 `A` 被视为***包含***`B`，`B` 称为***包含***`A`。
+*  一组类型中包含的***最大的类型***是一种包含集内所有其他类型的类型。 如果没有一种类型包含所有其他类型，则该集没有最大的包含类型。 更直观地说，最包含的类型是集中的 "最大" 类型，每个其他类型都可以隐式转换为一种类型。
+*  类型集中***最常被包含的类型***是一种类型，它由集中的所有其他类型所包含。 如果所有其他类型都不包含任何一种类型，则该集不包含大多数被包含的类型。 更直观地说，最包含的类型是集中的 "最小" 类型，这种类型可以隐式转换为其他类型。
 
-### <a name="processing-of-user-defined-implicit-conversions"></a>处理的用户定义的隐式转换
+### <a name="processing-of-user-defined-implicit-conversions"></a>处理用户定义的隐式转换
 
-从类型的用户定义的隐式转换`S`键入`T`进行处理，如下所示：
+用户定义的从类型 `S` 到类型的隐式转换 `T` 的处理方式如下：
 
-*  确定的类型`S0`和`T0`。 如果`S`或`T`是可以为 null 的类型，`S0`和`T0`是它们的基础类型，否则`S0`并`T0`等于`S`和`T`分别。
-*  查找组的类型， `D`，将被视为哪些用户定义的转换运算符。 此集组成`S0`(如果`S0`是类或结构)，类的基类`S0`(如果`S0`是一个类)，并`T0`(如果`T0`是类或结构)。
-*  查找适用的用户和提升转换运算符的组`U`。 此集包含的类或结构中的声明的用户和提升隐式转换运算符`D`，将从包含的类型转换`S`包含一个类型为`T`。 如果`U`是空的转换未定义，则发生编译时错误。
-*  查找最具体的源类型`SX`中的运算符`U`:
-    * 如果任何中的运算符`U`将从转换`S`，然后`SX`是`S`。
-    * 否则为`SX`是包含程度最大的类型中的运算符的源类型的组合集`U`。 如果一个最包含找不到类型，然后转换不明确，则发生编译时错误。
-*  查找最具体的目标类型`TX`中的运算符`U`:
-    * 如果任何中的运算符`U`将转换为`T`，然后`TX`是`T`。
-    * 否则为`TX`是最大的类型中的目标类型中的运算符的组合集`U`。 如果找不到一个最大的类型，则转换是不明确，并将发生编译时错误。
-*  查找最精确的转换运算符：
-    * 如果`U`包含一个将从转换的用户定义的转换运算符`SX`到`TX`，则表明这是最具体的转换运算符。
-    * 否则为如果`U`包含一个从转换的提升的转换运算符`SX`到`TX`，则表明这是最具体的转换运算符。
-    * 否则为转换不明确，则发生编译时错误。
-*  最后，将应用转换：
-    * 如果`S`不是`SX`，然后从标准隐式转换`S`到`SX`执行。
-    * 最具体的转换运算符调用以从转换`SX`到`TX`。
-    * 如果`TX`不是`T`，然后从标准隐式转换`TX`到`T`执行。
+*  确定 `S0` 和 `T0`的类型。 如果 `S` 或 `T` 是可以为 null 的类型，`S0` 和 `T0` 是其基础类型，则 `S0` 和 `T0` 分别等于 `S` 和 `T`。
+*  查找要将用户定义的转换运算符视为 `D`类型集。 此集由 `S0` （如果 `S0` 为类或结构）、`S0` 的基本类（如果 `S0` 是类）和 `T0` （如果 `T0` 是类或结构）。
+*  查找一组适用的用户定义的转换运算符，`U`。 此集由由 `D` 中的类或结构声明的用户定义的和提升的隐式转换运算符组成，它们从包含 `S` 的类型转换为 `T`包含的类型。 如果 `U` 为空，则转换未定义，并发生编译时错误。
+*  查找 `U`中运算符的最特定的源类型 `SX`：
+    * 如果 `U` 中的任何运算符从 `S`转换，则 `SX` 为 `S`。
+    * 否则，`SX` 是 `U`中运算符的组合源类型集中最常包含的类型。 如果找不到完全包含的类型，则转换是不明确的，并发生编译时错误。
+*  查找 `U`中运算符的最特定目标类型 `TX`：
+    * 如果 `U` 中的任何运算符转换为 `T`，则 `TX` 为 `T`。
+    * 否则，`TX` 是 `U`中运算符的组合目标类型集中最包含的类型。 如果找不到完全包含的类型，则转换是不明确的，并发生编译时错误。
+*  查找最具体的转换运算符：
+    * 如果 `U` 只包含一个从 `SX` 转换为 `TX`的用户定义的转换运算符，则这是最具体的转换运算符。
+    * 否则，如果 `U` 只包含一个从 `SX` 转换为 `TX`的提升转换运算符，则这是最具体的转换运算符。
+    * 否则，转换是不明确的，并发生编译时错误。
+*  最后，应用转换：
+    * 如果未 `SX``S`，则执行从 `S` 到 `SX` 的标准隐式转换。
+    * 调用最特定的转换运算符，以将 `SX` 转换为 `TX`。
+    * 如果未 `T``TX`，则执行从 `TX` 到 `T` 的标准隐式转换。
 
-### <a name="processing-of-user-defined-explicit-conversions"></a>处理的用户定义的显式转换
+### <a name="processing-of-user-defined-explicit-conversions"></a>处理用户定义的显式转换
 
-从类型的用户定义的显式转换`S`键入`T`进行处理，如下所示：
+用户定义的从类型 `S` 到类型 `T` 的显式转换的处理方式如下：
 
-*  确定的类型`S0`和`T0`。 如果`S`或`T`是可以为 null 的类型，`S0`和`T0`是它们的基础类型，否则`S0`并`T0`等于`S`和`T`分别。
-*  查找组的类型， `D`，将被视为哪些用户定义的转换运算符。 此集组成`S0`(如果`S0`是类或结构)，类的基类`S0`(如果`S0`是一个类)， `T0` (如果`T0`是类或结构)，和的基类`T0`(如果`T0`是一个类)。
-*  查找适用的用户和提升转换运算符的组`U`。 此集包含用户和提升的隐式或显式转换运算符声明为类或结构中的`D`，将从包含的类型转换或包含`S`到包含自或包含的类型`T`. 如果`U`是空的转换未定义，则发生编译时错误。
-*  查找最具体的源类型`SX`中的运算符`U`:
-    * 如果任何中的运算符`U`将从转换`S`，然后`SX`是`S`。
-    * 否则为如果中的运算符的任何`U`从包含的类型转换`S`，然后`SX`是中的源类型的这些运算符的组合集包含程度最大的类型。 如果最直接包含找不到类型，然后转换不明确，则发生编译时错误。
-    * 否则为`SX`是最大的类型中的源类型中的运算符的组合集`U`。 如果找不到一个最大的类型，则转换是不明确，并将发生编译时错误。
-*  查找最具体的目标类型`TX`中的运算符`U`:
-    * 如果任何中的运算符`U`将转换为`T`，然后`TX`是`T`。
-    * 否则为如果中的运算符的任何`U`将转换为类型通过产生了哪些`T`，然后`TX`是最大的类型中的目标类型的这些运算符的组合集。 如果找不到一个最大的类型，则转换是不明确，并将发生编译时错误。
-    * 否则为`TX`是包含程度最大的类型的目标类型中的运算符的组合集`U`。 如果最直接包含找不到类型，然后转换不明确，则发生编译时错误。
-*  查找最精确的转换运算符：
-    * 如果`U`包含一个将从转换的用户定义的转换运算符`SX`到`TX`，则表明这是最具体的转换运算符。
-    * 否则为如果`U`包含一个从转换的提升的转换运算符`SX`到`TX`，则表明这是最具体的转换运算符。
-    * 否则为转换不明确，则发生编译时错误。
-*  最后，将应用转换：
-    * 如果`S`不是`SX`，然后从标准显式转换`S`到`SX`执行。
-    * 调用的最特定的用户定义的转换运算符，以转换从`SX`到`TX`。
-    * 如果`TX`不是`T`，然后从标准显式转换`TX`到`T`执行。
+*  确定 `S0` 和 `T0`的类型。 如果 `S` 或 `T` 是可以为 null 的类型，`S0` 和 `T0` 是其基础类型，则 `S0` 和 `T0` 分别等于 `S` 和 `T`。
+*  查找要将用户定义的转换运算符视为 `D`类型集。 此集由 `S0` （如果 `S0` 为类或结构）、`S0` （如果 `S0` 是类）的基类、`T0` （如果 `T0` 是类或结构）以及 `T0` （如果 `T0` 是类）的基类。
+*  查找一组适用的用户定义的转换运算符，`U`。 此集由 `D` 中的类或结构声明的用户定义的隐式或显式转换运算符，由 `S` 转换为包含 `T`包含或包含的类型。 如果 `U` 为空，则转换未定义，并发生编译时错误。
+*  查找 `U`中运算符的最特定的源类型 `SX`：
+    * 如果 `U` 中的任何运算符从 `S`转换，则 `SX` 为 `S`。
+    * 否则，如果 `U` 中的任何运算符从包含 `S`的类型进行转换，则 `SX` 是这些运算符的一组源类型中包含程度最高的类型。 如果找不到最能包含的类型，则转换是不明确的，并发生编译时错误。
+    * 否则，`SX` 是 `U`中运算符的组合源类型集中的最包含的类型。 如果找不到完全包含的类型，则转换是不明确的，并发生编译时错误。
+*  查找 `U`中运算符的最特定目标类型 `TX`：
+    * 如果 `U` 中的任何运算符转换为 `T`，则 `TX` 为 `T`。
+    * 否则，如果 `U` 中的任何运算符转换为 `T`包含的类型，则在这些运算符的组合目标类型集中，`TX` 是最包含的类型。 如果找不到完全包含的类型，则转换是不明确的，并发生编译时错误。
+    * 否则，`TX` 是 `U`中运算符的组合目标类型集中最常被包含的类型。 如果找不到最能包含的类型，则转换是不明确的，并发生编译时错误。
+*  查找最具体的转换运算符：
+    * 如果 `U` 只包含一个从 `SX` 转换为 `TX`的用户定义的转换运算符，则这是最具体的转换运算符。
+    * 否则，如果 `U` 只包含一个从 `SX` 转换为 `TX`的提升转换运算符，则这是最具体的转换运算符。
+    * 否则，转换是不明确的，并发生编译时错误。
+*  最后，应用转换：
+    * 如果未 `SX``S`，则执行从 `S` 到 `SX` 的标准显式转换。
+    * 调用最特定的用户定义转换运算符，以将 `SX` 转换为 `TX`。
+    * 如果未 `T``TX`，则执行从 `TX` 到 `T` 的标准显式转换。
 
 ## <a name="anonymous-function-conversions"></a>匿名函数转换
 
-*Anonymous_method_expression*或*lambda_expression*归类为匿名函数 ([匿名函数表达式](expressions.md#anonymous-function-expressions))。 表达式不具有一种类型，但可以隐式转换为兼容的委托类型或表达式树类型。 具体而言，一个匿名函数`F`委托类型与兼容`D`提供：
+*Anonymous_method_expression*或*lambda_expression*归类为匿名函数（[匿名函数表达式](expressions.md#anonymous-function-expressions)）。 表达式没有类型，但可以隐式转换为兼容的委托类型或表达式树类型。 具体而言，`F` 的匿名函数与 `D` 提供的委托类型兼容：
 
-*  如果`F`包含*anonymous_function_signature*，然后`D`和`F`具有相同数量的参数。
-*  如果`F`不包含*anonymous_function_signature*，然后`D`可能有零个或多个参数的任何类型的任何参数，只要`D`具有`out`参数修饰符。
-*  如果`F`具有显式类型化的参数列表中，在每个参数`D`中的相应参数具有相同的类型和修饰符`F`。
-*  如果`F`具有隐式类型化的参数列表，`D`不具有`ref`或`out`参数。
-*  如果正文`F`是一个表达式，并且要么`D`具有`void`返回类型或`F`是异步和`D`具有返回类型`Task`，然后当的每个参数`F`给定的类型中的相应参数`D`的正文`F`是有效的表达式 (wrt[表达式](expressions.md))，将允许作为*statement_expression* ([表达式语句](statements.md#expression-statements))。
-*  如果正文`F`是语句块，并且要么`D`已`void`返回类型或`F`是异步和`D`具有返回类型`Task`，然后当的每个参数`F`给定的类型中的相应参数`D`的正文`F`是一个有效的语句块 (wrt[块](statements.md#blocks)) 无`return`语句指定一个表达式。
-*  如果正文`F`是一个表达式，并*任一*`F`是非异步并`D`具有非 void 返回类型`T`，*或*`F`是异步和`D`具有返回类型`Task<T>`，然后当的每个参数`F`提供的中的相应参数类型`D`，正文`F`是有效的表达式 (wrt [表达式](expressions.md)) 这是隐式转换为`T`。
-*  如果正文`F`是一个语句块，并*任一*`F`是非异步和`D`具有非 void 返回类型`T`，*或*`F`是异步和`D`具有返回类型`Task<T>`，然后当的每个参数`F`提供的中的相应参数类型`D`，正文`F`是有效的语句块 (wrt[块](statements.md#blocks)) 使用了非可访问的终结点，其中，每个`return`语句指定一个表达式，隐式转换为`T`。
+*  如果 `F` 包含*anonymous_function_signature*，则 `D` 和 `F` 具有相同数量的参数。
+*  如果 `F` 不包含*anonymous_function_signature*，则 `D` 可能具有零个或多个任意类型的参数，前提是没有 `D` 的参数具有 `out` 参数修饰符。
+*  如果 `F` 具有显式类型化参数列表，则 `D` 中的每个参数都具有与 `F`中的相应参数相同的类型和修饰符。
+*  如果 `F` 具有隐式类型参数列表，则 `D` 没有 `ref` 或 `out` 参数。
+*  如果 `F` 的主体是一个表达式，并且 `D` 具有 `void` 返回类型或 `F` 为 async 并且 `D` 具有返回类型 `Task`，则当 `F` 的每个参数都给定 `D`中的相应参数的类型时，`F` 的主体将被视为*statement_expression* （[expression 语句](statements.md#expression-statements) [）。](expressions.md)
+*  如果 `F` 的主体是一个语句块，并且 `D` 具有 `void` 返回类型或 `F` 为 async 并且 `D` 具有返回类型 `Task`，则当 `F` 的每个参数都给定 `D`中对应参数的类型时，`F` 的主体为有效语句块（wrt[块](statements.md#blocks)），其中没有 `return` 语句指定表达式。
+*  如果 `F` 的主体是一个表达式，*并且 `F` 为非 async 并且 `D`* 具有非 void 返回类型 `T`，*或*`F` 为 async 并且 `D` 具有返回类型 `Task<T>`，则当 `F` 的每个参数都给定 `D`中对应参数的类型时，`F` 的主体是可隐式转换为 `T`的有效表达式（wrt[表达式](expressions.md)）。
+*  如果 `F` 的主体是一个语句块，*并且 `F` 为非 async 并且 `D`* 具有非 void 返回类型 `T`，*或*`F` 为 async 并且 `D` 具有返回类型 `Task<T>`，则当 `F` 的每个参数都给定 `D`中对应参数的类型时，`F` 的主体为有效语句块（wrt[块](statements.md#blocks)），其中每个 `return` 语句指定一个可隐式转换为 `T`的表达式。
 
-为了简洁起见，本部分使用的缩写形式的任务类型`Task`并`Task<T>`([异步函数](classes.md#async-functions))。
+为了简洁起见，本部分使用了任务类型 `Task` 和 `Task<T>` （[异步函数](classes.md#async-functions)）的缩写形式。
 
-Lambda 表达式`F`与表达式目录树类型兼容`Expression<D>`如果`F`与委托类型兼容`D`。 请注意，这不适用于于匿名方法，只有 lambda 表达式。
+如果 `F` 与 `D`的委托类型兼容，则 lambda 表达式 `F` 与表达式树类型兼容 `Expression<D>`。 请注意，这不适用于匿名方法，只适用于 lambda 表达式。
 
-某些 lambda 表达式无法转换为表达式树类型：即使转换*存在*，它在编译时失败。 这是如果 lambda 表达式：
+某些 lambda 表达式不能转换为表达式树类型：即使转换*存在*，它也会在编译时失败。 如果 lambda 表达式为，则为这种情况：
 
-*  具有*块*正文
-*  包含简单或复合赋值运算符
+*  具有*块*体
+*  包含简单赋值运算符或复合赋值运算符
 *  包含动态绑定的表达式
 *  为异步
 
-下面的示例使用泛型委托类型`Func<A,R>`它表示采用类型的自变量的函数`A`，并返回类型的值`R`:
+下面的示例使用泛型委托类型 `Func<A,R>` 它表示一个函数，该函数采用 `A` 类型的参数并返回 `R`类型的值：
 ```csharp
 delegate R Func<A,R>(A arg);
 ```
 
-在下面的赋值
+在分配中
 ```csharp
 Func<int,int> f1 = x => x + 1;                 // Ok
 
@@ -542,25 +543,25 @@ Func<double,int> f3 = x => x + 1;              // Error
 
 Func<int, Task<int>> f4 = async x => x + 1;    // Ok
 ```
-每个匿名函数的参数和返回类型将根据向其分配的匿名函数的变量的类型。
+每个匿名函数的参数和返回类型都是从匿名函数所分配到的变量类型确定的。
 
-第一个分配已成功将匿名函数转换为委托类型`Func<int,int>`因为，当`x`给定类型`int`，`x+1`是隐式转换为键入的有效表达式`int`。
+第一个分配成功将匿名函数转换为委托类型 `Func<int,int>` 因为当 `x` 提供类型 `int`时，`x+1` 是可隐式转换为类型 `int`的有效表达式。
 
-同样，第二个分配已成功转换为匿名函数的委托类型`Func<int,double>`因为的结果`x+1`(类型的`int`) 是隐式转换为键入`double`。
+同样，第二个赋值语句会成功将匿名函数转换为委托类型 `Func<int,double>` 因为 `x+1` （类型 `int`）的结果可隐式转换为类型 `double`。
 
-但是，第三个分配是编译时错误，因为，当`x`给定类型`double`的结果`x+1`(类型的`double`) 不是隐式转换为键入`int`。
+但是，第三个赋值是编译时错误，因为当 `double``x` 给定类型时，`x+1` 的结果（类型 `double`）无法隐式转换为类型 `int`。
 
-第四个分配已成功将匿名异步函数转换为委托类型`Func<int, Task<int>>`因为的结果`x+1`(类型的`int`) 隐式转换的结果类型为`int`的任务类型`Task<int>`.
+第四个赋值成功将匿名 async 函数转换为委托类型 `Func<int, Task<int>>` 因为 `x+1` （类型 `int`）的结果可隐式转换为任务类型 `Task<int>`的结果类型 `int`。
 
-匿名函数可能会影响重载决策，并参与类型推理。 请参阅[函数成员](expressions.md#function-members)的更多详细信息。
+匿名函数可能会影响重载决策，并参与类型推理。 有关更多详细信息，请参阅[函数成员](expressions.md#function-members)。
 
-### <a name="evaluation-of-anonymous-function-conversions-to-delegate-types"></a>匿名函数转换为委托类型的计算
+### <a name="evaluation-of-anonymous-function-conversions-to-delegate-types"></a>匿名函数转换到委托类型的计算
 
-匿名函数转换为委托类型生成一个委托实例引用匿名函数，并捕获在计算时处于活动状态的外部变量的 （可能为空） 集。 当调用委托时，执行匿名函数的主体。 在正文中的代码执行中使用的捕获由该委托引用的外部变量。
+将匿名函数转换为委托类型会生成一个委托实例，该实例引用匿名函数和在计算时处于活动状态的已捕获外部变量的（可能为空）集。 调用委托时，将执行匿名函数的主体。 使用委托引用的捕获外部变量集来执行正文中的代码。
 
-将匿名函数中生成的委托的调用列表包含单个条目。 未指定确切的目标对象和目标方法的委托。 具体而言，没有指定的委托的目标对象是`null`，则`this`封闭函数成员或某个其他对象的值。
+从匿名函数生成的委托的调用列表包含单个项。 委托的确切目标对象和目标方法未指定。 具体而言，它不指定是 `null`委托的目标对象、封闭函数成员的 `this` 值还是其他某个对象。
 
-转换的语义上完全相同的匿名函数具有相同的捕获外部变量的实例 （可能为空） 集于相同的委托类型都是允许 （但不是必需的） 返回相同的委托实例。 此处用语义上完全相同的术语来表示，在所有情况下，匿名函数的执行将产生相同的结果提供了相同的自变量。 此规则允许如下所示进行优化的代码。
+允许（但不要求）将语义完全相同的匿名函数转换为同一委托类型（但不是必需的），以返回相同的委托实例。 此处使用的术语在语义上是相同的，这意味着在所有情况下，匿名函数的执行将在给定相同参数的情况下生成相同的效果。 此规则允许对如下代码进行优化。
 
 ```csharp
 delegate double Function(double x);
@@ -581,22 +582,22 @@ class Test
 }
 ```
 
-由于两个匿名函数委托具有相同 （空） 的集捕获的外部变量，并且由于是在语义上是相同的匿名函数，被允许编译器具有引用相同的目标方法的委托。 实际上，编译器允许从这两种匿名函数表达式返回完全相同的委托实例。
+由于两个匿名函数委托具有相同的（空）捕获的外部变量集，而且由于匿名函数在语义上是相同的，因此编译器允许委托引用相同的目标方法。 的确，允许编译器从两个匿名函数表达式返回完全相同的委托实例。
 
-### <a name="evaluation-of-anonymous-function-conversions-to-expression-tree-types"></a>匿名函数转换为表达式树类型的计算
+### <a name="evaluation-of-anonymous-function-conversions-to-expression-tree-types"></a>对表达式树类型的匿名函数转换的计算
 
-匿名函数转换为表达式目录树类型生成表达式树 ([表达式树类型](types.md#expression-tree-types))。 更确切地说，匿名函数转换的计算会导致构造的对象结构，它表示匿名函数本身的结构。 表达式树中，以及用于创建它，确切的过程的确切结构是定义的实现。
+将匿名函数转换为表达式树类型会生成一个表达式树（[表达式树类型](types.md#expression-tree-types)）。 更准确地说，对匿名函数转换的评估导致了表示匿名函数本身的结构的对象结构。 表达式树的准确结构以及用于创建它的确切过程是定义的实现。
 
 ### <a name="implementation-example"></a>实现示例
 
-本部分介绍从其他 C# 构造的角度的匿名函数转换的一个可能实现。 此处所述的实现基于 Microsoft C# 编译器所使用的相同的原则，但它不是强制性的实现，也不是只有一个可能的。 它仅简要说明了一些转换为表达式树，因为它们的准确语义超出了本规范的范围。
+本部分介绍了可能实现的匿名函数转换（其他C#构造）。 此处所述的实现基于 Microsoft C#编译器所使用的相同原则，但它并不是强制性实现，也不是唯一可行的方法。 它只是简单地提到了转换为表达式树，因为其确切语义超出了本规范的范围。
 
-本部分的其余部分提供了多个包含具有不同特征的匿名函数的代码示例。 对于每个示例中，提供了使用仅其他 C# 构造的代码到相应的翻译。 在示例中，标识符`D`假定由表示以下委托类型：
+本部分的其余部分提供了一些代码示例，其中包含具有不同特征的匿名函数。 对于每个示例，提供了仅使用其他C#构造的代码的相应转换。 在示例中，假设标识符 `D` 表示以下委托类型：
 ```csharp
 public delegate void D();
 ```
 
-匿名函数的最简单形式是捕获任何外部变量：
+匿名函数的最简单形式是捕获无外部变量：
 ```csharp
 class Test
 {
@@ -606,7 +607,7 @@ class Test
 }
 ```
 
-这可以转换为引用在其中放置的匿名函数的代码的编译器生成的静态方法的委托实例化：
+这可以转换为引用编译器生成的静态方法（在其中放置匿名函数的代码）的委托实例化：
 ```csharp
 class Test
 {
@@ -620,7 +621,7 @@ class Test
 }
 ```
 
-以下示例中，在匿名函数引用的实例成员`this`:
+在下面的示例中，匿名函数引用 `this`的实例成员：
 ```csharp
 class Test
 {
@@ -632,7 +633,7 @@ class Test
 }
 ```
 
-这可以转换为编译器生成的实例方法，其中包含匿名函数的代码：
+这可以转换为包含匿名函数代码的编译器生成的实例方法：
 ```csharp
 class Test
 {
@@ -648,7 +649,7 @@ class Test
 }
 ```
 
-在此示例中，匿名函数会捕获本地变量：
+在此示例中，匿名函数捕获本地变量：
 ```csharp
 class Test
 {
@@ -659,7 +660,7 @@ class Test
 }
 ```
 
-本地变量的生存期现在必须至少扩展到匿名函数委托的生存期。 这可以通过本地变量"提升"到编译器生成类的字段来实现。 本地变量的实例化 ([的本地变量实例化](expressions.md#instantiation-of-local-variables)) 然后对应于创建实例的编译器生成类，并访问本地变量对应于访问的实例中的字段编译器生成的类。 此外，匿名函数会成为编译器生成类的实例方法：
+局部变量的生存期现在必须至少扩展到匿名函数委托的生存期。 这可以通过将本地变量 "提升" 到编译器生成的类的字段来实现。 局部变量的实例化（[局部变量的实例化](expressions.md#instantiation-of-local-variables)）随后对应于创建编译器生成的类的实例，并且访问本地变量对应于访问编译器生成的类的实例中的字段。 此外，匿名函数会成为编译器生成的类的实例方法：
 ```csharp
 class Test
 {
@@ -680,7 +681,7 @@ class Test
 }
 ```
 
-最后，以下匿名函数捕获`this`以及使用不同的生存期的两个本地变量：
+最后，下面的匿名函数捕获 `this`，以及两个具有不同生存期的局部变量：
 ```csharp
 class Test
 {
@@ -696,7 +697,7 @@ class Test
 }
 ```
 
-在这里，为每个语句创建一个编译器生成的类中，以便在不同的块中的局部变量可以有独立的生存期将为捕获局部变量阻止。 实例`__Locals2`，内部语句块中，编译器生成类包含本地变量`z`引用的实例的字段以及`__Locals1`。  实例`__Locals1`，外部语句块中，编译器生成类包含本地变量`y`引用的字段以及`this`封闭函数成员。 使用可以访问这些数据结构所有捕获外部变量的实例通过`__Local2`，并因此可以作为该类的实例方法实现的匿名函数的代码。
+在这里，将为每个在其中捕获局部变量的语句块创建一个编译器生成的类，以便不同块中的局部变量可以具有独立生存期。 `__Locals2`的实例（内部语句块的编译器生成的类）包含局部变量 `z` 和引用 `__Locals1`的实例的字段。  `__Locals1`的实例（外部语句块的编译器生成的类）包含局部变量 `y` 和引用封闭函数成员 `this` 的字段。 利用这些数据结构，可以通过 `__Local2`的实例访问所有捕获的外部变量，并且可以将匿名函数的代码实现为该类的实例方法。
 
 ```csharp
 class Test
@@ -731,23 +732,23 @@ class Test
 }
 ```
 
-将匿名函数转换为表达式树时，还可以使用相同的技术应用于此处捕获本地变量：对编译器生成对象的引用可以存储在表达式树中，并且可以表示本地变量的访问权限，因为字段访问这些对象。 此方法的优点是它允许"提升"的本地变量的委托和表达式树之间共享。
+在此处用于捕获局部变量的相同技术也可以在将匿名函数转换为表达式树时使用：对编译器生成的对象的引用可以存储在表达式树中，对局部变量的访问可以是表示为这些对象上的字段访问。 此方法的优点是允许在委托和表达式树之间共享 "提升" 的局部变量。
 
 ## <a name="method-group-conversions"></a>方法组转换
 
-隐式转换 ([隐式转换](conversions.md#implicit-conversions)) 从一个方法组存在 ([表达式分类](expressions.md#expression-classifications)) 到兼容的委托类型。 对于给定的委托类型`D`和表达式`E`型方法组，从存在的隐式转换`E`到`D`如果`E`包含在其正常形式 （适用的至少一种方法[适用函数成员](expressions.md#applicable-function-member)) 到参数列表构造的使用的参数类型及修饰符的`D`，如在下面的示例所述。
+存在从方法组（[表达式分类](expressions.md#expression-classifications)）到兼容委托类型的隐式转换（[隐式](conversions.md#implicit-conversions)转换）。 给定委托类型 `D` 和归类为方法组的表达式 `E` 时 `D` `E`，如果 `E` 至少包含一个适用于其正常窗体（[适用函数成员](expressions.md#applicable-function-member)）的方法，该方法可用于通过使用 `D`的参数类型和修饰符构造的参数列表，如下所述。
 
-从方法组转换的编译时应用程序`E`为委托类型`D`在下面的示例所述。 请注意，是否存在隐式转换`E`到`D`不保证转换的编译时应用程序将成功且没有错误。
+以下中描述了从方法组 `E` 到委托类型的转换的编译时应用程序 `D`。 请注意，是否存在从 `E` 到 `D` 的隐式转换，并不保证转换的编译时应用程序将成功且不出错。
 
-*  单个方法`M`已选中对应于方法调用 ([方法调用](expressions.md#method-invocations)) 的窗体`E(A)`，并进行以下修改：
-    * 参数列表`A`是一系列表达式中，每个已分类为变量和使用的类型和修饰符 (`ref`或`out`) 中的相应参数*formal_parameter_list* 的`D`.
-    * 考虑的候选方法是适用于其正常的窗体方法 ([适用函数成员](expressions.md#applicable-function-member))，不是那些仅在其扩展形式中。
-*  如果的算法[方法调用](expressions.md#method-invocations)产生一个错误，则会发生编译时错误。 否则，该算法将生成单个的最佳方法`M`具有相同数量的参数作为`D`和转换被视为存在。
-*  所选的方法`M`必须是兼容的 ([委托兼容性](delegates.md#delegate-compatibility)) 与委托类型`D`，否则，发生编译时错误。
-*  如果所选的方法`M`是实例方法，与关联的实例表达式`E`确定委托的目标对象。
-*  如果选定的方法 M 表示通过成员访问的实例表达式上的扩展方法，该实例表达式确定委托的目标对象。
-*  转换的结果是类型的值 `D`，即一个引用所选的方法和目标对象的新创建的委托。
-*  请注意，如果此过程可能会导致扩展方法的委托创建的算法[方法调用](expressions.md#method-invocations)无法找到的实例方法，但在处理的调用成功`E(A)`作为扩展方法调用 ([扩展方法调用](expressions.md#extension-method-invocations))。 因此创建的委托捕获扩展方法，以及其第一个参数。
+*  选择与窗体 `E(A)`的方法调用（[方法](expressions.md#method-invocations)调用）相对应 `M` 单个方法，并进行以下修改：
+    * 参数列表 `A` 是一个表达式列表，每个表达式都分类为一个变量，并且具有 `D`的*formal_parameter_list*中相应参数的类型和修饰符（`ref` 或 `out`）。
+    * 被视为的候选方法只是那些适用于其正常窗体（[适用函数成员](expressions.md#applicable-function-member)）的方法，而不是仅适用于其扩展窗体的方法。
+*  如果[方法调用](expressions.md#method-invocations)的算法产生错误，则会发生编译时错误。 否则，算法将生成单个最佳方法，`M` 与 `D` 具有相同数量的参数，并将转换视为存在。
+*  所选方法 `M` 必须兼容（[委托兼容性](delegates.md#delegate-compatibility)） `D`委托类型，否则将发生编译时错误。
+*  如果所选方法 `M` 是实例方法，则与 `E` 关联的实例表达式确定委托的目标对象。
+*  如果所选方法 M 是通过实例表达式上的成员访问方式表示的扩展方法，则该实例表达式将确定委托的目标对象。
+*  转换结果为类型 `D`的值，即引用所选方法和目标对象的新创建的委托。
+*  请注意，如果[方法调用](expressions.md#method-invocations)的算法未能找到实例方法，但在处理 `E(A)` 的调用作为扩展方法调用（[扩展方法](expressions.md#extension-method-invocations)调用）时，此过程可能会导致创建扩展方法的委托。 因此，创建的委托将捕获扩展方法以及其第一个参数。
 
 下面的示例演示方法组转换：
 ```csharp
@@ -776,33 +777,33 @@ class Test
 }
 ```
 
-分配给`d1`隐式将方法组转换`F`类型的值为`D1`。
+赋值 `d1` 会将方法组 `F` 隐式转换为类型 `D1`的值。
 
-分配给`d2`演示如何可以创建具有较少派生 （逆变） 参数类型的方法的委托并更派生 （协变） 的返回类型。
+对 `d2` 的赋值演示了如何创建一个委托，该委托指向的派生程度较低（逆变）的参数类型和派生程度更高（协变）返回类型的方法。
 
-分配给`d3`显示了如何不存在转换方法不适用。
+如果该方法不适用，则分配给 `d3` 说明不存在转换。
 
-分配给`d4`显示了如何，该方法必须是以普通形式适用。
+对 `d4` 的赋值显示了方法必须以其正常形式适用的方式。
 
-分配给`d5`显示了如何允许参数和返回类型的委托和方法仅为引用类型不同。
+对 `d5` 的赋值显示了如何允许委托和方法的参数和返回类型仅与引用类型不同。
 
-与所有其他隐式和显式转换，强制转换运算符可以用于显式执行方法组转换。 因此，示例
+与所有其他隐式和显式转换一样，转换运算符可用于显式执行方法组转换。 因此，示例
 ```csharp
 object obj = new EventHandler(myDialog.OkClick);
 ```
-可以改为编写
+可以改为写入
 ```csharp
 object obj = (EventHandler)myDialog.OkClick;
 ```
 
-方法组可能会影响重载决策，并参与类型推理。 请参阅[函数成员](expressions.md#function-members)的更多详细信息。
+方法组可能会影响重载决策，并参与类型推理。 有关更多详细信息，请参阅[函数成员](expressions.md#function-members)。
 
-方法组转换运行时计算过程继续执行，如下所示：
+方法组转换的运行时计算如下所示：
 
-*  如果在编译时选择的方法是实例方法，或者它是作为实例方法来访问该扩展方法，从与关联的实例表达式确定目标对象的委托的`E`:
-    * 计算实例表达式。 如果此计算导致了异常，不执行任何进一步的操作。
-    * 如果实例表达式属于*reference_type*，计算实例表达式的值将成为目标对象。 如果所选的方法是实例方法，目标对象是`null`、`System.NullReferenceException`引发并执行任何进一步的操作。
-    * 如果实例表达式属于*value_type*，装箱操作 ([装箱转换](types.md#boxing-conversions)) 执行将值转换为一个对象，此对象将成为目标对象。
-*  否则所选的方法是静态方法调用的一部分，委托的目标对象是`null`。
-*  委托类型的新实例`D`分配。 如果没有足够内存可用于分配新实例，`System.OutOfMemoryException`引发并执行任何进一步的操作。
-*  对已在编译时确定的方法的引用初始化新的委托实例和上面计算对目标对象的引用。
+*  如果在编译时选择的方法是实例方法，或者它是作为实例方法访问的扩展方法，则将从与 `E`关联的实例表达式确定委托的目标对象：
+    * 计算实例表达式。 如果此计算导致异常，则不执行其他步骤。
+    * 如果实例表达式为*reference_type*，则由实例表达式计算的值将成为目标对象。 如果所选的方法是实例方法，并且目标对象是 `null`的，则会引发 `System.NullReferenceException`，而不执行进一步的步骤。
+    * 如果实例表达式为*value_type*，则将执行装箱操作（[装箱转换](types.md#boxing-conversions)）以将值转换为对象，此对象将成为目标对象。
+*  否则，所选方法为静态方法调用的一部分，并且 `null`委托的目标对象。
+*  分配 `D` 委托类型的新实例。 如果内存不足，无法分配新的实例，则会引发 `System.OutOfMemoryException`，而不执行进一步的步骤。
+*  使用对在编译时确定的方法以及对上面计算的目标对象的引用来初始化新的委托实例。
