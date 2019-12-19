@@ -28,7 +28,7 @@ C# ***程序***由一个或多个***源文件***组成，该文件正式称为**
 
 ### <a name="lexical-grammar"></a>词法语法
 
-的C#词法语法显示在[词法分析](lexical-structure.md#lexical-analysis)、[标记](lexical-structure.md#tokens)和[预处理指令](lexical-structure.md#pre-processing-directives)中。 词法语法的终端符号是 Unicode 字符集的字符，而词法语法指定如何将字符组合到一起形成标记（[标记](lexical-structure.md#tokens)）、空白（[空格）、注释（](lexical-structure.md#white-space)[注释](lexical-structure.md#comments)）和预处理指令（[预处理指令](lexical-structure.md#pre-processing-directives)）。
+的C#词法语法显示在[词法分析](lexical-structure.md#lexical-analysis)、[标记](lexical-structure.md#tokens)和[预处理指令](lexical-structure.md#pre-processing-directives)中。 词法语法的终端符号是 Unicode 字符集的字符，并且词法语法指定如何将字符组合到一起形成标记（[标记](lexical-structure.md#tokens)）[、空白（空格）、](lexical-structure.md#white-space)注释（[注释](lexical-structure.md#comments)）和预处理指令（[预处理指令](lexical-structure.md#pre-processing-directives)）。
 
 C#程序中的每个源文件都必须符合词法文法的*输入*生产（[词法分析](lexical-structure.md#lexical-analysis)）。
 
@@ -36,7 +36,7 @@ C#程序中的每个源文件都必须符合词法文法的*输入*生产（[词
 
 本章节后面的C#章节和附录中提供了句法语法。 语法语法的终端符号是由词法语法定义的标记，句法语法指定如何将标记组合为窗体C#程序。
 
-C#程序中的每个源文件都必须符合句法文法（[编译单元](namespaces.md#compilation-units)）的*compilation_unit*生产。
+C#程序中的每个源文件都必须符合句法文法*Compilation_unit*生产（[编译单元](namespaces.md#compilation-units)）。
 
 ## <a name="lexical-analysis"></a>词法分析
 
@@ -63,13 +63,13 @@ input_element
     ;
 ```
 
-五个基本元素构成C#源文件的词法结构：行结束符（[行终止符](lexical-structure.md#line-terminators)）、空白（空格[）、](lexical-structure.md#white-space)注释（[注释](lexical-structure.md#comments)）、标记（[标记](lexical-structure.md#tokens)）和预处理指令（[预处理指令](lexical-structure.md#pre-processing-directives)）。 在这些基本元素中，只有标记在C#程序的句法语法中非常重要（[句法语法](lexical-structure.md#syntactic-grammar)）。
+五个C#基本元素构成源文件的词法结构：行终止符（[行终止符](lexical-structure.md#line-terminators)）、空白（[空格](lexical-structure.md#white-space)）、注释（[注释](lexical-structure.md#comments)）、标记（[标记](lexical-structure.md#tokens)）和预处理指令（[预处理指令](lexical-structure.md#pre-processing-directives)）。 在这些基本元素中，只有标记在C#程序的句法语法中非常重要（[句法语法](lexical-structure.md#syntactic-grammar)）。
 
 C#源文件的词法处理包括将文件缩减为一系列标记，后者成为句法分析的输入。 行终止符、空白和注释可用于分隔标记，预处理指令可能会导致跳过源文件的各个部分，否则，这些词法元素不会影响C#程序的语法结构。
 
-在内插字符串文本（内[插字符串文本](lexical-structure.md#interpolated-string-literals)）的情况下，单个标记最初由词法分析生成，但被拆分为多个输入元素，这些输入元素会反复进入词法分析直到所有内插字符串文本已解析。 然后，生成的令牌作为句法分析的输入。
+在内插字符串文本（内[插字符串文本](lexical-structure.md#interpolated-string-literals)）的情况下，单个标记最初由词法分析生成，但被分解为多个输入元素，这些输入元素会反复进入词法分析状态，直到所有内插字符串文本均已解决。 然后，生成的令牌作为句法分析的输入。
 
-当多个词法语法生产与源文件中的一系列字符匹配时，词法处理始终形成可能的最长词汇元素。 例如，字符序列`//`作为单行注释的开头处理，因为该词法元素比单个`/`标记长。
+当多个词法语法生产与源文件中的一系列字符匹配时，词法处理始终形成可能的最长词汇元素。 例如，字符序列 `//` 将作为单行注释的开头处理，因为该词法元素比单个 `/` 标记长。
 
 ### <a name="line-terminators"></a>行终止符
 
@@ -88,12 +88,12 @@ new_line
 
 为了与添加文件结尾标记的源代码编辑工具兼容，并允许将源文件视为一系列正确终止的行，将按顺序对C#程序中的每个源文件应用以下转换：
 
-*  如果源文件的最后一个字符是 Control z 字符（`U+001A`），则删除该字符。
-*  如果源文件不为空且`U+000D`源文件的最后一个字符不是回车符（`U+000D`）、换行符（`U+000A`）、行分隔符`U+2028`（），则将回车符（）添加到源文件的末尾）或段落分隔符（`U+2029`）。
+*  如果源文件的最后一个字符是一个 Control Z 字符（`U+001A`），则将删除该字符。
+*  如果源文件不为空，并且源文件的最后一个字符不是回车符（`U+000D`）、换行符（`U+000A`）、行分隔符（`U+2028`）或段落分隔符（`U+2029`），则将回车符（`U+000D`）添加到源文件的末尾。
 
 ### <a name="comments"></a>注释
 
-支持两种形式的注释：单行注释和分隔注释。 ***单行注释***以字符`//`开头，并延伸到源行的末尾。 ***分隔注释***以字符`/*`开头并以字符`*/`结尾。 分隔注释可能跨多行。
+支持两种形式的注释：单行注释和分隔注释。 ***单行注释***从 `//` 字符开始，并扩展到源行的末尾。 ***带分隔符的注释***从 `/*` 的字符开始，以 `*/`的字符结尾。 分隔注释可能跨多行。
 
 ```antlr
 comment
@@ -135,7 +135,7 @@ not_slash_or_asterisk
     ;
 ```
 
-注释不嵌套。 `/*`字符序列`//` `//`在注释中没有特殊含义，并且字符序列`/*`在分隔注释中没有特殊含义。 `*/`
+注释不嵌套。 字符序列 `/*` 和 `*/` 在 `//` 注释中没有特殊含义，并且字符序列 `//` 和 `/*` 在分隔注释中没有特殊含义。
 
 在字符和字符串文本中不处理注释。
 
@@ -180,7 +180,7 @@ whitespace
     ;
 ```
 
-## <a name="tokens"></a>标记
+## <a name="tokens"></a>令牌
 
 有多种类型的令牌：标识符、关键字、文本、运算符和标点符号。 空白和注释不是标记，不过它们充当标记的分隔符。
 
@@ -208,9 +208,9 @@ unicode_escape_sequence
     ;
 ```
 
-Unicode 转义序列表示由 "`\u`" 或 "`\U`" 字符后面的十六进制数构成的单个 unicode 字符。 由于C#使用字符和字符串值中的 unicode 码位的16位编码，字符文本中不允许使用 U + 10000 到 u + 10FFFF 范围内的 unicode 字符，而是使用字符串文本中的 unicode 代理项对来表示。 不支持0x10FFFF 以上的码位的 Unicode 字符。
+Unicode 转义序列表示由 "`\u`" 或 "`\U`" 字符后面的十六进制数构成的单个 Unicode 字符。 由于C#使用字符和字符串值中的 unicode 码位的16位编码，字符文本中不允许使用 U + 10000 到 u + 10FFFF 范围内的 unicode 字符，而是使用字符串文本中的 unicode 代理项对来表示。 不支持0x10FFFF 以上的码位的 Unicode 字符。
 
-不会执行多个转换。 例如，字符串文本 "`\u005Cu005C`" 等效于 "`\u005C`"，而不`\`是 ""。 Unicode 值`\u005C`为字符 "`\`"。
+不会执行多个转换。 例如，字符串文本 "`\u005Cu005C`" 等效于 "`\u005C`" 而不是 "`\`"。 Unicode 值 `\u005C` 是 "`\`" 字符。
 
 示例
 ```csharp
@@ -223,7 +223,7 @@ class Class1
     }        
 }
 ```
-显示了的`\u0066`几个用法，它是字母 "`f`" 的转义序列。 该程序等效于
+显示 `\u0066`的几个用途，这是字母 "`f`" 的转义序列。 该程序等效于
 ```csharp
 class Class1
 {
@@ -237,7 +237,7 @@ class Class1
 
 ### <a name="identifiers"></a>标识符
 
-本节中给出的标识符规则完全与 Unicode 标准附录31推荐的规则相对应，只不过允许将下划线作为初始字符（如同 C 编程语言中的传统），Unicode 转义序列是允许在标识符中使用 "`@`" 字符作为前缀，以允许将关键字用作标识符。
+本节中给出的标识符规则与 Unicode 标准附录31所建议的规则完全一致，只不过允许将下划线作为初始字符（如 C 编程语言中的传统）、标识符中允许使用 Unicode 转义序列，并允许 "`@`" 字符作为前缀，以使关键字可用作标识符。
 
 ```antlr
 identifier
@@ -298,7 +298,7 @@ formatting_character
 
 符合标准的程序中的标识符必须是 Unicode 范式 C 定义的规范格式，如 Unicode 标准附录15所定义。 如果遇到非范式规范的标识符，则该行为是实现定义的;但是，不需要诊断。
 
-前缀 "`@`" 允许将关键字用作标识符，这在与其他编程语言交互时非常有用。 该字符`@`实际上不是标识符的一部分，因此标识符可能以其他语言显示为普通标识符，不含前缀。 带有`@`前缀的标识符称为***逐字标识符***。 允许对不是关键字的标识符使用前缀，但强烈建议不要使用它作为样式。`@`
+前缀 "`@`" 允许将关键字用作标识符，这在与其他编程语言交互时非常有用。 字符 `@` 实际上不是标识符的一部分，因此标识符可能以其他语言显示为普通标识符，不含前缀。 带有 `@` 前缀的标识符称为***逐字标识符***。 对于不是关键字的标识符，允许使用 `@` 前缀，但强烈建议不要使用样式。
 
 示例：
 ```csharp
@@ -319,11 +319,11 @@ class Class1
     }
 }
 ```
-定义名`class`为 "" 的类，该类具有`static`名为 "" 的静态方法，该`bool`方法采用名为 "" 的参数。 请注意，由于关键字中不允许使用 Unicode 转义，因此标记`cl\u0061ss`"" 是标识符，与 "`@class`" 具有相同的标识符。
+定义名为 "`class`" 的类，该类具有名为 "`static`" 的静态方法，该方法采用名为 "`bool`" 的参数。 请注意，由于关键字中不允许使用 Unicode 转义，因此标记 "`cl\u0061ss`" 是标识符，与 "`@class`" 的标识符相同。
 
 如果两个标识符在应用以下转换后相同，则将其视为相同：
 
-*  删除前缀 "`@`" （如果使用）。
+*  如果使用前缀 "`@`"，则将其删除。
 *  每个*unicode_escape_sequence*都转换为其对应的 unicode 字符。
 *  删除任何*formatting_character*。
 
@@ -331,7 +331,7 @@ class Class1
 
 ### <a name="keywords"></a>关键字
 
-***关键字***是类似于标识符的字符序列（保留），不能用作标识符，除非以`@`字符开头。
+***关键字***是类似于标识符的字符序列（保留），不能用作标识符，除非以 `@` 字符开头。
 
 ```antlr
 keyword
@@ -354,7 +354,7 @@ keyword
     ;
 ```
 
-在语法中的某些位置，特定标识符具有特殊意义，但不是关键字。 此类标识符有时称为 "上下文关键字"。 例如，在属性声明中，"`get`" 和 "`set`" 标识符具有特殊意义（[取值函数](classes.md#accessors)）。 此位置不允许`get`使用`set`或以外的标识符，因此，此使用不会与使用这些字词作为标识符冲突。 在其他情况下，如在隐式类型`var`化局部变量声明（[局部变量声明](statements.md#local-variable-declarations)）中使用标识符 "" 时，上下文关键字可能与声明的名称冲突。 在这种情况下，声明的名称优先于将标识符用作上下文关键字。
+在语法中的某些位置，特定标识符具有特殊意义，但不是关键字。 此类标识符有时称为 "上下文关键字"。 例如，在属性声明中，"`get`" 和 "`set`" 标识符具有特殊意义（[取值函数](classes.md#accessors)）。 不允许在这些位置使用除 `get` 或 `set` 以外的标识符，因此，此使用不会与使用这些字词作为标识符冲突。 在其他情况下，如在隐式类型的局部变量声明（[局部变量声明](statements.md#local-variable-declarations)）中使用标识符 "`var`"，上下文关键字可能与声明的名称冲突。 在这种情况下，声明的名称优先于将标识符用作上下文关键字。
 
 ### <a name="literals"></a>文本
 
@@ -373,7 +373,7 @@ literal
 
 #### <a name="boolean-literals"></a>布尔文本
 
-有两个布尔文本值： `true`和`false`。
+有两个布尔文本值： `true` 和 `false`。
 
 ```antlr
 boolean_literal
@@ -382,11 +382,11 @@ boolean_literal
     ;
 ```
 
-*Boolean_literal*的类型为 `bool`。
+`bool`*boolean_literal*的类型。
 
 #### <a name="integer-literals"></a>整数文本
 
-整数文本用于`int`写入类型为`long`、 `uint`、和`ulong`的值。 整数文本具有两种可能的形式： decimal 和十六进制。
+整数文本用于写入类型的值 `int`、`uint`、`long`和 `ulong`。 整数文本具有两种可能的形式： decimal 和十六进制。
 
 ```antlr
 integer_literal
@@ -418,23 +418,23 @@ hex_digit
 
 确定整数文本的类型，如下所示：
 
-*  如果文字没有后缀，则其值可以表示为以下类型的第一个类型`int`：、 `uint`、 `long`和`ulong`。
-*  如果`U`文本的后缀为或`u`，则它具有以下类型中可以表示其值的第一个类型： `uint`、 `ulong`。
-*  如果`L`文本的后缀为或`l`，则它具有以下类型中可以表示其值的第一个类型： `long`、 `ulong`。
-*  `UL`如果文本的后缀为、 `LU` `ul` `uL` `Ul` `ulong`、、 、`Lu`、、或`lu`，则它属于类型。 `lU`
+*  如果文字没有后缀，则其值可以表示为以下类型的第一个类型： `int`、`uint`、`long``ulong`。
+*  如果文本以 `U` 或 `u`为后缀，则其值可以表示为以下类型之一： `uint`，`ulong`。
+*  如果文本以 `L` 或 `l`为后缀，则其值可以表示为以下类型之一： `long`，`ulong`。
+*  如果文本的后缀为 `UL`、`Ul`、`uL`、`ul`、`LU`、`Lu`、`lU`或 `lu`，则其类型为 `ulong`。
 
-如果整数文本所表示的值超出了该`ulong`类型的范围，则会发生编译时错误。
+如果整数文本所表示的值超出 `ulong` 类型的范围，则会发生编译时错误。
 
-作为样式，建议`L`在写入类型`long`的文本时使用 "" 而不是 "`l`"，因为这样可以很容易地将字母 "`l`" 与数字 "`1`" 混淆。
+作为样式，建议在写入类型 `long`的文本时，使用 "`L`" 而不是 "`l`"，因为这样可以很容易地将字母 "`l`" 与数字 "`1`" 混淆。
 
-若要允许尽可能`int`小的和`long`值写入为十进制整数文本，请满足以下两个规则：
+若要允许尽可能少的 `int` 和 `long` 值写入为十进制整数文本，请满足以下两个规则：
 
-* 当值为2147483648（2 ^ 31）且没有*integer_type_suffix*的*decimal_integer_literal*显示为紧跟一元减号运算符（[一元减号运算符](expressions.md#unary-minus-operator)）的标记时，结果为类型 `int` 的常量，其值为-2147483648 （-2 ^ 31）。 在所有其他情况下，此类*decimal_integer_literal*的类型为 `uint`。
-* 当具有值9223372036854775808（2 ^ 63）且没有*integer_type_suffix*或*integer_type_suffix* `L` 或 `l` 的*decimal_integer_literal*显示为紧跟一元减号运算符标记的标记后（[一元减号运算符](expressions.md#unary-minus-operator)），则结果为类型 `long`，其值为-9223372036854775808 （-2 ^ 63）。 在所有其他情况下，此类*decimal_integer_literal*的类型为 `ulong`。
+* 当值为2147483648（2 ^ 31）且没有*integer_type_suffix*的*decimal_integer_literal*显示为紧跟一元减号运算符（[一元减号运算符](expressions.md#unary-minus-operator)）的标记时，结果为类型 `int` 值为-2147483648 （-2 ^ 31）的常量。 在所有其他情况下，这类*decimal_integer_literal*属于 `uint`类型。
+* 当具有值9223372036854775808（2 ^ 63）且没有*integer_type_suffix*或*integer_type_suffix* `L` 或 `l` 的*decimal_integer_literal*显示为紧跟一元减号运算符（[一元减号运算符](expressions.md#unary-minus-operator)）的标记时，结果为类型 `long` 的常量，其值为-9223372036854775808 （-2 ^ 63）。 在所有其他情况下，这类*decimal_integer_literal*属于 `ulong`类型。
 
 #### <a name="real-literals"></a>真实文本
 
-真实文本用于写入类型`float`为、 `double`和`decimal`的值。
+真实文本用于写入 `float`、`double`和 `decimal`类型的值。
 
 ```antlr
 real_literal
@@ -459,23 +459,23 @@ real_type_suffix
     ;
 ```
 
-如果未指定*real_type_suffix* ，则真实文本的类型为 `double`。 否则，实数类型后缀将确定真实文本的类型，如下所示：
+如果未指定*real_type_suffix* ，则 `double`实际文本的类型。 否则，实数类型后缀将确定真实文本的类型，如下所示：
 
-*  用`F` `float`或`f`作为后缀的实文本的类型为。 例如`1f`，文本`float`、 `1.5f`、和`123.456F`都是类型。 `1e10f`
-*  用`D` `double`或`d`作为后缀的实文本的类型为。 例如`1d`，文本`double`、 `1.5d`、和`123.456D`都是类型。 `1e10d`
-*  用`M` `decimal`或`m`作为后缀的实文本的类型为。 例如`1m`，文本`decimal`、 `1.5m`、和`123.456M`都是类型。 `1e10m` 通过采用精确值将此`decimal`文本转换为一个值，并在必要时使用银行家舍入（[decimal 类型](types.md#the-decimal-type)）舍入为最接近的可表示值。 除非值舍入或值为零（在这种情况下，正负号为0），否则文本中的任何小数位数都将保留。 因此，将分析`2.900m`文本，以形成带有符号`0`、系数`2900`和刻度`3`的小数。
+*  `F` 或 `f` 以 `float`类型为后缀的实际文本。 例如，文本 `1f`、`1.5f`、`1e10f`和 `123.456F` 都是 `float`类型。
+*  `D` 或 `d` 以 `double`类型为后缀的实际文本。 例如，文本 `1d`、`1.5d`、`1e10d`和 `123.456D` 都是 `double`类型。
+*  `M` 或 `m` 以 `decimal`类型为后缀的实际文本。 例如，文本 `1m`、`1.5m`、`1e10m`和 `123.456M` 都是 `decimal`类型。 通过采用精确值将此文本转换为 `decimal` 值，并在必要时使用银行家舍入（[decimal 类型](types.md#the-decimal-type)）舍入为最接近的可表示值。 除非值舍入或值为零（在这种情况下，正负号为0），否则文本中的任何小数位数都将保留。 因此，将对文字 `2.900m` 进行解析，以形成带有符号 `0`、系数 `2900`和刻度 `3`的小数。
 
 如果指定的文本不能用指定的类型表示，则会发生编译时错误。
 
-类型`float` 或`double`的实字的值是通过使用 IEEE "舍入到最近的" 模式确定的。
+`float` 或 `double` 类型的真实文本的值是通过使用 IEEE "舍入到最近" 模式确定的。
 
-请注意，在实际文本中，小数点后始终需要小数位数。 例如，是`1.3F`一个真实文本，但`1.F`不是。
+请注意，在实际文本中，小数点后始终需要小数位数。 例如，`1.3F` 是真实文本，但 `1.F` 不是。
 
 #### <a name="character-literals"></a>字符文本
 
-字符文本表示单个字符，通常由引号中的字符组成，如中`'a'`所示。
+字符文本表示单个字符，通常由引号中的字符组成，如 `'a'`中所示。
 
-注意:ANTLR 语法表示法会使以下混乱！ 在 ANTLR 中，当您`\'`编写时，它代表一个`'`引号。 当你编写`\\`时，它代表单个反斜杠`\`。 因此，字符文本的第一个规则意味着以单个单引号开始，然后是一个字符，然后是一个引号。 和11个可能的简单转义序列`\'`为`\"`、 `\\` `\b` `\0` 、、`\r`、 `\a`、 `\n` 、、`\t`、、、 `\f` `\v`.
+注意： ANTLR 语法表示法会使以下混乱！ 在 ANTLR 中，当您编写 `\'` 它代表单引号 `'`。 写入时，`\\` 它代表单个反斜杠 `\`。 因此，字符文本的第一个规则意味着以单个单引号开始，然后是一个字符，然后是一个引号。 还有11个可能的简单转义序列 `\'`、`\"`、`\\`、`\0`、`\a`、`\b`、`\f`、`\n`、`\r`、`\t`、`\v`。
 
 ```antlr
 character_literal
@@ -501,13 +501,13 @@ hexadecimal_escape_sequence
     : '\\x' hex_digit hex_digit? hex_digit? hex_digit?;
 ```
 
-在字符中跟在反斜杠字符`\`（）后面的字符必须是下列字符之一： `'`、 `a` `"`、 `\`、 `0`、 `b`、、 `f`, `n`, `r`, `t`, `u`, `U`, `x`, `v`. 否则，将发生编译时错误。
+*字符*中反斜杠字符（`\`）后面的字符必须是下列字符之一： `'`、`"`、`\`、`0`、`a`、`b`、`f`、`n`、`r`、`t`、`u`、`U`、`x`、`v`。 否则，将发生编译时错误。
 
 十六进制转义序列表示单个 Unicode 字符，其值由 "`\x`" 后面的十六进制数构成。
 
-如果字符文本表示的值大于`U+FFFF`，则会发生编译时错误。
+如果字符文本表示的值大于 `U+FFFF`，则会发生编译时错误。
 
-字符文本中的 unicode 字符转义序列（[unicode 字符转义序列](lexical-structure.md#unicode-character-escape-sequences)）必须在到`U+0000` `U+FFFF`的范围内。
+字符文本中的 Unicode 字符转义序列（[unicode 字符转义序列](lexical-structure.md#unicode-character-escape-sequences)）必须在 `U+0000` 到 `U+FFFF`的范围内。
 
 简单的转义序列表示 Unicode 字符编码，如下表中所述。
 
@@ -526,15 +526,15 @@ hexadecimal_escape_sequence
 | `\t`                | 水平制表符     | `0x0009`             | 
 | `\v`                | 垂直制表符       | `0x000B`             | 
 
-*Character_literal*的类型为 `char`。
+`char`*character_literal*的类型。
 
 #### <a name="string-literals"></a>字符串文本
 
 C#支持两种形式的字符串文本：***常规字符串文本***和***原义字符串文本***。
 
-正则字符串文字由零个或多个字符括在双引号中，如`"hello"`中所示，并且可能包括简单转义序列（ `\t`如制表符）和十六进制和 Unicode 转义序列。
+正则字符串文字由零个或多个字符括在双引号中，如 `"hello"`中所示，并且可能包括简单转义序列（如制表符的 `\t`）和十六进制和 Unicode 转义序列。
 
-原义字符串包含一个`@`字符，后跟一个双引号字符、零个或多个字符和一个右双引号字符。 一个简单的示例`@"hello"`是。 在原义字符串文本中，分隔符之间的字符按原义解释，唯一的例外是*quote_escape_sequence*。 具体而言，简单转义序列和十六进制和 Unicode 转义序列不会在原义字符串文本中处理。 原义字符串文本可以跨多个行。
+逐字字符串文本包含一个 `@` 字符后跟一个双引号字符、零个或多个字符和一个右双引号字符。 `@"hello"`了一个简单的示例。 在原义字符串文本中，分隔符之间的字符按原义解释，唯一的例外是*quote_escape_sequence*。 具体而言，简单转义序列和十六进制和 Unicode 转义序列不会在原义字符串文本中处理。 原义字符串文本可以跨多个行。
 
 ```antlr
 string_literal
@@ -575,7 +575,7 @@ quote_escape_sequence
     ;
 ```
 
-在*regular_string_literal_character*中反斜杠字符（`\`）后面的字符必须是下列字符之一： `'`、`"`、`\`、`0`、`a`、`b`、`f`、`n`、0 @no__tt-sql，3，4，5。 否则，将发生编译时错误。
+跟在*regular_string_literal_character*中反斜杠字符（`\`）后面的字符必须是下列字符之一： `'`、`"`、`\`、`0`、`a`、`b`、`f`、`n`、`r`、`t`、`u`、`U`、`x`、`v`。 否则，将发生编译时错误。
 
 示例
 ```csharp
@@ -596,11 +596,11 @@ string j = @"one
 two
 three";
 ```
-显示各种字符串文本。 最后一个字符串文字`j`是跨多行的逐字字符串。 引号之间的字符（包括空白字符，如换行符）会逐字保留。
+显示各种字符串文本。 最后一个字符串 `j`是跨多行的逐字字符串。 引号之间的字符（包括空白字符，如换行符）会逐字保留。
 
-由于十六进制转义序列可以具有可变数量的十六进制数字，因此字符串文本`"\x123"`包含一个具有十六进制值123的单个字符。 若要创建一个字符串，该字符串包含的字符的十六进制值为12，后跟字符`"\x00123"` 3 `"\x12" + "3"` ，则可以写。
+由于十六进制转义序列可以具有可变数量的十六进制数字，因此字符串文字 `"\x123"` 包含十六进制值为123的单个字符。 若要创建一个字符串，该字符串包含十六进制值12后跟字符3的字符，则可以改为写入 `"\x00123"` 或 `"\x12" + "3"`。
 
-*String_literal*的类型为 `string`。
+`string`*string_literal*的类型。
 
 每个字符串文本不一定会生成新的字符串实例。 如果两个或更多的字符串文本在同一程序中出现，则根据字符串相等运算符（[字符串相等运算符](expressions.md#string-equality-operators)）进行等效时，这些字符串将引用相同的字符串实例。 例如，生成的输出
 ```csharp
@@ -613,13 +613,13 @@ class Test
     }
 }
 ```
-是`True`因为两个文本引用相同的字符串实例。
+是 `True` 的，因为这两个文本引用相同的字符串实例。
 
 #### <a name="interpolated-string-literals"></a>内插字符串文本
 
-内插字符串与字符串文本类似，但包含用 and `{` `}`分隔的孔，其中的表达式可以出现。 在运行时，将对表达式进行计算，目的是将其文本窗体替换为发生该洞的位置的字符串。 字符串内插的语法和语义在节（内[插字符串](expressions.md#interpolated-strings)）中进行了介绍。
+内插字符串与字符串文本类似，但包含由 `{` 和 `}`分隔的孔，其中的表达式可以出现。 在运行时，将对表达式进行计算，目的是将其文本窗体替换为发生该洞的位置的字符串。 字符串内插的语法和语义在节（内[插字符串](expressions.md#interpolated-strings)）中进行了介绍。
 
-与字符串文本一样，内插字符串文本可以是正则为或是原义字符串。 内插正则字符串文本由`$"`和`"`分隔，并由`$@"`和`"`分隔逐字字符串。
+与字符串文本一样，内插字符串文本可以是正则为或是原义字符串。 内插正则字符串文本由 `$"` 和 `"`分隔，并按 `$@"` 和 `"`分隔逐字字符串文本。
 
 与其他文本一样，内插字符串的词法分析最初会根据下面的语法产生单个令牌。 但是，在句法分析之前，内插字符串的单个标记将被分解为包含该洞的字符串部分的多个标记，而洞中发生的输入元素会在词法上重新并非。 这反过来会生成更多的内插字符串文字，但如果词法上正确，最终将导致一系列标记，以便进行语法分析。
 
@@ -780,10 +780,10 @@ single_verbatim_balanced_text_character
     ;
 ```
 
-*Interpolated_string_literal*标记作为多个标记和其他输入元素，按以下顺序出现在*interpolated_string_literal*中：
+*Interpolated_string_literal*令牌重新解释为多个令牌和其他输入元素，如下所示： *interpolated_string_literal*中出现的顺序：
 
-* 以下各项分别重新解释为单独的标记：前导 `$` sign、 *interpolated_regular_string_whole*、 *interpolated_regular_string_start*、 *interpolated_regular_string_mid*、 *interpolated_regular_string_end*、 *interpolated_verbatim_string_whole*、 *interpolated_verbatim_string_start*、 *interpolated_verbatim_string_mid*和*interpolated_verbatim_string_end*。
-* 在这些*regular_balanced_text*和*verbatim_balanced_text*之间出现的情况被重新处理为*input_section* （[词法分析](lexical-structure.md#lexical-analysis)），并重新解释作为输入元素的结果序列。 这些转换可能会将内插字符串文本标记包含为重新解释。
+* 以下各项分别作为单独的标记重新解释：前导 `$` sign、 *interpolated_regular_string_whole*、 *interpolated_regular_string_start*、 *interpolated_regular_string_mid*、 *interpolated_regular_string_end*、 *interpolated_verbatim_string_whole*、 *interpolated_verbatim_string_start*、 *interpolated_verbatim_string_mid*和*interpolated_verbatim_string_end*。
+* 在这些*regular_balanced_text*和*verbatim_balanced_text*之间发生的情况重新处理为*input_section* （[词法分析](lexical-structure.md#lexical-analysis)），并且重新解释为输入元素的结果序列。 这些转换可能会将内插字符串文本标记包含为重新解释。
 
 语法分析会将令牌重新组合到*interpolated_string_expression* （内[插的字符串](expressions.md#interpolated-strings)）。
 
@@ -798,11 +798,11 @@ null_literal
     ;
 ```
 
-*Null_literal*可隐式转换为引用类型或可以为 null 的类型。
+*Null_literal*可以隐式转换为引用类型或可以为 null 的类型。
 
 ### <a name="operators-and-punctuators"></a>运算符和标点符号
 
-有多种运算符和标点符号。 运算符用在表达式中，用于描述涉及一个或多个操作数的操作。 例如`a + b` ，表达式`+`使用运算符添加两个操作数`a`和`b`。 标点符号用于分组和分隔。
+有多种运算符和标点符号。 运算符用在表达式中，用于描述涉及一个或多个操作数的操作。 例如，表达式 `a + b` 使用 `+` 运算符将两个操作数相加 `a` 和 `b`。 标点符号用于分组和分隔。
 
 ```antlr
 operator_or_punctuator
@@ -822,7 +822,7 @@ right_shift_assignment
     ;
 ```
 
-*Right_shift*和*right_shift_assignment*生产中的竖线用于指示，与句法语法中的其他生产不同，标记之间不允许任何类型的字符（甚至不允许使用空格）。 这些生产是专门处理的，目的是为了实现正确的*type_parameter_list*（[类型参数](classes.md#type-parameters)）处理。
+*Right_shift*和*right_shift_assignment*生产中的竖线用于指示，与句法语法中的其他生产不同，标记之间不允许任何类型的字符（甚至不允许使用空格）。 将对这些生产进行特殊处理，以便能够正确地处理*type_parameter_list*（[类型参数](classes.md#type-parameters)）。
 
 ## <a name="pre-processing-directives"></a>预处理指令
 
@@ -841,16 +841,16 @@ pp_directive
 
 以下预处理指令可用：
 
-*  `#define`和`#undef`，分别用于定义和取消定义条件编译符号（[声明指令](lexical-structure.md#declaration-directives)）。
-*  `#if`、 `#elif`、 `#else`和`#endif`，用于有条件地跳过源代码的各个部分（[条件编译指令](lexical-structure.md#conditional-compilation-directives)）。
+*  `#define` 和 `#undef`，分别用于定义和取消定义条件编译符号（[声明指令](lexical-structure.md#declaration-directives)）。
+*  `#if`、`#elif`、`#else`和 `#endif`，它们用于有条件地跳过源代码部分（[条件编译指令](lexical-structure.md#conditional-compilation-directives)）。
 *  `#line`，用于控制发出的错误和警告的行号（[行指令](lexical-structure.md#line-directives)）。
-*  `#error`和`#warning`，分别用于发出错误和警告（[诊断指令](lexical-structure.md#diagnostic-directives)）。
-*  `#region`和`#endregion`，用于显式标记源代码的各个部分（[Region 指令](lexical-structure.md#region-directives)）。
+*  `#error` 和 `#warning`，分别用于发出错误和警告（[诊断指令](lexical-structure.md#diagnostic-directives)）。
+*  `#region` 和 `#endregion`，用于显式标记源代码的各个部分（[Region 指令](lexical-structure.md#region-directives)）。
 *  `#pragma`，用于指定编译器的可选上下文信息（[杂注指令](lexical-structure.md#pragma-directives)）。
 
-预处理指令始终占用一行单独的源代码，并始终以`#`字符和预处理指令名称开头。 空格可能出现在`#`字符和指令名称`#`之间。
+预处理指令始终占用一行单独的源代码，并始终以 `#` 字符和预处理指令名称开头。 空格可能出现在 `#` 字符之前以及 `#` 字符和指令名称之间。
 
-`#define`包含、 、`#elif`、、、、或`#endregion`指令的源行可以以单行注释结束。 `#if` `#undef` `#else` `#endif` `#line` 在包含预处理指令`/* */`的源行上不允许使用带分隔符的注释（注释的样式）。
+包含 `#define`、`#undef`、`#if`、`#elif`、`#else`、`#endif`、`#line`或 `#endregion` 指令的源行可能以单行注释结束。 在包含预处理指令的源行上不允许使用带分隔符的注释（注释的 `/* */` 样式）。
 
 预处理指令不是标记，并且不是句法语法的C#一部分。 但是，预处理指令可用于包含或排除标记序列，并以这种方式影响C#程序的含义。 例如，编译后，程序：
 ```csharp
@@ -885,7 +885,7 @@ class C
 
 ### <a name="conditional-compilation-symbols"></a>条件编译符号
 
-`#if` 、`#elif`、和指令`#endif`提供的条件编译功能通过预处理表达式（[预处理表达式](lexical-structure.md#pre-processing-expressions)）和条件`#else`编译符号。
+`#if`、`#elif`、`#else`和 `#endif` 指令提供的条件编译功能通过预处理表达式（[预处理表达式](lexical-structure.md#pre-processing-expressions)）和条件编译符号进行控制。
 
 ```antlr
 conditional_symbol
@@ -893,15 +893,15 @@ conditional_symbol
     ;
 ```
 
-条件编译符号有两种可能的状态：***已定义***或***未定义***。 在源文件的词法处理开始时，不定义条件编译符号，除非它已由外部机制（例如命令行编译器选项）显式定义。 `#define`处理指令时，该指令中名为的条件编译符号将在该源文件中进行定义。 在处理同一符号的`#undef`指令之前，或在到达源文件末尾之前，该符号保持为已定义。 这意味着，一个源文件中`#define`的`#undef`和指令对同一程序中的其他源文件不起作用。
+条件编译符号有两种可能的状态：***已定义***或***未定义***。 在源文件的词法处理开始时，不定义条件编译符号，除非它已由外部机制（例如命令行编译器选项）显式定义。 处理 `#define` 指令时，该指令中名为的条件编译符号将在该源文件中进行定义。 在处理同一符号的 `#undef` 指令之前，或在到达源文件末尾之前，该符号保持为已定义。 这意味着，一个源文件中的 `#define` 和 `#undef` 指令对同一程序中的其他源文件不起作用。
 
-在预处理表达式中引用时，定义的条件编译符号具有布尔值`true`，未定义的条件编译符号具有布尔值。 `false` 在预处理表达式中引用条件编译符号之前，不需要显式声明它们。 相反，未声明的符号只是未定义的， `false`因此具有值。
+在预处理表达式中引用时，已定义的条件编译符号 `true`的布尔值，未定义的条件编译符号 `false`的布尔值。 在预处理表达式中引用条件编译符号之前，不需要显式声明它们。 相反，未声明的符号只是未定义的，因此 `false`的值。
 
-条件编译符号的命名空间是不同的，不同于C#程序中的其他所有命名实体。 条件编译符号只能在`#define`和`#undef`指令以及预处理表达式中引用。
+条件编译符号的命名空间是不同的，不同于C#程序中的其他所有命名实体。 条件编译符号只能在 `#define` 和 `#undef` 指令以及预处理表达式中进行引用。
 
 ### <a name="pre-processing-expressions"></a>预处理表达式
 
-预处理表达式可以出现在和`#if` `#elif`指令中。 预处理表达式`!`中`==`允许`!=`使用`&&`运算符`||` 、、和，括号可用于分组。
+预处理表达式可以出现在 `#if` 和 `#elif` 指令中。 预处理表达式中允许 `!`、`==`、`!=`、`&&` 和 `||` 运算符，括号可用于分组。
 
 ```antlr
 pp_expression
@@ -937,7 +937,7 @@ pp_primary_expression
     ;
 ```
 
-在预处理表达式中引用时，定义的条件编译符号具有布尔值`true`，未定义的条件编译符号具有布尔值。 `false`
+在预处理表达式中引用时，已定义的条件编译符号 `true`的布尔值，未定义的条件编译符号 `false`的布尔值。
 
 预处理表达式的计算始终产生布尔值。 预处理表达式的计算规则与常量表达式的计算规则相同（[常数](expressions.md#constant-expressions)表达式），只不过只能引用的用户定义实体是条件编译符号。
 
@@ -956,9 +956,9 @@ pp_new_line
     ;
 ```
 
-`#define`指令的处理会使给定的条件编译符号成为定义，并从跟在指令后面的源行开始。 同样，处理`#undef`指令会使给定的条件编译符号变成未定义的，从该指令后面的源行开始。
+处理 `#define` 指令会使给定的条件编译符号成为定义，从指令后跟后面的源行开始。 同样，处理 `#undef` 指令会使给定的条件编译符号变成未定义的，从该指令后面的源行开始。
 
-源文件`#define`中`#undef`的任何和指令必须出现在源文件中的第一个*标记*（[标记](lexical-structure.md#tokens)）之前; 否则，将发生编译时错误。 在直观的术语`#define`中`#undef` ，和指令必须位于源文件中的任何 "真实代码" 之前。
+源文件中的任何 `#define` 和 `#undef` 指令必须出现在源文件中的第一个*标记*（[标记](lexical-structure.md#tokens)）之前;否则，会发生编译时错误。 在直观的术语中，`#define` 和 `#undef` 指令必须在源文件中的任何 "真实代码" 之前。
 
 示例：
 ```csharp
@@ -975,9 +975,9 @@ namespace Megacorp.Data
     #endif
 }
 ```
-有效，因为`#define`指令位于源文件中的第一个标记`namespace` （关键字）之前。
+有效，因为 `#define` 指令位于源文件中的第一个标记（`namespace` 关键字）之前。
 
-下面的示例会导致编译时错误，因为`#define`它会跟随真实代码：
+下面的示例会导致编译时错误，因为 `#define` 会跟随真实代码：
 ```csharp
 #define A
 namespace N
@@ -989,13 +989,13 @@ namespace N
 }
 ```
 
-可以定义已定义的条件编译符号，而不会对该符号进行任何`#undef`干预。 `#define` 下面的示例定义条件编译符号`A` ，然后再次定义它。
+`#define` 可以定义已定义的条件编译符号，而不会存在该符号的任何干预 `#undef`。 下面的示例定义条件编译符号 `A`，然后再次定义该符号。
 ```csharp
 #define A
 #define A
 ```
 
-`#undef`可能 "取消定义" 未定义的条件编译符号。 下面的示例定义条件编译符号`A` ，然后将其取消定义两次; 虽然第二个`#undef`不起作用，但仍有效。
+`#undef` 可能会 "取消定义" 未定义的条件编译符号。 下面的示例定义条件编译符号 `A`，然后将其取消定义两次;尽管第二个 `#undef` 不起作用，但仍有效。
 ```csharp
 #define A
 #undef A
@@ -1050,17 +1050,17 @@ not_number_sign
     ;
 ```
 
-如语法所示，必须按顺序（ `#if`按顺序）、指令、零个或多个`#elif`指令、零个或`#endif`一个`#else`指令以及指令来写入条件编译指令。 在指令与源代码的条件部分之间。 每个部分都由前面的指令控制。 条件部分本身可能包含嵌套的条件编译指令，前提是这些指令构成了完整的集。
+如语法所示，必须按顺序（按顺序）、零个或多个 `#if` 指令、零个或多个 `#elif` 指令、零个或一个 `#else` 指令和一个 `#endif` 指令来写入条件编译指令。 在指令与源代码的条件部分之间。 每个部分都由前面的指令控制。 条件部分本身可能包含嵌套的条件编译指令，前提是这些指令构成了完整的集。
 
 *Pp_conditional*最多为常规词法处理选择一个包含的*conditional_section*：
 
-*  将按顺序计算 `#if` 和 @no__t 2 指令的*pp_expression*，直到其中一个结果 @no__t 为3。 如果表达式产生 `true`，则选择相应指令的*conditional_section* 。
-*  如果所有*pp_expression*都 `false`，并且 `#else` 指令存在，则选择 `#else` 指令的*conditional_section* 。
+*  将按顺序计算 `#if` 和 `#elif` 指令的*pp_expression*，直到其中一个生成 `true`。 如果表达式生成 `true`，则选择相应指令的*conditional_section* 。
+*  如果所有*pp_expression*都生成 `false`，并且如果 `#else` 指令存在，则选择 `#else` 指令的*conditional_section* 。
 *  否则，不会选择任何*conditional_section* 。
 
-所选的*conditional_section*（如果有）将作为一般*input_section*进行处理：节中包含的源代码必须符合词法语法;标记是从节中的源代码生成的;部分中的和预处理指令具有指定的效果。
+选定的*conditional_section*（如果有）将作为正常*input_section*进行处理：节中包含的源代码必须符合词法语法;标记是从节中的源代码生成的;部分中的和预处理指令具有指定的效果。
 
-剩余的*conditional_section*（如果有）将被处理为*skipped_section*s：除预处理指令以外，部分中的源代码无需遵守词法语法;不会从该部分中的源代码生成任何标记;部分中的和预处理指令必须在词法上是正确的，但不会进行处理。 在处理为*skipped_section*的*conditional_section*中，任何嵌套的*conditional_section*（包含在嵌套 `#if` @no__t ... `#endregion` 和 `#region` ...-6 构造）中也作为*skipped_ 处理节*。
+剩余的*conditional_section*（如果有）将作为*skipped_section*s 进行处理：除预处理指令以外，部分中的源代码无需遵守词法语法;不会从该部分中的源代码生成任何标记;部分中的和预处理指令必须在词法上是正确的，但不会进行处理。 在作为*skipped_section*进行处理的*conditional_section*中，任何嵌套的*conditional_section*（包含在嵌套 `#if`...`#endif` 和 `#region`...`#endregion` 构造中）也作为*skipped_section*进行处理。
 
 下面的示例说明了条件编译指令如何嵌套：
 ```csharp
@@ -1081,7 +1081,7 @@ class PurchaseTransaction
 }
 ```
 
-除预处理指令外，跳过的源代码不受词法分析的限制。 例如，尽管`#else`部分中出现未终止的注释，以下内容仍有效：
+除预处理指令外，跳过的源代码不受词法分析的限制。 例如，尽管 `#else` 部分中未终止的注释，以下内容仍有效：
 ```csharp
 #define Debug        // Debugging on
 
@@ -1132,7 +1132,7 @@ hello,
     /* */ class Q { }
 #endif
 ```
-`class`不管是否`{` `Q` `}`定义了，始终会生成相同的令牌流（）。`X` 如果`X`定义了，则仅处理的指令`#if`为`#endif`和，因为有多行注释。 如果`X`未定义，则三个指令`#if`（ `#else`、 `#endif`、）是指令集的一部分。
+不管是否定义 `X`，始终会生成相同的令牌流（`class` `Q` `{` `}`）。 如果定义了 `X`，则仅由于多行注释，`#if` 并 `#endif`处理的指令。 如果 `X` 未定义，则三个指令（`#if`、`#else``#endif`）都是指令集的一部分。
 
 ### <a name="diagnostic-directives"></a>诊断指令
 
@@ -1160,7 +1160,7 @@ pp_message
 
 class Test {...}
 ```
-始终产生警告（"签入前需要代码评审"），并且如果同时定义了条件符号`Debug`和`Retail` ，则生成编译时错误（"a build 不能同时为调试和零售"）。 请注意， *pp_message*可以包含任意文本;具体而言，它不需要包含格式正确的标记，如单词 `can't` 中的单引号所示。
+如果同时定义了条件符号 `Debug` 和 `Retail`，将始终产生警告（"签入前需要代码评审"）并生成编译时错误（"A build 不能同时为调试和零售"）。 请注意， *pp_message*可以包含任意文本;具体而言，它不需要包含格式正确的标记，如单词 `can't`中的单引号所示。
 
 ### <a name="region-directives"></a>区域指令
 
@@ -1180,7 +1180,7 @@ pp_end_region
     ;
 ```
 
-无语义含义附加到区域;区域旨在供程序员或自动工具用来标记源代码的一部分。 `#region` 或`#endregion`指令中指定的消息同样没有语义含义; 它仅用于标识区域。 匹配 `#region` 和 `#endregion` 指令可能具有不同的*pp_message*。
+无语义含义附加到区域;区域旨在供程序员或自动工具用来标记源代码的一部分。 在 `#region` 或 `#endregion` 指令中指定的消息同样没有语义含义;它仅用于标识区域。 匹配 `#region` 和 `#endregion` 指令的*pp_message*可能不同。
 
 区域的词法处理：
 ```csharp
@@ -1222,17 +1222,17 @@ file_name_character
     ;
 ```
 
-当不`#line`存在任何指令时，编译器会在其输出中报告真实的行号和源文件名。 当处理包含不 `default` 的*line_indicator*的 @no__t 0 指令时，编译器会将指令后的行视为具有给定的行号（和文件名，如果指定）。
+当不存在 `#line` 指令时，编译器会在其输出中报告真实的行号和源文件名。 当处理包含不 `default`的*line_indicator*的 `#line` 指令时，编译器会将指令后的行视为具有给定的行号（和文件名，如果指定）。
 
-`#line default`指令反转所有前面 #line 指令的作用。 编译器会报告后续行的真实行信息，就像未`#line`处理过指令一样。
+`#line default` 指令将反转前面所有 #line 指令的效果。 编译器会报告后续行的真实行信息，就像未处理 `#line` 指令一样。
 
-`#line hidden`指令对错误消息中报告的文件和行号没有影响，但会影响源级别调试。 调试时， `#line hidden`指令和后续`#line`指令之间的所有行（即 not `#line hidden`）都没有行号信息。 单步执行调试器中的代码时，将完全跳过这些行。
+`#line hidden` 指令对错误消息中报告的文件和行号没有影响，但会影响源级别调试。 调试时，`#line hidden` 指令与后续 `#line` 指令之间的所有行（不 `#line hidden`）没有行号信息。 单步执行调试器中的代码时，将完全跳过这些行。
 
-请注意，在不处理转义字符的情况下， *file_name*不同于正则字符串文本;"`\`" 字符只是在*file_name*中指定普通反斜杠字符。
+请注意，在不处理转义字符的情况下， *file_name*与正则字符串文字不同;"`\`" 字符只是在*file_name*中指定普通反斜杠字符。
 
 ### <a name="pragma-directives"></a>Pragma 指令
 
-`#pragma`预处理指令用于指定编译器的可选上下文信息。 `#pragma`指令中提供的信息永远不会更改程序语义。
+`#pragma` 预处理指令用于指定编译器的可选上下文信息。 `#pragma` 指令中提供的信息将永远不会更改程序语义。
 
 ```antlr
 pp_pragma
@@ -1244,11 +1244,11 @@ pragma_body
     ;
 ```
 
-C#提供`#pragma`用于控制编译器警告的指令。 将来版本的语言可能包含其他`#pragma`指令。 为了确保与其他C#编译器的互操作性C# ，Microsoft 编译器不会发出未知`#pragma`指令的编译错误; 此类指令会生成警告。
+C#提供 `#pragma` 指令来控制编译器警告。 将来版本的语言可能包含其他 `#pragma` 指令。 为了确保与其他C#编译器的互操作性C# ，Microsoft 编译器不会发出未知 `#pragma` 指令的编译错误;但是，此类指令将生成警告。
 
-#### <a name="pragma-warning"></a>pragma warning
+#### <a name="pragma-warning"></a>Pragma warning
 
-`#pragma warning`指令用于在编译后续程序文本期间禁用或还原所有或一组特定的警告消息。
+`#pragma warning` 指令用于在编译后续程序文本时禁用或还原所有或一组特定的警告消息。
 
 ```antlr
 pragma_warning_body
@@ -1266,13 +1266,13 @@ warning_list
     ;
 ```
 
-省略`#pragma warning`警告列表的指令将影响所有警告。 包含警告列表的指令只影响列表中指定的那些警告。`#pragma warning`
+省略警告列表的 `#pragma warning` 指令将影响所有警告。 包含警告列表的 `#pragma warning` 指令只影响列表中指定的那些警告。
 
-`#pragma warning disable`指令禁用所有或给定的一组警告。
+`#pragma warning disable` 指令禁用所有或给定的一组警告。
 
-`#pragma warning restore`指令将所有或给定的警告集还原到编译单元开头处生效的状态。 请注意，如果在外部禁用了特定警告， `#pragma warning restore`则将不会重新启用该警告。
+`#pragma warning restore` 指令将所有或给定的警告集还原到编译单元开头处生效的状态。 请注意，如果在外部禁用特定警告，则 `#pragma warning restore` （无论是针对所有还是特定警告），都不会重新启用该警告。
 
-下面的示例演示`#pragma warning`如何使用 Microsoft C#编译器中的警告号，使用来暂时禁用引用过时成员时所报告的警告。
+下面的示例演示如何使用 `#pragma warning` 通过使用 Microsoft C#编译器中的警告号来暂时禁用引用过时成员时所报告的警告。
 ```csharp
 using System;
 
