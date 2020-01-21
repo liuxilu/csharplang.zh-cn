@@ -615,7 +615,7 @@ Tr M<X1,...,Xn>(T1 x1, ..., Tm xm)
 
 *显式参数类型推理*是通过以下方式*从*`E`*到*类型 `T` 的表达式进行的：
 
-*  如果 `E`@no__t 为 @no__t 的参数类型`U1...Uk`为-1 的显式类型匿名函数，`T` 是具有参数类型 `V1...Vk` 的委托类型或表达式树类型，则对每个 `Ui` 进行精确推理（[精确推断](expressions.md#exact-inferences)）从到对应的 0。`Ui``Vi`
+*  如果 `E` *为* 的参数类型`U1...Uk`为-1 的显式类型匿名函数，`T` 是具有参数类型 `V1...Vk` 的委托类型或表达式树类型，则对每个 `Ui` 进行精确推理（[精确推断](expressions.md#exact-inferences)）从到对应的 0。`Ui``Vi`
 
 #### <a name="exact-inferences"></a>精确推断
 
