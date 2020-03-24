@@ -1,10 +1,10 @@
 ---
-ms.openlocfilehash: d6519ff57b4a98c4eec8ccbf310303432ac3255e
-ms.sourcegitcommit: 65ea1e6dc02853e37e7f2088e2b6cc08d01d1044
+ms.openlocfilehash: 50f2bd2d0a84064cfe35fe65b9e5c59c052d19ac
+ms.sourcegitcommit: 1dbb8e82bed5012a58a3a035bf2c3737ed570d07
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/27/2019
-ms.locfileid: "79483948"
+ms.lasthandoff: 03/24/2020
+ms.locfileid: "80122951"
 ---
 # <a name="ranges"></a>范围
 
@@ -100,7 +100,7 @@ C#没有语法方法来访问集合的 "范围" 或 "切片"。 通常，用户�
 
 语言将引入新的范围运算符 `x..y`。 它是一个接受两个表达式的二元中缀运算符。 可以省略任一操作数（以下示例），并且它们必须可转换为 `System.Index`。 它将降低为适当的 `System.Range` 工厂方法调用。
 
--我们将C# *multiplicative_expression*的语法规则替换为以下内容（以便引入新的优先级别）：
+我们将C# *multiplicative_expression*的语法规则替换为以下内容（以便引入新的优先级别）：
 
 ```antlr
 range_expression
@@ -149,7 +149,7 @@ var multiDimensional = list[1..2, ..]   // list[Range.Create(1, 2), Range.All]
 
 如果某个类型具有一个名为 `Length` 的属性或具有可访问的 getter 的 `Count` 并且返回类型为 `int`，则该类型为***可数***。 语言可以利用此属性将类型 `Index` 的表达式转换为表达式点 `int`，而无需全部使用该 `Index` 类型。 如果同时存在 `Length` 和 `Count`，则需要 `Length`。 为方便起见，该建议将使用名称 `Length` 来表示 `Count` 或 `Length`。
 
-对于此类类型，该语言将充当格式 `T this[Index index]` 的索引成员，其中 `T` 是基于 `int` 的索引器的返回类型，包括任何 `ref` 样式批注。 新成员将具有与 `int` 索引器匹配的可访问性 `set` 成员 `get` 和。 
+对于此类类型，该语言将充当格式的索引器成员 `T this[Index index]` 其中，`T` 是基于 `int` 的索引器（包括任何 `ref` 样式批注）的返回类型。 新成员将具有与 `int` 索引器匹配的可访问性 `set` 成员 `get` 和。 
 
 通过将类型 `Index` 的参数转换为 `int` 并发出对基于 `int` 的索引器的调用来实现新的索引器。 出于讨论目的，我们使用 `receiver[expr]`的示例。 将 `expr` 转换为 `int` 的方式如下：
 
@@ -205,11 +205,11 @@ class SideEffect {
 - 该类型具有一个名为 `Slice` 的可访问成员，它具有两个类型为 `int`的参数。
 - 该类型没有实例索引器，该索引器使用单个 `Range` 作为第一个参数。 `Range` 必须是唯一的参数，否则剩余的参数必须是可选的。
 
-对于这种类型的情况，语言将绑定为，因为 `T` 是形式 `T this[Range range]` 的索引成员，其中是包含任何 `ref` 样式批注的 `Slice` 方法的返回类型。 新成员还将具有与 `Slice`匹配的可访问性。 
+对于这种类型的情况，语言将绑定为，因为 `T` 是窗体 `T this[Range range]` 的索引器成员，其中是 `Slice` 方法的返回类型，其中包括任何 `ref` 样式批注。 新成员还将具有与 `Slice`匹配的可访问性。 
 
 在名为 `receiver`的表达式上绑定基于 `Range` 的索引器时，会将 `Range` 表达式转换为两个值，然后将这些值传递给 `Slice` 方法，从而降低。 出于讨论目的，我们使用 `receiver[expr]`的示例。
 
-将通过以下方式转换类型化表达式来获取 `Slice` 的第一个参数：
+将通过以下方式转换范围类型化表达式来获取 `Slice` 的第一个参数：
 
 - 如果 `expr` 的格式为 `expr1..expr2` （其中可以省略 `expr2`），并且 `expr1` 的类型为 `int`，则会将其作为 `expr1`发出。
 - 当 `expr` 格式为 `^expr1..expr2` （其中 `expr2` 可以省略）时，它将作为 `receiver.Length - expr1`发出。
@@ -223,7 +223,7 @@ class SideEffect {
 - 当 `expr` 格式为 `expr1..` （其中 `expr1` 可以省略）时，它将作为 `receiver.Length - start`发出。
 - 否则，它将作为 `expr.End.GetOffset(receiver.Length) - start`发出。
 
-将对 `receiver`、`Length` 和 `expr` 表达式进行适当的溢出，以确保只执行一次任何副作用。 例如：
+将对 `receiver`、`Length`和 `expr` 表达式进行适当的溢出，以确保只执行一次副作用。 例如：
 
 ``` csharp
 class Collection {
