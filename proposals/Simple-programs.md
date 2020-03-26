@@ -1,10 +1,10 @@
 ---
-ms.openlocfilehash: b9697fc1d772ba59ed3b1de339a5a3d4eb24b1bd
-ms.sourcegitcommit: 36b028f4d6e88bd7d4a843c6d384d1b63cc73334
+ms.openlocfilehash: 54ae4ffabde6dca49b7e6bfb626d65837eabc8f5
+ms.sourcegitcommit: 1e1c7c72b156e2fbc54d6d6ac8d21bca9934d8d2
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/19/2020
-ms.locfileid: "79484116"
+ms.lasthandoff: 03/26/2020
+ms.locfileid: "80281939"
 ---
 # <a name="simple-programs"></a>简单程序
 
@@ -50,18 +50,16 @@ compilation_unit
     ;
 ```
 
-除了一个*compilation_unit*语句中，*语句*必须全部为本地函数声明。 
+只允许一个*compilation_unit*具有*语句*。 
 
 示例：
 
 ``` c#
-// File 1 - any statements
-if (args.Length == 0
-    || !int.TryParse(args[0], out int n)
+if (System.Environment.CommandLine.Length == 0
+    || !int.TryParse(System.Environment.CommandLine, out int n)
     || n < 0) return;
 Console.WriteLine(Fib(n).curr);
 
-// File 2 - only local functions
 (int curr, int prev) Fib(int i)
 {
     if (i == 0) return (1, 0);
@@ -79,18 +77,14 @@ static class Program
 {
     static async Task Main()
     {
-        // File 1 statements
-        // File 2 local functions
-        // ...
+        // statements
     }
 }
 ```
 
 请注意，名称 "Program" 和 "Main" 仅用于说明，编译器使用的实际名称是依赖实现的，并且类型和方法都不能从源代码中按名称引用。
 
-方法被指定为程序的入口点。 按照约定可将显式声明的方法视为忽略入口点候选项。 出现这种情况时，会报告警告。 指定 `-main:<type>` 编译器开关是错误的。
-
-如果任何一个编译单元包含局部函数声明以外的语句，则将首先执行该编译单元中的语句。 这会使一个文件中的本地函数合法地引用另一个文件中的局部变量。 其他编译单元的语句发布顺序（完全是本地函数）未定义。
+方法被指定为程序的入口点。 按照约定可将显式声明的方法视为忽略入口点候选项。 出现这种情况时，会报告警告。 如果存在顶级语句，则指定 `-main:<type>` 编译器开关是错误的。
 
 在顶级语句中允许使用异步操作，使其能够在常规异步入口点方法中的语句中使用。 但是，它们不是必需的，如果省略 `await` 表达式和其他异步操作，则不会生成任何警告。 相反，生成的入口点方法的签名等效于 
 ``` c#
@@ -104,13 +98,11 @@ static class $Program
 {
     static void $Main()
     {
-        // Statements from File 1
-        if (args.Length == 0
-            || !int.TryParse(args[0], out int n)
+        if (System.Environment.CommandLine.Length == 0
+            || !int.TryParse(System.Environment.CommandLine, out int n)
             || n < 0) return;
         Console.WriteLine(Fib(n).curr);
         
-        // Local functions from File 2
         (int curr, int prev) Fib(int i)
         {
             if (i == 0) return (1, 0);
@@ -123,7 +115,6 @@ static class $Program
 
 同时，示例如下所示：
 ``` c#
-// File 1
 await System.Threading.Tasks.Task.Delay(1000);
 System.Console.WriteLine("Hi!");
 ```
@@ -134,7 +125,6 @@ static class $Program
 {
     static async Task $Main()
     {
-        // Statements from File 1
         await System.Threading.Tasks.Task.Delay(1000);
         System.Console.WriteLine("Hi!");
     }
@@ -143,7 +133,7 @@ static class $Program
 
 ### <a name="scope-of-top-level-local-variables-and-local-functions"></a>顶层本地变量和本地函数的作用域
 
-即使顶层本地变量和函数被 "包装" 到生成的入口点方法中，它们仍应在整个程序中处于范围内。
+即使顶级局部变量和函数被 "包装" 到生成的入口点方法中，它们仍应在每个编译单元中的整个程序范围内。
 出于简单名称计算的目的，一旦达到全局命名空间即可：
 - 首先，尝试在生成的入口点方法中计算名称，并且仅在此尝试失败时进行计算 
 - 全局命名空间声明中的 "常规" 计算是执行的。 

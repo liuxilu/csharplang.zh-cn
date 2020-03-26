@@ -1,10 +1,10 @@
 ---
-ms.openlocfilehash: 25756c1811d5e6dc97512ce70f99ab7fefa91c4a
-ms.sourcegitcommit: 2a6dffb60718065ece95df75e1cc7eb509e48a8d
+ms.openlocfilehash: 258ae6865c5b2c3103a0cdf7e1e5a2cdee11e740
+ms.sourcegitcommit: 1e1c7c72b156e2fbc54d6d6ac8d21bca9934d8d2
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/01/2020
-ms.locfileid: "79484128"
+ms.lasthandoff: 03/26/2020
+ms.locfileid: "80281952"
 ---
 # <a name="records-work-in-progress"></a>记录正在进行的工作
 
@@ -78,3 +78,31 @@ struct_body
 ```C#
 override Equals(object o) => Equals(o as T);
 ```
+
+## <a name="with-expression"></a>`with` 表达式
+
+`with` 表达式是使用以下语法的新表达式。
+
+```antlr
+with_expression
+    : switch_expression
+    | switch_expression 'with' anonymous_object_initializer
+```
+
+`with` 表达式可实现 "非破坏性转变"，旨在生成接收方表达式副本，并对 `anonymous_object_initializer`中列出的属性进行修改。
+
+有效的 `with` 表达式具有非 void 类型的接收方。 接收方类型必须包含一个名为 `With` 的可访问实例方法，该方法具有适当的参数和返回类型。 如果有多个非重写 `With` 方法，则是错误的。 如果有多个 `With` 重写，则必须有一个非重写 `With` 方法，该方法是目标方法。 否则，必须只有一个 `With` 方法。
+
+`with` 表达式的右侧是一个具有一系列赋值的 `anonymous_object_initializer`，该分配的左侧带有接收方的一个字段或属性，而右侧的任意表达式都可以隐式转换为左侧的类型，这是一个可隐式转换的类型。
+
+给定目标 `With` 方法时，返回类型必须是接收方表达式类型的类型或其基类型。 对于 `With` 方法的每个参数，对于具有相同名称和相同类型的接收器类型，必须具有可访问的对应实例字段或可读属性。 With 表达式的右侧的每个属性或字段也必须对应于 `With` 方法中具有相同名称的参数。
+
+给定有效 `With` 方法，`with` 表达式的计算等效于使用 `anonymous_object_initializer` 中的表达式调用 `With` 方法，该方法将替换为与左侧属性相同的参数。 如果 `anonymous_object_initializer`中给定参数没有匹配的属性，则该参数是对接收方上的相同名称的字段或属性的计算。
+
+副作用的计算顺序如下所示，每个表达式只计算一次：
+
+1. 接收器表达式
+
+2. `anonymous_object_initializer`中的表达式，按词法顺序排列
+
+3. 与 `With` 方法参数匹配的任何属性的计算，按 `With` 方法参数的定义顺序进行。

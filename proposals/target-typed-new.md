@@ -1,10 +1,10 @@
 ---
-ms.openlocfilehash: 07b4afe4a3fcbf10c978f05e642dfd8a47d53ea5
-ms.sourcegitcommit: 194a043db72b9244f8db45db326cc82de6cec965
+ms.openlocfilehash: f000dda7eeb1c4f17c26f94c326a12a9d0014288
+ms.sourcegitcommit: 1e1c7c72b156e2fbc54d6d6ac8d21bca9934d8d2
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 03/24/2020
-ms.locfileid: "80217198"
+ms.lasthandoff: 03/26/2020
+ms.locfileid: "80281965"
 ---
 
 # <a name="target-typed-new-expressions"></a>目标类型 `new` 表达式
@@ -39,37 +39,27 @@ XmlReader.Create(reader, new() { IgnoreWhitespace = true });
 private readonly static object s_syncObj = new();
 ```
 
-## <a name="detailed-design"></a>详细设计
+## <a name="specification"></a>规格
 [design]: #detailed-design
 
-在出现括号时，将修改*object_creation_expression*语法，使*类型*成为可选的。 这是解决*anonymous_object_creation_expression*的多义性所必需的。
+接受新的句法窗体，其中的*类型*为可选项*target_typed_new* *object_creation_expression* 。
+
 ```antlr
 object_creation_expression
-    : 'new' type? '(' argument_list? ')' object_or_collection_initializer?
+    : 'new' type '(' argument_list? ')' object_or_collection_initializer?
     | 'new' type object_or_collection_initializer
+    | target_typed_new
+    ;
+target_typed_new
+    : 'new' '(' argument_list? ')' object_or_collection_initializer?
     ;
 ```
 
-目标类型 `new` 可转换为任何类型。 因此，它不会导致重载决策。 这主要是为了避免意外的重大更改。
+*Target_typed_new*表达式没有类型。 但是，存在一个新的*对象创建转换*，它是从表达式到每个类型的*target_typed_new*的隐式转换。
 
-参数列表和初始值设定项表达式将在确定类型后进行绑定。
+给定目标类型 `T`，如果 `T` 是 `System.Nullable`的实例，则类型 `T0` 是 `T`的基础类型。 否则 `T0` `T`。 转换为类型 `T` *target_typed_new*表达式的含义与指定 `T0` 作为类型的相应*object_creation_expression*的含义相同。
 
-表达式的类型将从目标类型推断而来，这需要是以下类型之一：
-
-- **任何结构类型**（包括元组类型）
-- **任何引用类型**（包括委托类型）
-- 具有构造函数或 `struct` 约束的**任何类型参数**
-
-但有以下例外：
-
-- **枚举类型：** 并非所有枚举类型都包含常量零，因此应使用显式枚举成员。
-- **接口类型：** 这是一项小型功能，应更好地显式提及该类型。
-- **数组类型：** 数组需要一个特殊的语法来提供长度。
-- **动态：** 我们不允许 `new dynamic()`，因此不允许 `new()` `dynamic` 作为目标类型。
-
-还会排除*object_creation_expression*中不允许的所有其他类型，例如，指针类型。
-
-如果目标类型是可以为 null 的值类型，则目标类型 `new` 将转换为基础类型而不是可以为 null 的类型。
+如果*target_typed_new*用作一元运算符或二元运算符的操作数，或者如果在不受*对象创建转换*的情况下使用，则会发生编译时错误。
 
 > **打开问题：** 我们是否应允许委托和元组作为目标类型？
 
@@ -78,19 +68,25 @@ object_creation_expression
 (int a, int b) t = new(1, 2); // "new" is redundant
 Action a = new(() => {}); // "new" is redundant
 
-(int a, int b) t = new(); // ruled out by "use of struct default constructor"
+(int a, int b) t = new(); // OK; same as (0, 0)
 Action a = new(); // no constructor found
 ```
 
 ### <a name="miscellaneous"></a>杂项
 
-不允许 `throw new()`。
+下面是该规范的结果：
 
-不允许将目标类型 `new` 与二元运算符一起使用。
-
-当没有目标类型时，不允许使用该方法：一元运算符、`foreach`的集合在 `using`中，在析构中，在 `await` 表达式中作为匿名类型属性（`new { Prop = new() }`），在 `lock` 语句中，在 `sizeof`中，在 `fixed` 语句中，在成员访问（`new().field`）中，在 LINQ 查询中，作为`someDynamic.Method(new())`运算符的操作数，作为 `is` 运算符的左操作数。,  ...`??`
-
-它也不允许作为 `ref`。
+- 允许 `throw new()` （目标类型为 `System.Exception`）
+- 不允许将目标类型 `new` 与二元运算符一起使用。
+- 当没有目标类型时，不允许使用该方法：一元运算符、`foreach`的集合在 `using`中，在析构中，在 `await` 表达式中作为匿名类型属性（`new { Prop = new() }`），在 `lock` 语句中，在 `sizeof`中，在 `fixed` 语句中，在成员访问（`new().field`）中，在 LINQ 查询中，作为`someDynamic.Method(new())`运算符的操作数，作为 `is` 运算符的左操作数。,  ...`??`
+- 它也不允许作为 `ref`。
+- 不允许将以下类型作为转换的目标
+  - **枚举类型：** `new()` 将起作用（因为 `new Enum()` 可以给出默认值），但 `new(1)` 不能使用，因为枚举类型没有构造函数。
+  - **接口类型：** 它的工作方式与 COM 类型对应的创建表达式相同。
+  - **数组类型：** 数组需要一个特殊的语法来提供长度。    
+  - **动态：** 我们不允许 `new dynamic()`，因此不允许 `new()` `dynamic` 作为目标类型。
+  - **元组：** 它们与使用基础类型创建对象的含义相同。
+  - 还会排除*object_creation_expression*中不允许的所有其他类型，例如，指针类型。   
 
 ## <a name="drawbacks"></a>缺点
 [drawbacks]: #drawbacks
@@ -116,3 +112,4 @@ Action a = new(); // no constructor found
 - [LDM-2018-06-25](https://github.com/dotnet/csharplang/blob/master/meetings/2018/LDM-2018-06-25.md)
 - [LDM-2018-08-22](https://github.com/dotnet/csharplang/blob/master/meetings/2018/LDM-2018-08-22.md#target-typed-new)
 - [LDM-2018-10-17](https://github.com/dotnet/csharplang/blob/master/meetings/2018/LDM-2018-10-17.md)
+- [LDM-2020-03-25](https://github.com/dotnet/csharplang/blob/master/meetings/2020/LDM-2020-03-25.md)
