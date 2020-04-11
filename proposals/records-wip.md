@@ -1,10 +1,10 @@
 ---
-ms.openlocfilehash: e29f453eb33e06fb3c84fb542d8b74223af9b975
-ms.sourcegitcommit: 7f0c8e4eac7afe75e4f312f54a554614384cd06b
+ms.openlocfilehash: 1fb1f3b9025d65cb39f675e60bae1cb6415fc184
+ms.sourcegitcommit: 88202acd40ca04b6e513ea1e5993625ee26fac3f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/08/2020
-ms.locfileid: "80870977"
+ms.lasthandoff: 04/11/2020
+ms.locfileid: "81219623"
 ---
 # <a name="records-work-in-progress"></a>记录正在进行的工作
 
@@ -89,18 +89,8 @@ with_expression
 
 表达式`with`允许"非破坏性突变"，旨在生成接收方表达式的副本，并修改 中列出的属性`anonymous_object_initializer`。
 
-有效的`with`表达式具有非 void 类型的接收器。 接收方类型必须包含使用适当的参数和返回`With`类型调用的可访问实例方法。 如果存在多个非重写`With`方法，则为错误。 如果有多个`With`重写，则必须有一个非重写`With`方法，即目标方法。 否则，必须有一种方法`With`。
+有效的`with`表达式具有非 void 类型的接收器。 接收方类型必须包含一个可访问的无参数实例`Clone`方法，称为其返回类型必须是接收方快递类型的类型或其基类型。
 
-`with`表达式的右侧是一个`anonymous_object_initializer`赋值序列，赋值左侧具有接收方的字段或属性，右侧的任意表达式隐式转换为左侧的类型。
+`with`表达式的右侧是具有`anonymous_object_initializer`一系列赋值的赋值，在赋值的左侧具有编译器生成的接收方的记录属性，右侧的任意表达式隐式转换为左侧的类型。
 
-给定目标`With`方法，返回类型必须是接收方表达式类型的类型或其基类型。 对于方法的每个参数，`With`必须具有具有相同名称和相同类型的接收方类型上的可访问对应实例字段或可读属性。 "给"表达式右侧的每个属性或字段还必须对应于`With`方法中同名的参数。
-
-给定一个`With`有效方法，`with`表达式的计算等效于调用`With`方法，用 中的表达式`anonymous_object_initializer`替换与左侧的属性同名的参数。 如果 中给定参数`anonymous_object_initializer`没有匹配属性，则参数是计算接收器上同名的字段或属性。
-
-副作用评估的顺序如下，每个表达式精确计算一次：
-
-1. 接收方表达式
-
-2. 中的`anonymous_object_initializer`表达式，按词法顺序排列
-
-3. 按`With``With`方法参数定义顺序计算与方法参数匹配的任何属性。
+`with`表达式的计算相当于精确调用`Clone`该方法一次，然后使用`Clone`该方法的结果作为接收方，按词法顺序将参数列表中每个记录属性的背衬字段设置为相应的表达式。
