@@ -1,10 +1,10 @@
 ---
-ms.openlocfilehash: 9e7059b579060e547e4665ac50518581fe3512e6
-ms.sourcegitcommit: 52624f54c0ad99a4d659fe4e2560a472be795c49
+ms.openlocfilehash: e5ab385f498c0d96c55e60751bb204e7217f6eab
+ms.sourcegitcommit: 95f5f86ba2e2a23cd4fb37bd9d1ff690c83d1191
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/10/2020
-ms.locfileid: "81005699"
+ms.lasthandoff: 04/21/2020
+ms.locfileid: "81646688"
 ---
 # <a name="function-pointers"></a>函数指针
 
@@ -238,6 +238,26 @@ unsafe class Util {
 > A`delegate*`比`void*`
 
 这意味着可以重载`void*`和 和 仍然`delegate*`明智地使用运算符的地址。
+
+## <a name="metadata-representation-of-in-out-and-ref-readonly-parameters-and-return-types"></a>的元数据表示形式，`ref readonly`和 参数和返回类型`out``in`
+
+函数指针签名没有参数标志位置，因此我们必须编码参数和返回类型是`in`，`out`还是`ref readonly`使用 modreqs。
+
+### `in`
+
+我们重用`System.Runtime.InteropServices.InAttribute`，作为`modreq`引用指定器应用于参数或返回类型，表示以下内容：
+* 如果应用于参数引用指定器，则此参数将被视为`in`。
+* 如果应用于返回类型 ref 指定器，则返回类型将被视为`ref readonly`。
+
+### `out`
+
+我们使用`System.Runtime.InteropServices.OutAttribute`、作为`modreq`应用于参数类型的 ref 指定器，表示参数是`out`参数。
+
+### <a name="errors"></a>错误
+
+* 将 modreq`OutAttribute`应用于返回类型是错误的。
+* 将两者`InAttribute`以及`OutAttribute`作为 modreq 应用于参数类型是错误的。
+* 如果通过 modopt 指定任一，则忽略它们。
 
 ## <a name="open-issues"></a>Open Issues
 
