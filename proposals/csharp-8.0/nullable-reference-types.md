@@ -1,69 +1,69 @@
 ---
-ms.openlocfilehash: ecdad8c863d0695bc901e4d96d9ca3decbc248eb
-ms.sourcegitcommit: 94a3d151c438d34ede1d99de9eb4ebdc07ba4699
+ms.openlocfilehash: 54f9a372ca0329a284f06876f544e0b4936af02a
+ms.sourcegitcommit: 356ee04506a2a82292be25d7b029e7ce2a39e63a
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/25/2019
-ms.locfileid: "79483594"
+ms.lasthandoff: 04/22/2020
+ms.locfileid: "82037397"
 ---
-# <a name="nullable-reference-types-in-c"></a><span data-ttu-id="bbb66-101">中的可以为 null 的引用类型C#</span><span class="sxs-lookup"><span data-stu-id="bbb66-101">Nullable reference types in C#</span></span> #
+# <a name="nullable-reference-types-in-c"></a><span data-ttu-id="5cfee-101">C 中的空引用类型#</span><span class="sxs-lookup"><span data-stu-id="5cfee-101">Nullable reference types in C#</span></span> #
 
-<span data-ttu-id="bbb66-102">此功能的目标是：</span><span class="sxs-lookup"><span data-stu-id="bbb66-102">The goal of this feature is to:</span></span>
+<span data-ttu-id="5cfee-102">此功能的目标是：</span><span class="sxs-lookup"><span data-stu-id="5cfee-102">The goal of this feature is to:</span></span>
 
-* <span data-ttu-id="bbb66-103">允许开发人员表达引用类型的变量、参数或结果是否应为空。</span><span class="sxs-lookup"><span data-stu-id="bbb66-103">Allow developers to express whether a variable, parameter or result of a reference type is intended to be null or not.</span></span>
-* <span data-ttu-id="bbb66-104">当不根据此目的使用此类变量、参数和结果时提供警告。</span><span class="sxs-lookup"><span data-stu-id="bbb66-104">Provide warnings when such variables, parameters and results are not used according to that intent.</span></span>
+* <span data-ttu-id="5cfee-103">允许开发人员表示引用类型的变量、参数或结果是否为空。</span><span class="sxs-lookup"><span data-stu-id="5cfee-103">Allow developers to express whether a variable, parameter or result of a reference type is intended to be null or not.</span></span>
+* <span data-ttu-id="5cfee-104">当此类变量、参数和结果未按照该意图使用时，提供警告。</span><span class="sxs-lookup"><span data-stu-id="5cfee-104">Provide warnings when such variables, parameters and results are not used according to that intent.</span></span>
 
-## <a name="expression-of-intent"></a><span data-ttu-id="bbb66-105">意向表达式</span><span class="sxs-lookup"><span data-stu-id="bbb66-105">Expression of intent</span></span>
+## <a name="expression-of-intent"></a><span data-ttu-id="5cfee-105">意向表达</span><span class="sxs-lookup"><span data-stu-id="5cfee-105">Expression of intent</span></span>
 
-<span data-ttu-id="bbb66-106">该语言已包含值类型的 `T?` 语法。</span><span class="sxs-lookup"><span data-stu-id="bbb66-106">The language already contains the `T?` syntax for value types.</span></span> <span data-ttu-id="bbb66-107">向引用类型扩展此语法非常简单。</span><span class="sxs-lookup"><span data-stu-id="bbb66-107">It is straightforward to extend this syntax to reference types.</span></span>
+<span data-ttu-id="5cfee-106">语言已包含值类型的`T?`语法。</span><span class="sxs-lookup"><span data-stu-id="5cfee-106">The language already contains the `T?` syntax for value types.</span></span> <span data-ttu-id="5cfee-107">将此语法扩展到引用类型非常简单。</span><span class="sxs-lookup"><span data-stu-id="5cfee-107">It is straightforward to extend this syntax to reference types.</span></span>
 
-<span data-ttu-id="bbb66-108">假设未修饰引用类型 `T` 的目的是将其视为非 null。</span><span class="sxs-lookup"><span data-stu-id="bbb66-108">It is assumed that the intent of an unadorned reference type `T` is for it to be non-null.</span></span>
+<span data-ttu-id="5cfee-108">假定未修饰引用类型`T`的意图是将其为非 null。</span><span class="sxs-lookup"><span data-stu-id="5cfee-108">It is assumed that the intent of an unadorned reference type `T` is for it to be non-null.</span></span>
 
-## <a name="checking-of-nullable-references"></a><span data-ttu-id="bbb66-109">检查可以为 null 的引用</span><span class="sxs-lookup"><span data-stu-id="bbb66-109">Checking of nullable references</span></span>
+## <a name="checking-of-nullable-references"></a><span data-ttu-id="5cfee-109">检查可取消的引用</span><span class="sxs-lookup"><span data-stu-id="5cfee-109">Checking of nullable references</span></span>
 
-<span data-ttu-id="bbb66-110">流分析跟踪可以为 null 的引用变量。</span><span class="sxs-lookup"><span data-stu-id="bbb66-110">A flow analysis tracks nullable reference variables.</span></span> <span data-ttu-id="bbb66-111">如果分析认为它们不会为 null （例如，在检查或分配之后），则将其值视为非空引用。</span><span class="sxs-lookup"><span data-stu-id="bbb66-111">Where the analysis deems that they would not be null (e.g. after a check or an assignment), their value will be considered a non-null reference.</span></span>
+<span data-ttu-id="5cfee-110">流分析跟踪可无值引用变量。</span><span class="sxs-lookup"><span data-stu-id="5cfee-110">A flow analysis tracks nullable reference variables.</span></span> <span data-ttu-id="5cfee-111">如果分析认为它们不为空（例如，在检查或分配之后），其值将被视为非空引用。</span><span class="sxs-lookup"><span data-stu-id="5cfee-111">Where the analysis deems that they would not be null (e.g. after a check or an assignment), their value will be considered a non-null reference.</span></span>
 
-<span data-ttu-id="bbb66-112">如果流分析无法建立开发人员知道的非空情况，则可以使用后缀 `x!` 运算符（"dammit" 运算符）将可为 null 的引用显式视为非 null。</span><span class="sxs-lookup"><span data-stu-id="bbb66-112">A nullable reference can also explicitly be treated as non-null with the postfix `x!` operator (the "dammit" operator), for when flow analysis cannot establish a non-null situation that the developer knows is there.</span></span>
+<span data-ttu-id="5cfee-112">对于流分析无法建立开发人员知道存在的非空情况时，可以使用后修复`x!`运算符（"damnit"运算符）显式将空引用视为非空引用。</span><span class="sxs-lookup"><span data-stu-id="5cfee-112">A nullable reference can also explicitly be treated as non-null with the postfix `x!` operator (the "damnit" operator), for when flow analysis cannot establish a non-null situation that the developer knows is there.</span></span>
 
-<span data-ttu-id="bbb66-113">否则，如果取消引用可为 null 的引用或者将其转换为非 null 类型，则会发出警告。</span><span class="sxs-lookup"><span data-stu-id="bbb66-113">Otherwise, a warning is given if a nullable reference is dereferenced, or is converted to a non-null type.</span></span>
+<span data-ttu-id="5cfee-113">否则，如果取消引用的空引用或转换为非空类型，则发出警告。</span><span class="sxs-lookup"><span data-stu-id="5cfee-113">Otherwise, a warning is given if a nullable reference is dereferenced, or is converted to a non-null type.</span></span>
 
-<span data-ttu-id="bbb66-114">从 `S[]` 转换到 `T?[]` 以及从 `S?[]` 转换到 `T[]`时，将发出警告。</span><span class="sxs-lookup"><span data-stu-id="bbb66-114">A warning is given when converting from `S[]` to `T?[]` and from `S?[]` to `T[]`.</span></span>
+<span data-ttu-id="5cfee-114">从`S[]`转换到`T?[]`和`S?[]`时，将发出警告。 `T[]`</span><span class="sxs-lookup"><span data-stu-id="5cfee-114">A warning is given when converting from `S[]` to `T?[]` and from `S?[]` to `T[]`.</span></span>
 
-<span data-ttu-id="bbb66-115">从 `C<S>` 转换到 `C<T?>` 时，除了类型参数是协变的（`out`）以及在从 `C<S?>` 转换为 `C<T>` 时（在类型参数为逆变（`in`）时除外），会发出警告。</span><span class="sxs-lookup"><span data-stu-id="bbb66-115">A warning is given when converting from `C<S>` to `C<T?>` except when the type parameter is covariant (`out`), and when converting from `C<S?>` to `C<T>` except when the type parameter is contravariant (`in`).</span></span>
+<span data-ttu-id="5cfee-115">`C<S>`当从`C<T?>`转换 到 ，当类型参数为协变量 （）`out`时，以及从`C<S?>`转换`C<T>`到 ，当类型参数是反变量`in`（） 时，将发出警告。</span><span class="sxs-lookup"><span data-stu-id="5cfee-115">A warning is given when converting from `C<S>` to `C<T?>` except when the type parameter is covariant (`out`), and when converting from `C<S?>` to `C<T>` except when the type parameter is contravariant (`in`).</span></span>
 
-<span data-ttu-id="bbb66-116">如果类型参数具有非 null 约束，则 `C<T?>` 上提供警告。</span><span class="sxs-lookup"><span data-stu-id="bbb66-116">A warning is given on `C<T?>` if the type parameter has non-null constraints.</span></span> 
+<span data-ttu-id="5cfee-116">`C<T?>`如果类型参数具有非 null 约束，则发出警告。</span><span class="sxs-lookup"><span data-stu-id="5cfee-116">A warning is given on `C<T?>` if the type parameter has non-null constraints.</span></span>
 
-## <a name="checking-of-non-null-references"></a><span data-ttu-id="bbb66-117">检查非空引用</span><span class="sxs-lookup"><span data-stu-id="bbb66-117">Checking of non-null references</span></span>
+## <a name="checking-of-non-null-references"></a><span data-ttu-id="5cfee-117">检查非空引用</span><span class="sxs-lookup"><span data-stu-id="5cfee-117">Checking of non-null references</span></span>
 
-<span data-ttu-id="bbb66-118">如果将 null 文本分配给非 null 变量或作为非 null 参数传递，则会发出警告。</span><span class="sxs-lookup"><span data-stu-id="bbb66-118">A warning is given if a null literal is assigned to a non-null variable or passed as a non-null parameter.</span></span>
+<span data-ttu-id="5cfee-118">如果将空文本分配给非空变量或作为非空参数传递，则发出警告。</span><span class="sxs-lookup"><span data-stu-id="5cfee-118">A warning is given if a null literal is assigned to a non-null variable or passed as a non-null parameter.</span></span>
 
-<span data-ttu-id="bbb66-119">如果构造函数未显式初始化非空引用字段，则还会发出警告。</span><span class="sxs-lookup"><span data-stu-id="bbb66-119">A warning is also given if a constructor does not explicitly initialize non-null reference fields.</span></span>
+<span data-ttu-id="5cfee-119">如果构造函数未显式初始化非空引用字段，也会发出警告。</span><span class="sxs-lookup"><span data-stu-id="5cfee-119">A warning is also given if a constructor does not explicitly initialize non-null reference fields.</span></span>
 
-<span data-ttu-id="bbb66-120">我们无法充分跟踪非空引用数组的所有元素是否已初始化。</span><span class="sxs-lookup"><span data-stu-id="bbb66-120">We cannot adequately track that all elements of an array of non-null references are initialized.</span></span> <span data-ttu-id="bbb66-121">但是，如果在从或传入数组之前没有将新创建的数组的元素分配给，我们可能会发出警告。</span><span class="sxs-lookup"><span data-stu-id="bbb66-121">However, we could issue a warning if no element of a newly created array is assigned to before the array is read from or passed on.</span></span> <span data-ttu-id="bbb66-122">这可能会处理常见情况，而不会干扰。</span><span class="sxs-lookup"><span data-stu-id="bbb66-122">That might handle the common case without being too noisy.</span></span>
+<span data-ttu-id="5cfee-120">我们无法充分跟踪非空引用数组的所有元素是否初始化。</span><span class="sxs-lookup"><span data-stu-id="5cfee-120">We cannot adequately track that all elements of an array of non-null references are initialized.</span></span> <span data-ttu-id="5cfee-121">但是，如果在读取或传递数组之前未分配新创建的数组的元素，我们可以发出警告。</span><span class="sxs-lookup"><span data-stu-id="5cfee-121">However, we could issue a warning if no element of a newly created array is assigned to before the array is read from or passed on.</span></span> <span data-ttu-id="5cfee-122">这可能处理常见的情况，而不会太吵。</span><span class="sxs-lookup"><span data-stu-id="5cfee-122">That might handle the common case without being too noisy.</span></span>
 
-<span data-ttu-id="bbb66-123">我们需要决定 `default(T)` 生成警告，还是只将其视为 `T?`类型。</span><span class="sxs-lookup"><span data-stu-id="bbb66-123">We need to decide whether `default(T)` generates a warning, or is simply treated as being of the type `T?`.</span></span>
+<span data-ttu-id="5cfee-123">我们需要决定是`default(T)`生成警告，还是简单地被视为类型`T?`。</span><span class="sxs-lookup"><span data-stu-id="5cfee-123">We need to decide whether `default(T)` generates a warning, or is simply treated as being of the type `T?`.</span></span>
 
-## <a name="metadata-representation"></a><span data-ttu-id="bbb66-124">元数据表示形式</span><span class="sxs-lookup"><span data-stu-id="bbb66-124">Metadata representation</span></span>
+## <a name="metadata-representation"></a><span data-ttu-id="5cfee-124">元数据表示</span><span class="sxs-lookup"><span data-stu-id="5cfee-124">Metadata representation</span></span>
 
-<span data-ttu-id="bbb66-125">应为空性修饰在元数据中表示为属性。</span><span class="sxs-lookup"><span data-stu-id="bbb66-125">Nullability adornments should be represented in metadata as attributes.</span></span> <span data-ttu-id="bbb66-126">这意味着下层编译器将忽略它们。</span><span class="sxs-lookup"><span data-stu-id="bbb66-126">This means that downlevel compilers will ignore them.</span></span>
+<span data-ttu-id="5cfee-125">可空装饰应在元数据中表示为属性。</span><span class="sxs-lookup"><span data-stu-id="5cfee-125">Nullability adornments should be represented in metadata as attributes.</span></span> <span data-ttu-id="5cfee-126">这意味着低级编译器将忽略它们。</span><span class="sxs-lookup"><span data-stu-id="5cfee-126">This means that downlevel compilers will ignore them.</span></span>
 
-<span data-ttu-id="bbb66-127">我们需要确定是否只包含可为 null 的批注，或者程序集中是否存在非 null 的指示。</span><span class="sxs-lookup"><span data-stu-id="bbb66-127">We need to decide if only nullable annotations are included, or there's also some indication of whether non-null was "on" in the assembly.</span></span>
+<span data-ttu-id="5cfee-127">我们需要决定是否只包括空注释，或者在程序集中是否"打开"也显示非 null。</span><span class="sxs-lookup"><span data-stu-id="5cfee-127">We need to decide if only nullable annotations are included, or there's also some indication of whether non-null was "on" in the assembly.</span></span>
 
-## <a name="generics"></a><span data-ttu-id="bbb66-128">泛型</span><span class="sxs-lookup"><span data-stu-id="bbb66-128">Generics</span></span>
+## <a name="generics"></a><span data-ttu-id="5cfee-128">泛型</span><span class="sxs-lookup"><span data-stu-id="5cfee-128">Generics</span></span>
 
-<span data-ttu-id="bbb66-129">如果某个类型参数 `T` 具有不可为 null 的约束，则该类型参数在其作用域内被视为不可为 null。</span><span class="sxs-lookup"><span data-stu-id="bbb66-129">If a type parameter `T` has non-nullable constraints, it is treated as non-nullable within its scope.</span></span>
+<span data-ttu-id="5cfee-129">如果类型参数`T`具有不可取消的约束，则在其范围内将其视为不可消除。</span><span class="sxs-lookup"><span data-stu-id="5cfee-129">If a type parameter `T` has non-nullable constraints, it is treated as non-nullable within its scope.</span></span>
 
-<span data-ttu-id="bbb66-130">如果类型参数不受约束或只有可为 null 的约束，则这种情况稍微复杂一些：这意味着相应的类型参数可以*为 null，也可以是*不可为 null 的。</span><span class="sxs-lookup"><span data-stu-id="bbb66-130">If a type parameter is unconstrained or has only nullable constraints, the situation is a little more complex: this means that the corresponding type argument could be *either* nullable or non-nullable.</span></span> <span data-ttu-id="bbb66-131">在这种情况下要执行的安全操作是将类型*参数视为可以为 null 和*不可为 null，并在违反时发出警告。</span><span class="sxs-lookup"><span data-stu-id="bbb66-131">The safe thing to do in that situation is to treat the type parameter as *both* nullable and non-nullable, giving warnings when either is violated.</span></span> 
+<span data-ttu-id="5cfee-130">如果类型参数不受限制或仅具有可无约束约束，则情况会稍微复杂一些：这意味着相应的类型*参数可以是*null 的，也可以是非 null 的。</span><span class="sxs-lookup"><span data-stu-id="5cfee-130">If a type parameter is unconstrained or has only nullable constraints, the situation is a little more complex: this means that the corresponding type argument could be *either* nullable or non-nullable.</span></span> <span data-ttu-id="5cfee-131">在这种情况下，安全的做法是将类型*参数视为可*取消和不可取消，当违反任一时发出警告。</span><span class="sxs-lookup"><span data-stu-id="5cfee-131">The safe thing to do in that situation is to treat the type parameter as *both* nullable and non-nullable, giving warnings when either is violated.</span></span> 
 
-<span data-ttu-id="bbb66-132">需要考虑是否应允许显式可为 null 的引用约束。</span><span class="sxs-lookup"><span data-stu-id="bbb66-132">It is worth considering whether explicit nullable reference constraints should be allowed.</span></span> <span data-ttu-id="bbb66-133">但请注意，在某些情况下，我们无法避免将可为 null 的引用类型*隐式*作为约束（继承的约束）。</span><span class="sxs-lookup"><span data-stu-id="bbb66-133">Note, however, that we cannot avoid having nullable reference types *implicitly* be constraints in certain cases (inherited constraints).</span></span>
+<span data-ttu-id="5cfee-132">值得考虑的是，是否应允许显式空引用约束。</span><span class="sxs-lookup"><span data-stu-id="5cfee-132">It is worth considering whether explicit nullable reference constraints should be allowed.</span></span> <span data-ttu-id="5cfee-133">但是请注意，在某些情况下，我们无法避免将可隐含的引用类型*隐式*为约束（继承约束）。</span><span class="sxs-lookup"><span data-stu-id="5cfee-133">Note, however, that we cannot avoid having nullable reference types *implicitly* be constraints in certain cases (inherited constraints).</span></span>
 
-<span data-ttu-id="bbb66-134">`class` 约束为非 null。</span><span class="sxs-lookup"><span data-stu-id="bbb66-134">The `class` constraint is non-null.</span></span> <span data-ttu-id="bbb66-135">我们可以考虑 `class?` 是否应该是表示 "可以为 null 的引用类型" 的有效可为 null 的约束。</span><span class="sxs-lookup"><span data-stu-id="bbb66-135">We can consider whether `class?` should be a valid nullable constraint denoting "nullable reference type".</span></span>
+<span data-ttu-id="5cfee-134">约束`class`为非空。</span><span class="sxs-lookup"><span data-stu-id="5cfee-134">The `class` constraint is non-null.</span></span> <span data-ttu-id="5cfee-135">我们可以考虑是否应`class?`是表示"空引用类型"的有效空约束。</span><span class="sxs-lookup"><span data-stu-id="5cfee-135">We can consider whether `class?` should be a valid nullable constraint denoting "nullable reference type".</span></span>
 
-## <a name="type-inference"></a><span data-ttu-id="bbb66-136">类型推理</span><span class="sxs-lookup"><span data-stu-id="bbb66-136">Type inference</span></span>
+## <a name="type-inference"></a><span data-ttu-id="5cfee-136">类型推理</span><span class="sxs-lookup"><span data-stu-id="5cfee-136">Type inference</span></span>
 
-<span data-ttu-id="bbb66-137">在类型推理中，如果参与类型是可以为 null 的引用类型，则结果类型应为 null。</span><span class="sxs-lookup"><span data-stu-id="bbb66-137">In type inference, if a contributing type is a nullable reference type, the resulting type should be nullable.</span></span> <span data-ttu-id="bbb66-138">换句话说，非 null 是传播的。</span><span class="sxs-lookup"><span data-stu-id="bbb66-138">In other words, nullness is propagated.</span></span>
+<span data-ttu-id="5cfee-137">在类型推理中，如果贡献类型是空引用类型，则生成的类型应为空。</span><span class="sxs-lookup"><span data-stu-id="5cfee-137">In type inference, if a contributing type is a nullable reference type, the resulting type should be nullable.</span></span> <span data-ttu-id="5cfee-138">换句话说，nullin 是传播的。</span><span class="sxs-lookup"><span data-stu-id="5cfee-138">In other words, nullness is propagated.</span></span>
 
-<span data-ttu-id="bbb66-139">应考虑 `null` 文本是否为参与表达式应非 null。</span><span class="sxs-lookup"><span data-stu-id="bbb66-139">We should consider whether the `null` literal as a participating expression should contribute nullness.</span></span> <span data-ttu-id="bbb66-140">目前不是：对于值类型，它会导致错误，而对于引用类型，null 成功转换为纯类型。</span><span class="sxs-lookup"><span data-stu-id="bbb66-140">It doesn't today: for value types it leads to an error, whereas for reference types the null successfully converts to the plain type.</span></span> 
+<span data-ttu-id="5cfee-139">我们应该考虑作为参与表达式`null`的字面是否应导致无效。</span><span class="sxs-lookup"><span data-stu-id="5cfee-139">We should consider whether the `null` literal as a participating expression should contribute nullness.</span></span> <span data-ttu-id="5cfee-140">它今天不是：对于值类型，它会导致错误，而对于引用类型，null 成功转换为普通类型。</span><span class="sxs-lookup"><span data-stu-id="5cfee-140">It doesn't today: for value types it leads to an error, whereas for reference types the null successfully converts to the plain type.</span></span>
 
 ```csharp
 string? n = "world";
@@ -72,44 +72,84 @@ var y = b ? "Hello" : null; // string? or error
 var z = b ? 7 : null; // Error today, could be int?
 ```
 
-## <a name="breaking-changes"></a><span data-ttu-id="bbb66-141">重大更改</span><span class="sxs-lookup"><span data-stu-id="bbb66-141">Breaking changes</span></span>
+## <a name="null-guard-guidance"></a><span data-ttu-id="5cfee-141">空防护制导</span><span class="sxs-lookup"><span data-stu-id="5cfee-141">Null guard guidance</span></span>
 
-<span data-ttu-id="bbb66-142">非 null 警告是对现有代码的明显重大更改，并应附带有选择的机制。</span><span class="sxs-lookup"><span data-stu-id="bbb66-142">Non-null warnings are an obvious breaking change on existing code, and should be accompanied with an opt-in mechanism.</span></span>
+<span data-ttu-id="5cfee-142">作为一项功能，可无效的引用类型允许开发人员表达其意图，并在该意图与该意图相矛盾时通过流分析发出警告。</span><span class="sxs-lookup"><span data-stu-id="5cfee-142">As a feature, nullable reference types allow developers to express their intent, and provide warnings through flow analysis if that intent is contradicted.</span></span> <span data-ttu-id="5cfee-143">对于是否有必要进行零空防护，存在一个常见的问题。</span><span class="sxs-lookup"><span data-stu-id="5cfee-143">There is a common question as to whether or not null guards are necessary.</span></span>
 
-<span data-ttu-id="bbb66-143">不太明显，可以为 null 的类型的警告（如上所述）在可为 null 性为隐式的某些情况下，对现有代码进行重大更改：</span><span class="sxs-lookup"><span data-stu-id="bbb66-143">Less obviously, warnings from nullable types (as described above) are a breaking change on existing code in certain scenarios where the nullability is implicit:</span></span>
+### <a name="example-of-null-guard"></a><span data-ttu-id="5cfee-144">空防护示例</span><span class="sxs-lookup"><span data-stu-id="5cfee-144">Example of null guard</span></span>
 
-* <span data-ttu-id="bbb66-144">不受约束的类型参数将被视为隐式的，因此将其分配给 `object` 或访问，例如 `ToString` 将产生警告。</span><span class="sxs-lookup"><span data-stu-id="bbb66-144">Unconstrained type parameters will be treated as implicitly nullable, so assigning them to `object` or accessing e.g. `ToString` will yield warnings.</span></span>
-* <span data-ttu-id="bbb66-145">如果类型推理从 `null` 表达式推断出非 null，则现有代码有时会产生可为 null 的类型，而不是不可为 null 的类型，这可能会导致新的警告。</span><span class="sxs-lookup"><span data-stu-id="bbb66-145">if type inference infers nullness from `null` expressions, then existing code will sometimes yield nullable rather than non-nullable types, which can lead to new warnings.</span></span>
+```csharp
+public void DoWork(Worker worker)
+{
+    // Guard against worker being null
+    if (worker is null)
+    {
+        throw new ArgumentNullException(nameof(worker));
+    }
 
-<span data-ttu-id="bbb66-146">因此，可以为 null 的警告也需要是可选的</span><span class="sxs-lookup"><span data-stu-id="bbb66-146">So nullable warnings also need to be optional</span></span>
+    // Otherwise use worker argument
+}
+```
 
-<span data-ttu-id="bbb66-147">最后，将批注添加到现有 API 将是在升级库时选择了警告的用户的重大更改。</span><span class="sxs-lookup"><span data-stu-id="bbb66-147">Finally, adding annotations to an existing API will be a breaking change to users who have opted in to warnings, when they upgrade the library.</span></span> <span data-ttu-id="bbb66-148">这也可以选择加入或退出。"我想修复 bug，但未准备好处理其新注释"</span><span class="sxs-lookup"><span data-stu-id="bbb66-148">This, too, merits the ability to opt in or out. "I want the bug fixes, but I am not ready to deal with their new annotations"</span></span>
+<span data-ttu-id="5cfee-145">在前面的示例中，函数`DoWork`接受 和`Worker`，防止它可能是 。 `null`</span><span class="sxs-lookup"><span data-stu-id="5cfee-145">In the previous example, the `DoWork` function accepts a `Worker` and guards against it potentially being `null`.</span></span> <span data-ttu-id="5cfee-146">如果`worker`参数为`null`，则`DoWork`函数将`throw`。</span><span class="sxs-lookup"><span data-stu-id="5cfee-146">If the `worker` argument is `null`, the `DoWork` function will `throw`.</span></span> <span data-ttu-id="5cfee-147">对于可 null 引用类型，上一示例中的代码使`Worker`参数的用意*不是*`null`。</span><span class="sxs-lookup"><span data-stu-id="5cfee-147">With nullable reference types, the code in the previous example makes the intent that the `Worker` parameter would *not* be `null`.</span></span> <span data-ttu-id="5cfee-148">如果`DoWork`函数是公共 API（如 NuGet 包或共享库），则作为指南，应保留空防护装置。</span><span class="sxs-lookup"><span data-stu-id="5cfee-148">If the `DoWork` function was a public API, such as a NuGet package or a shared library - as guidance you should leave null guards in place.</span></span> <span data-ttu-id="5cfee-149">作为公共 API，呼叫者不传递`null`的唯一保证是防止它。</span><span class="sxs-lookup"><span data-stu-id="5cfee-149">As a public API, the only guarantee that a caller isn't passing `null` is to guard against it.</span></span>
 
-<span data-ttu-id="bbb66-149">总之，你需要能够选择加入/退出：</span><span class="sxs-lookup"><span data-stu-id="bbb66-149">In summary, you need to be able to opt in/out of:</span></span>
-* <span data-ttu-id="bbb66-150">可以为 null 的警告</span><span class="sxs-lookup"><span data-stu-id="bbb66-150">Nullable warnings</span></span>
-* <span data-ttu-id="bbb66-151">非 null 警告</span><span class="sxs-lookup"><span data-stu-id="bbb66-151">Non-null warnings</span></span>
-* <span data-ttu-id="bbb66-152">其他文件中的批注警告</span><span class="sxs-lookup"><span data-stu-id="bbb66-152">Warnings from annotations in other files</span></span>
+### <a name="express-intent"></a><span data-ttu-id="5cfee-150">明确意图</span><span class="sxs-lookup"><span data-stu-id="5cfee-150">Express intent</span></span>
 
-<span data-ttu-id="bbb66-153">选择的粒度建议使用类似于分析器的模型，在该模型中，大量的代码可以选择使用杂注，而用户可以选择严重级别。</span><span class="sxs-lookup"><span data-stu-id="bbb66-153">The granularity of the opt-in suggests an analyzer-like model, where swaths of code can opt in and out with pragmas and severity levels can be chosen by the user.</span></span> <span data-ttu-id="bbb66-154">此外，每个库选项（"从 JSON.NET 中忽略批注，直到我准备好处理"）可以在代码中作为属性来表达。</span><span class="sxs-lookup"><span data-stu-id="bbb66-154">Additionally, per-library options ("ignore the annotations from JSON.NET until I'm ready to deal with the fall out") may be expressible in code as attributes.</span></span>
+<span data-ttu-id="5cfee-151">在前面的例子中更令人信服的用法是表示`Worker`参数可以是`null`，从而使空保护更合适。</span><span class="sxs-lookup"><span data-stu-id="5cfee-151">A more compelling use of the previous example is to express that the `Worker` parameter could be `null`, thus making the null guard more appropriate.</span></span> <span data-ttu-id="5cfee-152">如果在下面的示例中删除了 null 保护，编译器将警告您可能正在取消引用 null。</span><span class="sxs-lookup"><span data-stu-id="5cfee-152">If you remove the null guard in the following example, the compiler warns that you may be dereferencing null.</span></span> <span data-ttu-id="5cfee-153">不管怎样，两个空防护仍然有效。</span><span class="sxs-lookup"><span data-stu-id="5cfee-153">Regardless, both null guards are still valid.</span></span>
 
-<span data-ttu-id="bbb66-155">选择加入/过渡体验的设计对于此功能的成功和有用性至关重要。</span><span class="sxs-lookup"><span data-stu-id="bbb66-155">The design of the opt-in/transition experience is crucial to the success and usefulness of this feature.</span></span> <span data-ttu-id="bbb66-156">我们需要确保：</span><span class="sxs-lookup"><span data-stu-id="bbb66-156">We need to make sure that:</span></span>
+```csharp
+public void DoWork(Worker? worker)
+{
+    // Guard against worker being null
+    if (worker is null)
+    {
+        throw new ArgumentNullException(nameof(worker));
+    }
 
-* <span data-ttu-id="bbb66-157">用户可以根据需要逐步采用空性检查</span><span class="sxs-lookup"><span data-stu-id="bbb66-157">Users can adopt nullability checking gradually as they want to</span></span>
-* <span data-ttu-id="bbb66-158">库作者可以添加可为 null 性的注释，而无需担心用户中断</span><span class="sxs-lookup"><span data-stu-id="bbb66-158">Library authors can add nullability annotations without fear of breaking customers</span></span>
-* <span data-ttu-id="bbb66-159">尽管如此，这并不是 "配置不足"</span><span class="sxs-lookup"><span data-stu-id="bbb66-159">Despite these, there is not a sense of "configuration nightmare"</span></span>
+    // Otherwise use worker argument
+}
+```
 
-## <a name="tweaks"></a><span data-ttu-id="bbb66-160">调整</span><span class="sxs-lookup"><span data-stu-id="bbb66-160">Tweaks</span></span>
+<span data-ttu-id="5cfee-154">对于非公共 API（如完全由开发人员或开发团队控制的源代码），可取消的引用类型可以允许安全删除空防护，开发人员可以保证不需要。</span><span class="sxs-lookup"><span data-stu-id="5cfee-154">For non-public APIs, such as source code entirely in control by a developer or dev team - the nullable reference types could allow for the safe removal of null guards where the developers can guarantee it is not necessary.</span></span> <span data-ttu-id="5cfee-155">此功能可以帮助处理警告，但它不能保证在运行时执行代码可能会导致 。 `NullReferenceException`</span><span class="sxs-lookup"><span data-stu-id="5cfee-155">The feature can help with warnings, but it cannot guarantee that at runtime code execution could result in a `NullReferenceException`.</span></span>
 
-<span data-ttu-id="bbb66-161">我们可以考虑不在局部变量上使用 `?` 注释，而只是根据分配给它们的内容来观察是否使用它们。</span><span class="sxs-lookup"><span data-stu-id="bbb66-161">We could consider not using the `?` annotations on locals, but just observing whether they are used in accordance with what gets assigned to them.</span></span> <span data-ttu-id="bbb66-162">我不愿意这样做;我想我们应该统一让人们表达自己的意图。</span><span class="sxs-lookup"><span data-stu-id="bbb66-162">I don't favor this; I think we should uniformly let people express their intent.</span></span>
+## <a name="breaking-changes"></a><span data-ttu-id="5cfee-156">中断性变更</span><span class="sxs-lookup"><span data-stu-id="5cfee-156">Breaking changes</span></span>
 
-<span data-ttu-id="bbb66-163">对于参数，可以考虑使用简写 `T! x` 来自动生成运行时 null 检查。</span><span class="sxs-lookup"><span data-stu-id="bbb66-163">We could consider a shorthand `T! x` on parameters, that auto-generates a runtime null check.</span></span>
+<span data-ttu-id="5cfee-157">非空警告是现有代码的明显突破更改，应附带选择加入机制。</span><span class="sxs-lookup"><span data-stu-id="5cfee-157">Non-null warnings are an obvious breaking change on existing code, and should be accompanied with an opt-in mechanism.</span></span>
 
-<span data-ttu-id="bbb66-164">某些泛型类型上的特定模式（如 `FirstOrDefault` 或 `TryGet`）具有不可以为 null 的类型参数的轻微行为，因为在某些情况下它们会显式生成默认值。</span><span class="sxs-lookup"><span data-stu-id="bbb66-164">Certain patterns on generic types, such as `FirstOrDefault` or `TryGet`, have slightly weird behavior with non-nullable type arguments, because they explicitly yield default values in certain situations.</span></span> <span data-ttu-id="bbb66-165">我们可以尝试对类型系统进行细微差别，以使其更好地适应。</span><span class="sxs-lookup"><span data-stu-id="bbb66-165">We could try to nuance the type system to accommodate these better.</span></span> <span data-ttu-id="bbb66-166">例如，我们可以允许对不受约束的类型参数进行 `?`，即使类型参数可以是可以为 null 的。</span><span class="sxs-lookup"><span data-stu-id="bbb66-166">For instance, we could allow `?` on unconstrained type parameters, even though the type argument could already be nullable.</span></span> <span data-ttu-id="bbb66-167">我怀疑这是值得的，这会导致与可为 null 的*值*类型的交互相关的问题。</span><span class="sxs-lookup"><span data-stu-id="bbb66-167">I doubt that it is worth it, and it leads to weirdness related to interaction with nullable *value* types.</span></span> 
+<span data-ttu-id="5cfee-158">更明显的是，在可消除性为隐式的特定方案中，来自可撤销类型的警告（如上所述）是对现有代码的一种重大更改：</span><span class="sxs-lookup"><span data-stu-id="5cfee-158">Less obviously, warnings from nullable types (as described above) are a breaking change on existing code in certain scenarios where the nullability is implicit:</span></span>
 
-## <a name="nullable-value-types"></a><span data-ttu-id="bbb66-168">可以为 null 的值类型</span><span class="sxs-lookup"><span data-stu-id="bbb66-168">Nullable value types</span></span>
+* <span data-ttu-id="5cfee-159">无约束类型参数将被视为隐式空参数，因此将它们分配给`object`或访问这些参数`ToString`将产生警告。</span><span class="sxs-lookup"><span data-stu-id="5cfee-159">Unconstrained type parameters will be treated as implicitly nullable, so assigning them to `object` or accessing e.g. `ToString` will yield warnings.</span></span>
+* <span data-ttu-id="5cfee-160">如果类型推理推断表达式中的`null`空，则现有代码有时会生成空类型，而不是非空类型，这可能导致新的警告。</span><span class="sxs-lookup"><span data-stu-id="5cfee-160">if type inference infers nullness from `null` expressions, then existing code will sometimes yield nullable rather than non-nullable types, which can lead to new warnings.</span></span>
 
-<span data-ttu-id="bbb66-169">对于可以为 null 的值类型，我们可以考虑采用上述语义。</span><span class="sxs-lookup"><span data-stu-id="bbb66-169">We could consider adopting some of the above semantics for nullable value types as well.</span></span>
+<span data-ttu-id="5cfee-161">因此，可撤销的警告也需要可选</span><span class="sxs-lookup"><span data-stu-id="5cfee-161">So nullable warnings also need to be optional</span></span>
 
-<span data-ttu-id="bbb66-170">我们已提到类型推理，可在其中推断 `(7, null)``int?`，而不是仅仅提供错误。</span><span class="sxs-lookup"><span data-stu-id="bbb66-170">We already mentioned type inference, where we could infer `int?` from `(7, null)`, instead of just giving an error.</span></span>
+<span data-ttu-id="5cfee-162">最后，向现有 API 添加注释对选择在警告中的用户升级库时将是一个重大更改。</span><span class="sxs-lookup"><span data-stu-id="5cfee-162">Finally, adding annotations to an existing API will be a breaking change to users who have opted in to warnings, when they upgrade the library.</span></span> <span data-ttu-id="5cfee-163">这也是值得选择加入或退出的能力。"我想要错误修复，但我不准备处理它们的新注释"</span><span class="sxs-lookup"><span data-stu-id="5cfee-163">This, too, merits the ability to opt in or out. "I want the bug fixes, but I am not ready to deal with their new annotations"</span></span>
 
-<span data-ttu-id="bbb66-171">另一种机会是将流分析应用于可为 null 的值类型。</span><span class="sxs-lookup"><span data-stu-id="bbb66-171">Another opportunity is to apply the flow analysis to nullable value types.</span></span> <span data-ttu-id="bbb66-172">如果被视为非 null，我们实际上可以允许在某些方面（例如，成员访问）使用作为不可为 null 的类型。</span><span class="sxs-lookup"><span data-stu-id="bbb66-172">When they are deemed non-null, we could actually allow using as the non-nullable type in certain ways (e.g. member access).</span></span> <span data-ttu-id="bbb66-173">我们只需小心，你可以在可以为 null 的值类型*上执行的操作就*是出于后向兼容的原因。</span><span class="sxs-lookup"><span data-stu-id="bbb66-173">We just have to be careful that the things that you can *already* do on a nullable value type will be preferred, for back compat reasons.</span></span>
+<span data-ttu-id="5cfee-164">总之，您需要能够选择加入/退出：</span><span class="sxs-lookup"><span data-stu-id="5cfee-164">In summary, you need to be able to opt in/out of:</span></span>
+* <span data-ttu-id="5cfee-165">空警告</span><span class="sxs-lookup"><span data-stu-id="5cfee-165">Nullable warnings</span></span>
+* <span data-ttu-id="5cfee-166">非空警告</span><span class="sxs-lookup"><span data-stu-id="5cfee-166">Non-null warnings</span></span>
+* <span data-ttu-id="5cfee-167">来自其他文件中注释的警告</span><span class="sxs-lookup"><span data-stu-id="5cfee-167">Warnings from annotations in other files</span></span>
+
+<span data-ttu-id="5cfee-168">选择加入的粒度暗示了类似分析器的模型，其中大量代码可以选择使用实用模式输入和退出，用户可以选择严重性级别。</span><span class="sxs-lookup"><span data-stu-id="5cfee-168">The granularity of the opt-in suggests an analyzer-like model, where swaths of code can opt in and out with pragmas and severity levels can be chosen by the user.</span></span> <span data-ttu-id="5cfee-169">此外，每个库选项（"忽略JSON.NET注释，直到我准备好处理掉号"）可以在代码中作为属性表示。</span><span class="sxs-lookup"><span data-stu-id="5cfee-169">Additionally, per-library options ("ignore the annotations from JSON.NET until I'm ready to deal with the fall out") may be expressible in code as attributes.</span></span>
+
+<span data-ttu-id="5cfee-170">选择加入/过渡体验的设计对于此功能的成功和有用性至关重要。</span><span class="sxs-lookup"><span data-stu-id="5cfee-170">The design of the opt-in/transition experience is crucial to the success and usefulness of this feature.</span></span> <span data-ttu-id="5cfee-171">我们需要确保：</span><span class="sxs-lookup"><span data-stu-id="5cfee-171">We need to make sure that:</span></span>
+
+* <span data-ttu-id="5cfee-172">用户可以根据需要逐步采用无效检查</span><span class="sxs-lookup"><span data-stu-id="5cfee-172">Users can adopt nullability checking gradually as they want to</span></span>
+* <span data-ttu-id="5cfee-173">库作者可以添加空注释，而不必担心破坏客户</span><span class="sxs-lookup"><span data-stu-id="5cfee-173">Library authors can add nullability annotations without fear of breaking customers</span></span>
+* <span data-ttu-id="5cfee-174">尽管如此，没有"配置噩梦"的感觉</span><span class="sxs-lookup"><span data-stu-id="5cfee-174">Despite these, there is not a sense of "configuration nightmare"</span></span>
+
+## <a name="tweaks"></a><span data-ttu-id="5cfee-175">调整</span><span class="sxs-lookup"><span data-stu-id="5cfee-175">Tweaks</span></span>
+
+<span data-ttu-id="5cfee-176">我们可以考虑不使用局部变量的`?`注释，而只观察它们是否按照分配给他们的内容使用。</span><span class="sxs-lookup"><span data-stu-id="5cfee-176">We could consider not using the `?` annotations on locals, but just observing whether they are used in accordance with what gets assigned to them.</span></span> <span data-ttu-id="5cfee-177">我不喜欢这样，我认为我们应该统一地让人们表达他们的意图。</span><span class="sxs-lookup"><span data-stu-id="5cfee-177">I don't favor this; I think we should uniformly let people express their intent.</span></span>
+
+<span data-ttu-id="5cfee-178">我们可以考虑参数的速记`T! x`，即自动生成运行时空检查。</span><span class="sxs-lookup"><span data-stu-id="5cfee-178">We could consider a shorthand `T! x` on parameters, that auto-generates a runtime null check.</span></span>
+
+<span data-ttu-id="5cfee-179">泛型类型（如`FirstOrDefault`或`TryGet`）上的某些模式具有具有非空类型参数的稍微奇怪的行为，因为它们在某些情况下显式生成默认值。</span><span class="sxs-lookup"><span data-stu-id="5cfee-179">Certain patterns on generic types, such as `FirstOrDefault` or `TryGet`, have slightly weird behavior with non-nullable type arguments, because they explicitly yield default values in certain situations.</span></span> <span data-ttu-id="5cfee-180">我们可以尝试对类型系统进行细微差别，以更好地适应这些类型系统。</span><span class="sxs-lookup"><span data-stu-id="5cfee-180">We could try to nuance the type system to accommodate these better.</span></span> <span data-ttu-id="5cfee-181">例如，我们可以允许`?`无约束类型参数，即使类型参数已经为空。</span><span class="sxs-lookup"><span data-stu-id="5cfee-181">For instance, we could allow `?` on unconstrained type parameters, even though the type argument could already be nullable.</span></span> <span data-ttu-id="5cfee-182">我怀疑它是值得的，它导致与空*值*类型的交互相关的怪异。</span><span class="sxs-lookup"><span data-stu-id="5cfee-182">I doubt that it is worth it, and it leads to weirdness related to interaction with nullable *value* types.</span></span> 
+
+## <a name="nullable-value-types"></a><span data-ttu-id="5cfee-183">可以为 null 的值类型</span><span class="sxs-lookup"><span data-stu-id="5cfee-183">Nullable value types</span></span>
+
+<span data-ttu-id="5cfee-184">我们可以考虑对空值类型采用上述一些语义。</span><span class="sxs-lookup"><span data-stu-id="5cfee-184">We could consider adopting some of the above semantics for nullable value types as well.</span></span>
+
+<span data-ttu-id="5cfee-185">我们已经提到类型推理，我们可以`int?`从`(7, null)`推断，而不是只给出一个错误。</span><span class="sxs-lookup"><span data-stu-id="5cfee-185">We already mentioned type inference, where we could infer `int?` from `(7, null)`, instead of just giving an error.</span></span>
+
+<span data-ttu-id="5cfee-186">另一个机会是将流分析应用于空值类型。</span><span class="sxs-lookup"><span data-stu-id="5cfee-186">Another opportunity is to apply the flow analysis to nullable value types.</span></span> <span data-ttu-id="5cfee-187">当它们被视为非空时，我们实际上可以允许以特定方式用作非空类型（例如成员访问）。</span><span class="sxs-lookup"><span data-stu-id="5cfee-187">When they are deemed non-null, we could actually allow using as the non-nullable type in certain ways (e.g. member access).</span></span> <span data-ttu-id="5cfee-188">我们只需要小心，你*已经在*空值类型上可以做的事情将是首选的，因为背对了的原因。</span><span class="sxs-lookup"><span data-stu-id="5cfee-188">We just have to be careful that the things that you can *already* do on a nullable value type will be preferred, for back compat reasons.</span></span>
