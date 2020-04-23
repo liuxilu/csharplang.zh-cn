@@ -1,12 +1,12 @@
 ---
-ms.openlocfilehash: ebbdab6d121f3001ac34a953b3de09768cda6344
-ms.sourcegitcommit: 3f177e90b12e39d4d28f8bb1064df81a8e5912ca
+ms.openlocfilehash: ddcacefebc0580a8121adda4693bfea6eaf16b94
+ms.sourcegitcommit: fea3e4f37432254c00c29988c2ed0efebc7af20a
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/21/2020
-ms.locfileid: "81726052"
+ms.lasthandoff: 04/23/2020
+ms.locfileid: "82072295"
 ---
-<a name="init-only-members"></a>仅 Init 会员
+<a name="init-only-setters"></a>仅开始设置器
 =====
 
 ## <a name="summary"></a>总结
@@ -219,12 +219,12 @@ class Init
 - 如果基础具有 ，则属性的所有`init`重写都必须具有`init`。 此规则也适用于接口实现。
 
 ### <a name="metadata-encoding"></a>元数据编码 
-属性`init`访问器将作为标准`set`访问器发出，返回类型标有 modreq `IsInitOnly`。 这是一种具有以下定义的新类型：
+属性`init`访问器将作为标准`set`访问器发出，返回类型标有 modreq `IsExternalInit`。 这是一种具有以下定义的新类型：
 
 ```cs
 namespace System.Runtime.CompilerServices
 {
-    public sealed class IsInitOnly
+    public sealed class IsExternalInit
     {
     }
 }
@@ -237,11 +237,11 @@ namespace System.Runtime.CompilerServices
 
 如果两者都不存在，则将发出类型歧义错误。
 
-本期[中](https://github.com/dotnet/runtime/issues/34978)包括`IsInitOnly`的"设计"
+本期[中](https://github.com/dotnet/runtime/issues/34978)包括`IsExternalInit`的"设计"
 
 ## <a name="questions"></a>问题
 
-### <a name="breaking-changes"></a>重大更改
+### <a name="breaking-changes"></a>中断性变更
 如何编码此功能的主要枢轴点之一将归结为以下问题： 
 
 > 替换为二进制分解更改`init``set`吗？
