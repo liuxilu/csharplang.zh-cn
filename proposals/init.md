@@ -1,15 +1,15 @@
 ---
-ms.openlocfilehash: 8da0f989669c77f724b5369722da3fcc944c348e
-ms.sourcegitcommit: ab0873759f86d44adfc5daefb18cb922df8adb8b
+ms.openlocfilehash: f50299739321818a4877f593ee715f35540132b0
+ms.sourcegitcommit: e006b4808d8c107dad2935348b57d51edbfaf9a7
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/27/2020
-ms.locfileid: "82162095"
+ms.lasthandoff: 05/05/2020
+ms.locfileid: "82820159"
 ---
 <a name="init-only-setters"></a>仅 Init 资源库
 =====
 
-## <a name="summary"></a>摘要
+## <a name="summary"></a>总结
 此建议将仅 init 属性和索引器的概念添加到 c #。 这些属性和索引器可以在创建对象时设置，但仅在对象`get`创建完成后才会有效。
 这允许在 c # 中使用更灵活的不可变模型。 
 
@@ -72,6 +72,7 @@ class Student
 - `with`表达式初始值设定项期间
 - 在或上`this`包含类型或派生类型的实例构造函数中`base`
 - 在任何`init`属性的访问器中、 `this`在或上`base`
+- 具有命名参数的属性用法
 
 在此文档中，可`init`设置访问器的时间统称为对象的构造阶段。
 
