@@ -1,23 +1,23 @@
 ---
-ms.openlocfilehash: 80ccdb75e2f5a022e367f3c023ea4464195deaaf
-ms.sourcegitcommit: 95f5f86ba2e2a23cd4fb37bd9d1ff690c83d1191
+ms.openlocfilehash: cd73a3d7289205f65f5144a98d32da06dfed3efc
+ms.sourcegitcommit: e355841daad8c4672fae6a49c98653952d89a9cb
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 04/21/2020
-ms.locfileid: "81647118"
+ms.lasthandoff: 05/21/2020
+ms.locfileid: "83775415"
 ---
-# <a name="target-typed-conditional-expression"></a>目标类型条件表达式
+# <a name="target-typed-conditional-expression"></a>目标类型的条件表达式
 
-对于条件表达式`c ? e1 : e2`，
+对于条件表达式 `c ? e1 : e2` ，当
 
-1. 和 ， 没有通用`e1`类型`e2`， 或
-2. 公共类型存在，但其中一个表达式`e1`或`e2`没有隐式转换为该类型
+1. 和没有通用类型 `e1` `e2` ，或
+2. ，它的通用类型为，但其中一个表达式 `e1` 为 `e2` ，或者没有到该类型的隐式转换
 
-我们定义一个新的*条件表达式转换*，允许隐式从条件`T`表达式转换为任何类型，其中`e1``T``e2``T`有从 到 和  如果条件表达式之间`e1`既没有公共类型，也`e2`不受*条件表达式转换*的约束，则这是一个错误。
+我们定义了一个新的*条件表达式转换*，该转换允许从条件表达式到的任何类型的隐式转换 `T` （从到的转换到 `e1` `T` ，以及从到的转换） `e2` `T` 。  如果条件表达式在和之间既没有通用类型，也不符合 `e1` `e2` *条件表达式转换*，则是错误的。
 
-### <a name="open-issues"></a>Open Issues
+### <a name="open-issues"></a>未结的问题
 
-我们希望将此目标类型扩展到条件表达式具有公共类型`e1`，`e2`但没有从该公共类型转换为目标类型的情况。 这将使条件表达式的目标类型与交换机表达式的目标类型对齐。 然而，我们担心这将是一个重大的变化：
+我们想要将此目标类型扩展到条件表达式具有通用类型的情况 `e1` ， `e2` 但不存在从该通用类型到目标类型的转换。 这会使条件表达式的目标类型化成为 switch 表达式的目标类型的对齐方式。 但是，我们担心会是一项重大更改：
 
 ```csharp
 M(b ? 1 : 2); // calls M(long) without this feature; calls M(short) with this feature
@@ -26,14 +26,14 @@ void M(short);
 void M(long);
 ```
 
-我们可以通过修改规则来缩小中断更改的范围，以便*更好地从表达式转换*：如果转换为 T1 不是*条件表达式转换*，并且转换为 T2 是*条件表达式转换*，则从表达式转换为 T1 比转换 T2 更好。  这解决了上述程序中的突发性更改（无论是否使用此功能调用`M(long)`）。 这种方法确实有两个小缺点。  首先，它与交换机表达式不完全相同：
+我们可以通过修改规则以*更好地从表达式转换*来减少重大更改的范围：如果转换为 t1 不是*条件表达式转换*，则从表达式转换为 t1 是比转换到 t2 更好的转换，而转换到 t2 是*条件表达式转换*。  这解决了上述程序中的重大更改（它 `M(long)` 通过或不带此功能调用）。 此方法有两个小缺点。  首先，它与 switch 表达式并不完全相同：
 
 ```csharp
 M(b ? 1 : 2); // calls M(long)
 M(b switch { true => 1, false => 2 }); // calls M(short)
 ```
 
-这仍然是一个重大的变化，但其范围不太可能影响实际程序：
+这仍是一项重大更改，但其作用域不太可能影响实际程序：
 
 ```csharp
 M(b ? 1 : 2, 1); // calls M(long, long) without this feature; ambiguous with this feature.
@@ -42,22 +42,23 @@ M(short, short);
 M(long, long);
 ```
 
-这变得模棱两可，`long`因为转换对第一个参数更好（因为它不使用*条件表达式转换*），`short`但转换为对第二个参数更好（因为`short`转换目标比 ）*better conversion target*`long`更好。 这种重大更改似乎不太严重，因为它不会默默地更改现有程序的行为。
+这种方法变得不明确，因为的转换 `long` 更适合第一个参数（因为它不使用*条件表达式转换*），但转换为 `short` 更适合于第二个参数（因为 `short` 比*更好的转换目标* `long` ）。 此重大更改看起来不太严重，因为它不会在无提示的情况下更改现有程序的行为。
 
-如果我们选择对提案作这种改变，我们就会改变
+如果我们选择对建议进行此更改，我们将更改
 
-> #### <a name="better-conversion-from-expression"></a>更好地从表达式转换
+> #### <a name="better-conversion-from-expression"></a>表达式的更好转换
 > 
-> `C1`给定从表达式`E`转换为类型的`T1`隐式转换，以及从表达式`C2``E`转换为类型的`T2`隐式转换`C1`，与不完全匹配`C2``E``T2`且至少包含以下一项的***转换相比，它是一种更好的转换***：
+> 给定了 `C1` 从表达式转换为类型的隐式转换 `E` `T1` ，以及 `C2` 从表达式转换为类型的隐式转换， `E` `T2` `C1` 是比***better conversion*** `C2` `E` 不完全匹配 `T2` 且至少包含以下其中一项的更好的转换：
 > 
-> * `E`完全匹配`T1`（[完全匹配表达式](expressions.md#exactly-matching-expression)）
-> * `T1`是一个更好的转换目标比`T2`（[更好的转换目标](expressions.md#better-conversion-target)）
+> * `E`完全匹配 `T1` （[完全匹配的表达式](expressions.md#exactly-matching-expression)）
+> * `T1`比更好的转换目标 `T2` （[更好的转换目标](expressions.md#better-conversion-target)）
 
-to
+更改为
 
-> #### <a name="better-conversion-from-expression"></a>更好地从表达式转换
+> #### <a name="better-conversion-from-expression"></a>表达式的更好转换
 > 
-> `C1`给定从表达式`E`转换为类型的`T1`隐式转换，以及从表达式`C2``E`转换为类型的`T2`隐式转换`C1`，与不完全匹配`C2``E``T2`且至少包含以下一项的***转换相比，它是一种更好的转换***：
+> 给定了 `C1` 从表达式转换为类型的隐式转换 `E` `T1` ，以及 `C2` 从表达式转换为类型的隐式转换， `E` `T2` `C1` 是比***better conversion*** `C2` `E` 不完全匹配 `T2` 且至少包含以下其中一项的更好的转换：
 > 
-> * `E`完全匹配`T1`（[完全匹配表达式](expressions.md#exactly-matching-expression)）
-> * `T1``T2`是比 （[更好的转换目标](expressions.md#better-conversion-target)） 更好的转换目标`C1`， 和 不是*条件表达式转换*或`C2`[条件表达式转换] 更好。
+> * `E`完全匹配 `T1` （[完全匹配的表达式](expressions.md#exactly-matching-expression)）
+> * **`C1`不是一个*条件表达式转换*，并且 `C2` 是一个 * 条件表达式转换 * * *。
+> * `T1`比 `T2` （[更好的转换目标](expressions.md#better-conversion-target)） * * 更好的转换目标，并且 `C1` 和 `C2` 都是*条件表达式*转换，或者两者都不是 * 条件表达式转换 * * *。
