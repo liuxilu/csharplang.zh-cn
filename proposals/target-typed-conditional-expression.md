@@ -1,32 +1,63 @@
 ---
-ms.openlocfilehash: cd73a3d7289205f65f5144a98d32da06dfed3efc
-ms.sourcegitcommit: e355841daad8c4672fae6a49c98653952d89a9cb
+ms.openlocfilehash: bfdd44c81a40c49b26ac15a69d2327f795bd88e6
+ms.sourcegitcommit: 85263bfff8512e3e6fa4da7dc75e892937076de8
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/21/2020
-ms.locfileid: "83775415"
+ms.lasthandoff: 05/31/2020
+ms.locfileid: "84239038"
 ---
 # <a name="target-typed-conditional-expression"></a>目标类型的条件表达式
+
+## <a name="conditional-expression-conversion"></a>条件表达式转换
 
 对于条件表达式 `c ? e1 : e2` ，当
 
 1. 和没有通用类型 `e1` `e2` ，或
 2. ，它的通用类型为，但其中一个表达式 `e1` 为 `e2` ，或者没有到该类型的隐式转换
 
-我们定义了一个新的*条件表达式转换*，该转换允许从条件表达式到的任何类型的隐式转换 `T` （从到的转换到 `e1` `T` ，以及从到的转换） `e2` `T` 。  如果条件表达式在和之间既没有通用类型，也不符合 `e1` `e2` *条件表达式转换*，则是错误的。
+我们定义了一个新的隐式*条件表达式转换*，该转换允许从条件表达式到的任何类型的隐式转换 `T` （从到的转换，以及从到的转换） `e1` `T` `e2` `T` 。  如果条件表达式在和之间既没有通用类型，也不符合 `e1` `e2` *条件表达式转换*，则是错误的。
 
-### <a name="open-issues"></a>未结的问题
+## <a name="better-conversion-from-expression"></a>表达式的更好转换
 
-我们想要将此目标类型扩展到条件表达式具有通用类型的情况 `e1` ， `e2` 但不存在从该通用类型到目标类型的转换。 这会使条件表达式的目标类型化成为 switch 表达式的目标类型的对齐方式。 但是，我们担心会是一项重大更改：
+我们更改
+
+> #### <a name="better-conversion-from-expression"></a>表达式的更好转换
+> 
+> 给定了 `C1` 从表达式转换为类型的隐式转换 `E` `T1` ，以及 `C2` 从表达式转换为类型的隐式转换， `E` `T2` `C1` 是比***better conversion*** `C2` `E` 不完全匹配 `T2` 且至少包含以下其中一项的更好的转换：
+> 
+> * `E`完全匹配 `T1` （[完全匹配的表达式](expressions.md#exactly-matching-expression)）
+> * `T1`比更好的转换目标 `T2` （[更好的转换目标](expressions.md#better-conversion-target)）
+
+to
+
+> #### <a name="better-conversion-from-expression"></a>表达式的更好转换
+> 
+> 给定了 `C1` 从表达式转换为类型的隐式转换 `E` `T1` ，以及 `C2` 从表达式转换为类型的隐式转换， `E` `T2` `C1` 是比***better conversion*** `C2` `E` 不完全匹配 `T2` 且至少包含以下其中一项的更好的转换：
+> 
+> * `E`完全匹配 `T1` （[完全匹配的表达式](expressions.md#exactly-matching-expression)）
+> * **`C1`不是一个*条件表达式转换*，并且 `C2` 是一个 * 条件表达式转换 * * *。
+> * `T1`比 `T2` （[更好的转换目标](expressions.md#better-conversion-target)） * * 更好的转换目标，并且 `C1` 和 `C2` 都是*条件表达式*转换，或者两者都不是 * 条件表达式转换 * * *。
+
+## <a name="cast-expression"></a>Cast 表达式
+
+当前 c # 语言规范显示
+
+> 窗体的*cast_expression* `(T)E` ，其中 `T` 是一个*类型*并且 `E` 是一个*unary_expression*，它执行到类型的值的显式转换（[显式转换](conversions.md#explicit-conversions)） `E` `T` 。
+
+存在*条件表达式转换*时，可能有多个从到的转换可能 `E` `T` 。 通过添加*条件表达式转换*，我们更喜欢将任何其他转换转换为*条件表达式转换*，并将*条件表达式转换*仅用作最后的手段。
+
+## <a name="design-notes"></a>设计纪要
+
+*从表达式转换到更好的转换*的原因是处理以下情况：
 
 ```csharp
-M(b ? 1 : 2); // calls M(long) without this feature; calls M(short) with this feature
+M(b ? 1 : 2);
 
 void M(short);
 void M(long);
 ```
 
-我们可以通过修改规则以*更好地从表达式转换*来减少重大更改的范围：如果转换为 t1 不是*条件表达式转换*，则从表达式转换为 t1 是比转换到 t2 更好的转换，而转换到 t2 是*条件表达式转换*。  这解决了上述程序中的重大更改（它 `M(long)` 通过或不带此功能调用）。 此方法有两个小缺点。  首先，它与 switch 表达式并不完全相同：
+此方法有两个小缺点。  首先，它与 switch 表达式并不完全相同：
 
 ```csharp
 M(b ? 1 : 2); // calls M(long)
@@ -44,21 +75,16 @@ M(long, long);
 
 这种方法变得不明确，因为的转换 `long` 更适合第一个参数（因为它不使用*条件表达式转换*），但转换为 `short` 更适合于第二个参数（因为 `short` 比*更好的转换目标* `long` ）。 此重大更改看起来不太严重，因为它不会在无提示的情况下更改现有程序的行为。
 
-如果我们选择对建议进行此更改，我们将更改
+转换表达式中的注释的原因是处理以下情况：
 
-> #### <a name="better-conversion-from-expression"></a>表达式的更好转换
-> 
-> 给定了 `C1` 从表达式转换为类型的隐式转换 `E` `T1` ，以及 `C2` 从表达式转换为类型的隐式转换， `E` `T2` `C1` 是比***better conversion*** `C2` `E` 不完全匹配 `T2` 且至少包含以下其中一项的更好的转换：
-> 
-> * `E`完全匹配 `T1` （[完全匹配的表达式](expressions.md#exactly-matching-expression)）
-> * `T1`比更好的转换目标 `T2` （[更好的转换目标](expressions.md#better-conversion-target)）
+```csharp
+_ = (short)(b ? 1 : 2);
+```
 
-更改为
+此程序当前使用从到的显式 `int` 转换 `short` ，并且我们希望保留此程序当前的语言含义。  此更改将在运行时 unobservable，但在以下情况下，更改将可观察：
 
-> #### <a name="better-conversion-from-expression"></a>表达式的更好转换
-> 
-> 给定了 `C1` 从表达式转换为类型的隐式转换 `E` `T1` ，以及 `C2` 从表达式转换为类型的隐式转换， `E` `T2` `C1` 是比***better conversion*** `C2` `E` 不完全匹配 `T2` 且至少包含以下其中一项的更好的转换：
-> 
-> * `E`完全匹配 `T1` （[完全匹配的表达式](expressions.md#exactly-matching-expression)）
-> * **`C1`不是一个*条件表达式转换*，并且 `C2` 是一个 * 条件表达式转换 * * *。
-> * `T1`比 `T2` （[更好的转换目标](expressions.md#better-conversion-target)） * * 更好的转换目标，并且 `C1` 和 `C2` 都是*条件表达式*转换，或者两者都不是 * 条件表达式转换 * * *。
+```csharp
+_ = (A)(b ? c : d);
+```
+
+其中 `c` 的类型为 `C` `d` ，其类型为 `D` ，并且存在从到的隐式用户定义的 `C` 转换 `D` ， `D` `A` `C` `A` 以及从到的隐式用户定义的转换，以及从到的隐式用户定义的转换。 如果在 c # 9.0 之前编译此代码，则在为 true 时， `b` 我们会将从转换为 `c` `D` `A` 。 如果使用*条件表达式转换*，则当 `b` 为 true 时，将直接从转换 `c` 为 `A` ，这将执行一系列不同的用户代码。 因此，我们将*条件表达式转换*视为转换中的最后一个手段，以保留现有行为。
