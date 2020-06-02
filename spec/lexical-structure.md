@@ -180,9 +180,9 @@ whitespace
     ;
 ```
 
-## <a name="tokens"></a>令牌
+## <a name="tokens"></a>标记
 
-有多种类型的令牌：标识符、关键字、文本、运算符和标点符号。 空白和注释不是标记，不过它们充当标记的分隔符。
+有多种类型的标记：标识符、关键字、文本、运算符和标点符号。 空白和注释不是标记，不过它们充当标记的分隔符。
 
 ```antlr
 token
@@ -432,9 +432,9 @@ hex_digit
 * 当值为2147483648（2 ^ 31）且没有*integer_type_suffix*的*decimal_integer_literal*显示为紧跟一元减号运算符（[一元减号运算符](expressions.md#unary-minus-operator)）的标记时，结果为类型 `int` 值为-2147483648 （-2 ^ 31）的常量。 在所有其他情况下，这类*decimal_integer_literal*属于 `uint`类型。
 * 当具有值9223372036854775808（2 ^ 63）且没有*integer_type_suffix*或*integer_type_suffix* `L` 或 `l` 的*decimal_integer_literal*显示为紧跟一元减号运算符（[一元减号运算符](expressions.md#unary-minus-operator)）的标记时，结果为类型 `long` 的常量，其值为-9223372036854775808 （-2 ^ 63）。 在所有其他情况下，这类*decimal_integer_literal*属于 `ulong`类型。
 
-#### <a name="real-literals"></a>真实文本
+#### <a name="real-literals"></a>实数文本
 
-真实文本用于写入 `float`、`double`和 `decimal`类型的值。
+实数文本用于写入 `float`、`double`和 `decimal`类型的值。
 
 ```antlr
 real_literal
@@ -459,17 +459,17 @@ real_type_suffix
     ;
 ```
 
-如果未指定*real_type_suffix* ，则 `double`实际文本的类型。 否则，实数类型后缀将确定真实文本的类型，如下所示：
+如果未指定*real_type_suffix* ，则 `double` 实数文本的类型。 否则，实数类型后缀将确定实数文本的类型，如下所示：
 
-*  `F` 或 `f` 以 `float`类型为后缀的实际文本。 例如，文本 `1f`、`1.5f`、`1e10f`和 `123.456F` 都是 `float`类型。
-*  `D` 或 `d` 以 `double`类型为后缀的实际文本。 例如，文本 `1d`、`1.5d`、`1e10d`和 `123.456D` 都是 `double`类型。
-*  `M` 或 `m` 以 `decimal`类型为后缀的实际文本。 例如，文本 `1m`、`1.5m`、`1e10m`和 `123.456M` 都是 `decimal`类型。 通过采用精确值将此文本转换为 `decimal` 值，并在必要时使用银行家舍入（[decimal 类型](types.md#the-decimal-type)）舍入为最接近的可表示值。 除非值舍入或值为零（在这种情况下，正负号为0），否则文本中的任何小数位数都将保留。 因此，将对文字 `2.900m` 进行解析，以形成带有符号 `0`、系数 `2900`和刻度 `3`的小数。
+*  `F` 或 `f` 以 `float`类型为后缀的实数文本。 例如，文本 `1f`、`1.5f`、`1e10f`和 `123.456F` 都是 `float`类型。
+*  `D` 或 `d` 以 `double`类型为后缀的实数文本。 例如，文本 `1d`、`1.5d`、`1e10d`和 `123.456D` 都是 `double`类型。
+*  `M` 或 `m` 以 `decimal`类型为后缀的实数文本。 例如，文本 `1m`、`1.5m`、`1e10m`和 `123.456M` 都是 `decimal`类型。 通过采用精确值将此文本转换为 `decimal` 值，并在必要时使用银行家舍入（[decimal 类型](types.md#the-decimal-type)）舍入为最接近的可表示值。 除非值舍入或值为零（在这种情况下，正负号为0），否则文本中的任何小数位数都将保留。 因此，将对文字 `2.900m` 进行解析，以形成带有符号 `0`、系数 `2900`和刻度 `3`的小数。
 
 如果指定的文本不能用指定的类型表示，则会发生编译时错误。
 
-`float` 或 `double` 类型的真实文本的值是通过使用 IEEE "舍入到最近" 模式确定的。
+`float` 或 `double` 类型的实数文本的值是通过使用 IEEE "舍入到最近" 模式确定的。
 
-请注意，在实际文本中，小数点后始终需要小数位数。 例如，`1.3F` 是真实文本，但 `1.F` 不是。
+请注意，在实数文本中，小数点后始终需要小数位数。 例如，`1.3F` 是实数文本，但 `1.F` 不是。
 
 #### <a name="character-literals"></a>字符文本
 
